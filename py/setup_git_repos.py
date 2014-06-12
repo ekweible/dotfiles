@@ -27,8 +27,8 @@ def setup_git_repo(workspace_path, repo):
             exit_on_fail=True).run()
     log.success('%s repo (%s) cloned into %s' % (repo['name'], repo['origin'], repo_path))
 
-    upstream = repo['upstream']
-    if upstream:
+    if 'upstream' in repo:
+        upstream = repo['upstream']
         log.info('adding upstream to %s' % repo['name'])
         command = 'git remote add upstream %s && git fetch %s' % (upstream, upstream)
         Process(command,
@@ -38,7 +38,7 @@ def setup_git_repo(workspace_path, repo):
 
 
 def add_git_remotes(workspace_path, repo):
-    if not repo['remotes'] or len(repo['remotes']) == 0:
+    if 'remotes' not in repo or len(repo['remotes']) == 0:
         return
 
     for remote in repo['remotes']:
