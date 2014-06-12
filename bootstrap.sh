@@ -50,6 +50,9 @@ install_node () {
     fi
 
     run npm install
+    run sudo chown -R `whoami` ~/.npm
+    run sudo chown -R `whoami` /usr/local/lib/node_modules
+    run npm install -g grunt-cli bower
 }
 
 setup_gitconfig () {
@@ -218,7 +221,7 @@ install_brew_dependencies () {
     if [ "$(uname -s)" == "Darwin" ]
     then
       info "installing brew dependencies"
-      if source bin/dot > /tmp/dotfiles-dot 2>&1
+      if source bin/dot > /tmp/dotfiles-dot 2>&1 && sh homebrew/install.sh > /tmp/dotfiles-brew-install 2>&1
       then
         success "dependencies installed"
       else
