@@ -1,0 +1,85 @@
+[
+    {
+        "name": "wf",
+        "path": "/Users/evanweible/dev/wf",
+        "repos": [
+            {
+                "name": "bigsky",
+                "origin": "git@github.com:evanweible-wf/bigsky.git",
+                "upstream": "git@github.com:WebFilings/bigsky.git",
+                "remotes": [
+                    {
+                        "name": "chad",
+                        "url": "git@github.com:chadknight-wf/bigsky.git"
+                    },
+                    {
+                        "name": "rich",
+                        "url": "git@github.com:richklein-wf/bigsky.git"
+                    }
+                ]
+            },
+
+            {
+                "name": "richapps",
+                "origin": "git@github.com:evanweible-wf/richapps.git",
+                "upstream": "git@github.com:WebFilings/richapps.git",
+                "remotes": [
+                    {
+                        "name": "chad",
+                        "url": "git@github.com:chadknight-wf/richapps.git"
+                    },
+                    {
+                        "name": "rich",
+                        "url": "git@github.com:richklein-wf/richapps.git"
+                    }
+                ]
+            },
+
+            {
+                "name": "web-bones",
+                "origin": "git@github.com:evanweible-wf/web-bones.git",
+                "upstream": "git@github.com:WebFilings/web-bones.git",
+                "remotes": [
+                    {
+                        "name": "brady",
+                        "url": "git@github.com:bradybecker-wf/web-bones.git"
+                    },
+                    {
+                        "name": "chad",
+                        "url": "git@github.com:chadknight-wf/web-bones.git"
+                    },
+                    {
+                        "name": "jim",
+                        "url": "git@github.com:jimhotchkin-wf/web-bones.git"
+                    },
+                    {
+                        "name": "michael",
+                        "url": "git@github.com:michaelcarter-wf/web-bones.git"
+                    },
+                    {
+                        "name": "rich",
+                        "url": "git@github.com:richklein-wf/web-bones.git"
+                    }
+                ]
+            },
+
+            {
+                "name": "wf-home-html",
+                "origin": "git@github.com:evanweible-wf/wf-home-html.git",
+                "upstream": "git@github.com:WebFilings/wf-home-html.git",
+                "remotes": [
+                    {
+                        "name": "alex",
+                        "url": "git@github.com:alexlende-wf/wf-home-html.git"
+                    }
+                ]
+            }
+        ]
+    },
+
+    {
+        "name": "ekweible",
+        "path": "/Users/evanweible/dev/ekweible",
+        "repos": []
+    }
+]

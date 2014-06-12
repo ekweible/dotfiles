@@ -57,6 +57,6 @@ installing it.
 1. If virtualenvwrapper is missing, it will be installed.
 1. Brew will be updated, some default dependencies will be installed, and all dependencies will be upgraded.
 1. All applications listed in conf/applications.json will be opened in your browser for you to download.
-1. Your git repositories will be setup using the conf/gitWorkspaces.json file as a map. You can specify
+1. Your git repositories will be setup using the conf/git.json file as a map. You can specify
 workspaces that contain any number of repos, each of which contain an origin, an upstream, and a set of remotes.
 1. Your default shell will be changed to zsh.

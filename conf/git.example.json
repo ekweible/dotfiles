@@ -1,0 +1,30 @@
+[
+    {
+        "name": "personal",
+        "path": "/Users/evanweible/dev/personal",
+        "repos": [
+            {
+                "name": "dotfiles",
+                "origin": "git@github.com:ekweible/dotfiles.git",
+            },
+
+            {
+                "name": "wf-grunt",
+                "origin": "git@github.com:ekweible/wf-grunt.git",
+                "upstream": "git@github.com:WebFilings/wf-grunt.git",
+                "remotes": [
+                    {
+                        "name": "chad",
+                        "url": "git@github.com:chadknight-wf/wf-grunt.git"
+                    }
+                ]
+            }
+        ]
+    },
+
+    {
+        "name": "work",
+        "path": "/Users/evanweible/dev/work",
+        "repos": []
+    }
+]
