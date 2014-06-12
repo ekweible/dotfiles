@@ -15,11 +15,11 @@ Dotfiles
   - GitHub > Account Settings > SSH Keys > Add SSH Key
   - Test it out: `ssh -T git@github.com`
 1. Create a dev directory and a directory specifically for config related dev
-  - `mkdir ~/dev && mkdir ~/dev/config && mkdir ~/dev/config/workspaces`
+  - `mkdir ~/dev && mkdir ~/dev/config && mkdir ~/dev/config`
 1. Run `git` and when prompted, click "install" to install the command line developer tools
 1. Install this dotfiles repo:
-  - `cd ~/dev/config/workspaces`
+  - `cd ~/dev/config`
   - `git clone git@github.com:ekweible/dotfiles.git`
 1. Run the bootstrap script:
-  - `cd ~/dev/config/workspaces/dotfiles`
+  - `cd ~/dev/config/dotfiles`
   - `sh bootstrap.sh`
