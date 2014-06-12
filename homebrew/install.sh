@@ -13,6 +13,6 @@ then
 fi
 
 # Install homebrew packages
-brew install grc coreutils bash-completion
+brew install grc coreutils bash-completion ant
 
 exit 0
