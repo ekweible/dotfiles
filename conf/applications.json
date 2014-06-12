@@ -32,6 +32,10 @@
         "url": "http://www.techsmith.com/download/jing/"
     },
     {
+        "name": "PhantomJS",
+        "url": "http://phantomjs.org/download.html"
+    },
+    {
         "name": "PyCharm",
         "url": "http://www.jetbrains.com/pycharm/download/"
     },

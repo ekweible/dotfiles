@@ -1,5 +1,7 @@
 node_modules
 
 git/gitconfig.symlink
+npm/npmrc.symlink
+pip/pip.conf.dirsymlink
 _stderr.txt
 _stdout.txt
