@@ -1,5 +1,13 @@
-# Use WF (for LS2-00282) credentials
-Host github.com
+# LS2-00282
+
+# WF (evanweible-wf) credentials
+Host github.com-evanweible-wf
     HostName github.com
     IdentityFile /Users/evanweible/.ssh/evanweible-wf/id_rsa
+    User git
+
+# Personal (ekweible) credentials
+Host github.com-ekweible
+    HostName github.com
+    IdentityFile /Users/evanweible/.ssh/ekweible/id_rsa
     User git

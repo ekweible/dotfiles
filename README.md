@@ -2,7 +2,7 @@ Dotfiles
 ---
 
 > Dotfiles repo created by Evan Weible, modeled after [Zach Holman's dotfiles repo](https://github.com/holman/dotfiles).
-> Provides a bootstrap script for an incredibly quick setup time.
+> Provides a bootstrap script for a super quick setup time.
 
 ## Quick Setup
 
