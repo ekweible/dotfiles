@@ -71,6 +71,10 @@
                     {
                         "name": "alex",
                         "url": "git@github.com:alexlende-wf/wf-home-html.git"
+                    },
+                    {
+                        "name": "jim",
+                        "url": "git@github.com:jimhotchkin-wf/wf-home-html.git"
                     }
                 ]
             }

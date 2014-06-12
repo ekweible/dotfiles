@@ -263,6 +263,12 @@ setup_git_repos () {
 }
 
 change_shell_to_zsh () {
+    # skip this if zsh is already current shell
+    if ! [ -n "$ZSH_NAME" ]
+    then
+        return
+    fi
+
     user '- do you want to change the shell to zsh? (Y/n)'
     read -n 1 action
     br
@@ -272,13 +278,9 @@ change_shell_to_zsh () {
         return
     fi
 
-    # only do this if zsh isn't the current shell
-    if ! [ -n "$ZSH_NAME" ]
-    then
-        info "setting shell to zsh"
-        chsh -s $(which zsh)
-        success "shell changed to zsh - will have to logout and log back in"
-    fi
+    info "setting shell to zsh"
+    chsh -s $(which zsh)
+    success "shell changed to zsh - will have to logout and log back in"
 }
 
 

@@ -46,7 +46,7 @@ def add_git_remotes(workspace_path, repo):
 
         if not remote_exists(workspace_path, repo, remote):
             repo_path = os.path.join(workspace_path, repo['name'])
-            Process('git remote add %s %s' % (remote['name'], remote['url']),
+            Process('git remote add %s %s && git fetch %s' % (remote['name'], remote['url'], remote['name']),
                     cwd=repo_path,
                     exit_on_fail=True).run()
             log.success(' - remote "%s" added to %s' % (remote['name'], repo['name']))

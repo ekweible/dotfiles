@@ -33,7 +33,7 @@ class Process(object):
                 if self.exit_on_fail:
                     sys.exit(1)
                 else:
-                    return
+                    return self
 
             else:
                 if self.exit_on_fail:
