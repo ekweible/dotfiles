@@ -1,4 +1,5 @@
 node_modules
 
+git/gitconfig.symlink
 _stderr.txt
 _stdout.txt
