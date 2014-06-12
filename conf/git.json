@@ -13,6 +13,10 @@
                         "url": "git@github.com:chadknight-wf/bigsky.git"
                     },
                     {
+                        "name": "codebuilders",
+                        "url": "git@github.com:codebuilders-wf/bigsky.git"
+                    },
+                    {
                         "name": "rich",
                         "url": "git@github.com:richklein-wf/bigsky.git"
                     }
@@ -33,6 +37,11 @@
                         "url": "git@github.com:richklein-wf/richapps.git"
                     }
                 ]
+            },
+
+            {
+                "name": "Support",
+                "origin": "git@github.com:WebFilings/support.git"
             },
 
             {
@@ -59,8 +68,18 @@
                     {
                         "name": "rich",
                         "url": "git@github.com:richklein-wf/web-bones.git"
+                    },
+                    {
+                        "name": "theisen",
+                        "url": "git@github.com:theisensanders-wf/web-bones.git"
                     }
                 ]
+            },
+
+            {
+                "name": "web-skin",
+                "origin": "git@github.com:evanweible-wf/web-skin.git",
+                "upstream": "git@github.com:WebFilings/web-skin.git"
             },
 
             {
