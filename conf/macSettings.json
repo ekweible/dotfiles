@@ -1,0 +1,9 @@
+{
+    "com.apple.dock": {
+        "autohide": 1,
+        "launchanim": 0,
+        "showAppExposeGestureEnabled": 1,
+        "showLaunchpadGestureEnabled": 0,
+        "tilesize": 36
+    }
+}

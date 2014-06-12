@@ -1,0 +1,46 @@
+[
+    {
+        "name": "wf",
+        "path": "/Users/evanweible/dev/wf",
+        "repos": [
+            {
+                "name": "bigsky",
+                "origin": "git@github.com:evanweible-wf/bigsky.git",
+                "upstream": "git@github.com:WebFilings/bigsky.git",
+                "remotes": [
+                    {
+                        "name": "chad",
+                        "url": "git@github.com:chadknight-wf/bigsky.git"
+                    },
+                    {
+                        "name": "rich",
+                        "url": "git@github.com:richklein-wf/bigsky.git"
+                    }
+                ]
+            },
+
+            {
+                "name": "richapps",
+                "origin": "git@github.com:evanweible-wf/richapps.git",
+                "upstream": "git@github.com:WebFilings/richapps.git",
+                "remotes": [
+                    {
+                        "name": "chad",
+                        "url": "git@github.com:chadknight-wf/richapps.git"
+                    },
+                    {
+                        "name": "rich",
+                        "url": "git@github.com:richklein-wf/richapps.git"
+                    }
+                ]
+            }
+        ]
+    },
+
+    {
+        "name": "ekweible",
+        "path": "/Users/evanweible/dev/ekweible",
+        "repos": [
+        ]
+    }
+]

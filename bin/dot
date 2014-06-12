@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# dot
+#
+# `dot` handles installation, updates, things like that. Run it periodically.
+export ZSH=$HOME/dev/config/workspaces/dotfiles
+
+# Set OS X defaultster
+sudo sh $ZSH/osx/set-defaults.sh
+
+# Upgrade homebrew
+brew update
+brew upgrade

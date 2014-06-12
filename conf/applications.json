@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Alfred",
+        "url": "http://www.alfredapp.com/#download"
+    },
+    {
+        "name": "Dropbox",
+        "url": "https://www.dropbox.com/install"
+    },
+    {
+        "name": "Firefox",
+        "url": "http://www.mozilla.org/en-US/firefox/new/"
+    },
+    {
+        "name": "Google App Engine Launcher",
+        "url": "https://developers.google.com/appengine/downloads"
+    },
+    {
+        "name": "Google Drive",
+        "url": "https://tools.google.com/dlpage/drive/?hl=en"
+    },
+    {
+        "name": "HipChat",
+        "url": "https://www.hipchat.com/downloads#mac"
+    },
+    {
+        "name": "iTerm 2",
+        "url": "http://www.iterm2.com/"
+    },
+    {
+        "name": "Jing",
+        "url": "http://www.techsmith.com/download/jing/"
+    },
+    {
+        "name": "PyCharm",
+        "url": "http://www.jetbrains.com/pycharm/download/"
+    },
+    {
+        "name": "Spotify",
+        "url": "https://www.spotify.com/us/download/mac/"
+    }
+]
