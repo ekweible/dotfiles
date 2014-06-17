@@ -16,6 +16,7 @@ alias home='cd ~/dev/wf/wf-home-html'
 alias ra='cd ~/dev/wf/richapps'
 alias sky='cd ~/dev/wf/bigsky'
 alias wb='cd ~/dev/wf/web-bones'
+alias wfjsv='cd ~/dev/wf/wf-js-vendor'
 
 # check for virtualenv upon entering directories
 has_virtualenv() {
