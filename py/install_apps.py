@@ -3,7 +3,7 @@ import subprocess
 
 
 def run():
-    apps = json.load(open('conf/applications.json'))
+    apps = json.load(open('applications/manifest.json'))
     urls = [app['url'] for app in apps]
     commands = ['open %s' % url for url in urls]
 

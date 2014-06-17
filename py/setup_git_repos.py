@@ -69,7 +69,7 @@ def setup_git_workspace(workspace):
 
 
 def run():
-    git_workspaces = json.load(open('conf/git.json'))
+    git_workspaces = json.load(open('git/repos.json'))
     for workspace in git_workspaces:
         setup_git_workspace(workspace)
 
