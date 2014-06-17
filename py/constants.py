@@ -1,0 +1,1 @@
+ZSH = '/Users/evanweible/dev/config/dotfiles'

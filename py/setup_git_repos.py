@@ -4,6 +4,7 @@ import os
 
 # internal imports
 import log
+from constants import ZSH
 from process import Process
 
 
@@ -69,7 +70,7 @@ def setup_git_workspace(workspace):
 
 
 def run():
-    git_workspaces = json.load(open('git/repos.json'))
+    git_workspaces = json.load(open(os.path.join(ZSH, 'git/repos.json')))
     for workspace in git_workspaces:
         setup_git_workspace(workspace)
 

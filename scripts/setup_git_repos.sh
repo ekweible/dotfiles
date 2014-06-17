@@ -11,7 +11,7 @@ setup_git_repos () {
         return
     fi
 
-    python2.7 py/setup_git_repos.py
+    python2.7 $ZSH/py/setup_git_repos.py
 
     if [ "$?" != 0 ]
     then
