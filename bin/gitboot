@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# gitboot
+#
+# `gitboot` handles setup of git repositories.
+export ZSH=$HOME/dev/config/dotfiles
+
+sh $ZSH/scripts/setup_git_repos.sh

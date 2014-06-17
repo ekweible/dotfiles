@@ -40,6 +40,12 @@
             },
 
             {
+                "name": "scripts",
+                "origin": "git@github.com:evanweible-wf/scripts.git",
+                "upstream": "git@github.com:michaeldavis-wf/scripts.git"
+            },
+
+            {
                 "name": "Support",
                 "origin": "git@github.com:WebFilings/support.git"
             },
@@ -94,6 +100,18 @@
                     {
                         "name": "jim",
                         "url": "git@github.com:jimhotchkin-wf/wf-home-html.git"
+                    }
+                ]
+            },
+
+            {
+                "name": "wf-js-vendor",
+                "origin": "git@github.com:evanweible-wf/wf-js-vendor.git",
+                "upstream": "git@github.com:WebFilings/wf-js-vendor.git",
+                "remotes": [
+                    {
+                        "name": "chad",
+                        "url": "git@github.com:chadknight-wf/wf-js-vendor.git"
                     }
                 ]
             }
