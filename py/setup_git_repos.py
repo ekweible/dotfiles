@@ -8,6 +8,10 @@ from constants import ZSH
 from process import Process
 
 
+def workspace_exists(workspace_path):
+    return os.path.exists(workspace_path)
+
+
 def repo_exists(workspace_path, repo):
     return os.path.exists(os.path.join(workspace_path, repo['name']))
 
@@ -30,7 +34,7 @@ def setup_git_repo(workspace_path, repo):
 
     if 'upstream' in repo:
         log.info('adding upstream to %s' % repo['name'])
-        if not remote_exists(workspace_path, repo, 'upstream'):
+        if not remote_exists(workspace_path, repo, {'name': 'upstream'}):
             upstream = repo['upstream']
             command = 'git remote add upstream %s && git fetch %s' % (upstream, upstream)
             Process(command,
@@ -60,6 +64,9 @@ def add_git_remotes(workspace_path, repo):
 
 
 def setup_git_workspace(workspace):
+    if not workspace_exists(workspace['path']):
+        os.makedirs(workspace['path'])
+
     for repo in workspace['repos']:
         if not repo_exists(workspace['path'], repo):
             setup_git_repo(workspace['path'], repo)

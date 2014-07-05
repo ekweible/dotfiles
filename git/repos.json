@@ -24,6 +24,22 @@
             },
 
             {
+                "name": "certifier-client",
+                "origin": "git@github.com:evanweible-wf/certifier-client.git",
+                "upstream": "git@github.com:WebFilings/certifier-client.git",
+                "remotes": [
+                    {
+                        "name": "max",
+                        "url": "git@github.com:maxwellpeterson-wf/certifier-client.git"
+                    },
+                    {
+                        "name": "theisen",
+                        "url": "git@github.com:theisensanders-wf/certifier-client.git"
+                    }
+                ]
+            },
+
+            {
                 "name": "richapps",
                 "origin": "git@github.com:evanweible-wf/richapps.git",
                 "upstream": "git@github.com:WebFilings/richapps.git",
@@ -89,6 +105,18 @@
             },
 
             {
+                "name": "wf-gulp",
+                "origin": "git@github.com:evanweible-wf/wf-gulp.git",
+                "upstream": "git@github.com:WebFilings/wf-gulp.git",
+                "remotes": [
+                    {
+                        "name": "max",
+                        "url": "git@github.com:maxwellpeterson-wf/wf-gulp.git"
+                    }
+                ]
+            },
+
+            {
                 "name": "wf-home-html",
                 "origin": "git@github.com:evanweible-wf/wf-home-html.git",
                 "upstream": "git@github.com:WebFilings/wf-home-html.git",
@@ -121,6 +149,17 @@
     {
         "name": "ekweible",
         "path": "/Users/evanweible/dev/ekweible",
-        "repos": []
+        "repos": [
+            {
+                "name": "alfred-python",
+                "origin": "git@github.com:ekweible/alfred-python.git",
+                "upstream": "git@github.com:nikipore/alfred-python.git"
+            },
+
+            {
+                "name": "alfred-workflows",
+                "origin": "git@github.com:ekweible/alfred-workflows.git"
+            }
+        ]
     }
 ]

@@ -4,8 +4,9 @@
 .idea*
 *.pyc
 
+.ruby-version
+.sass-cache
 .venv
 
 bower_components
 node_modules
-.sass-cache

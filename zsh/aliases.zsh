@@ -11,6 +11,7 @@ alias devekw='cd ~/dev/ekweible'
 alias devwf='cd ~/dev/wf'
 
 # projects
+alias cert='cd ~/dev/wf/certifier-client'
 alias dotfiles='cd ~/dev/config/dotfiles'
 alias home='cd ~/dev/wf/wf-home-html'
 alias ra='cd ~/dev/wf/richapps'

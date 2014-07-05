@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# gitup
+#
+# `gitup` pulls down latest upstream and updates local master
+#
+# More specifically:
+#  - git checkout upstream (assuming `upstream` is a local branch tracking remote `master` branch on the `upstream` remote
+#  - git pull
+#  - git checkout master (assuming `master` is a local branch tracking remote `master` branch on the `origin` remote
+#  - git merge upstream
+#  - git push origin master
+
+export ZSH=$HOME/dev/config/dotfiles
+
+sh $ZSH/scripts/update_git_master.sh
