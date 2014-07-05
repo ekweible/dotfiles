@@ -49,7 +49,7 @@ The bootstrap script runs through a series of steps that setup and configure dif
 which is optional and can be skipped.
 
 1. If `git/gitconfig.symlink` is not found, you will be prompted for a username and email and one will be created using
-[`git/gitconfig.symlink.example` as a template.
+`git/gitconfig.symlink.example` as a template.
 1. If NodeJS is not installed, the NodeJS download page will be opened and you will be asked to rerun the script after
 installing it.
 1. Dotfiles will be symlinked to your home directory (every .symlink or .dirsymlink file).

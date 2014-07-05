@@ -3,7 +3,9 @@
 source $ZSH/scripts/includes.sh
 
 function install_node () {
+    echo "node1"
     which node &>/dev/null
+    echo "node2"
     if [ $? != 0 ]
     then
         error "NodeJS is not installed. Opening http://nodejs.org."
@@ -29,4 +31,7 @@ function install_node () {
     success "node setup"
 }
 
+echo "node0"
+
 install_node
+

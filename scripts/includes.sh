@@ -29,3 +29,5 @@ fail () {
 run () {
     "$@" 2> "_stderr.txt" 1> "_stdout.txt"
 }
+
+echo "includes"
