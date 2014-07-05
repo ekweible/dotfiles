@@ -11,10 +11,12 @@ alias devconf='cd ~/dev/config'
 # projects
 alias alfred='cd ~/dev/ekweible/alfred-workflows'
 alias deca='cd ~/dev/ekweible/iadeca'
+alias dotfiles='cd ~/dev/config/dotfiles'
 alias ekw='cd ~/dev/ekweible/ekweible.github.io'
 alias fpm='cd ~/dev/ekweible/fpm'
 alias iadeca='deca'
 alias portfolio='ekw'
+alias secrets='cd ~/dev/config/secrets'
 
 # check for virtualenv upon entering directories
 has_virtualenv() {
