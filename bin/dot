@@ -3,7 +3,6 @@
 # dot
 #
 # `dot` handles installation, updates, things like that. Run it periodically.
-export ZSH=$HOME/dev/config/dotfiles
 
 # Set OS X defaults
 sudo sh $ZSH/osx/set-defaults.sh

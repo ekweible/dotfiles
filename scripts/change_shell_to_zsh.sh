@@ -4,8 +4,7 @@ source $ZSH/scripts/includes.sh
 
 function change_shell_to_zsh () {
     # skip this if zsh is already current shell
-    if ! [ -n "$ZSH_NAME" ]
-    then
+    if [ -n "$ZSH_VERSION" ]; then
         return
     fi
 
@@ -13,12 +12,11 @@ function change_shell_to_zsh () {
     read -n 1 action
     br
 
-    if [ "$action" == 'n' ]
-    then
+    if [ "$action" == 'n' ]; then
         return
     fi
 
-    info "setting shell to zsh"
+    info "changing shell to zsh\n"
     chsh -s $(which zsh)
     success "shell changed to zsh - will have to logout and log back in"
 }

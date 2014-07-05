@@ -4,15 +4,29 @@
 #
 # This installs some of the common dependencies needed (or at least desired)
 # using Homebrew.
+#
+# Note: Homebrew now expects the ENTER key to confirm installation
 
-# Check for Homebrew
-if test ! $(which brew)
-then
-  echo "  Installing Homebrew for you."
-  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" > /tmp/homebrew-install.log
-fi
+source $ZSH/scripts/includes.sh
 
-# Install homebrew packages
-brew install grc coreutils bash-completion ant
+function install_brew () {
+    if test ! $(which brew); then
+        info "installing homebrew\n"
+        ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+	success "brew installed"
+    fi
 
-exit 0
+    user "- do you want to install brew dependencies (Y/n)"
+    read -n 1 action
+    br
+
+    if [ "$action" == 'n' ]; then
+        return
+    fi
+
+    # Install homebrew packages
+    run brew install grc coreutils bash-completion ant
+    success "brew dependencies installed"
+}
+
+install_brew
