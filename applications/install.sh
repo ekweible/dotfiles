@@ -13,7 +13,7 @@ function install_applications () {
     fi
 
     info "opening application download URLs"
-    python2.7 py/install_apps.py
+    python2.7 $ZSH/py/install_apps.py
     wait
     success "application download URLs opened"
 }

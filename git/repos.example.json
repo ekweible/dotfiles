@@ -1,7 +1,7 @@
 [
     {
         "name": "personal",
-        "path": "/Users/evanweible/dev/personal",
+        "path": "/Users/username/dev/personal",
         "repos": [
             {
                 "name": "dotfiles",
@@ -24,7 +24,7 @@
 
     {
         "name": "work",
-        "path": "/Users/evanweible/dev/work",
+        "path": "/Users/username/dev/work",
         "repos": []
     }
 ]

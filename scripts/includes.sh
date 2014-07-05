@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ZSH='/Users/evanweible/dev/config/dotfiles'
+
 br () {
   printf "\n"
 }

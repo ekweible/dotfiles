@@ -5,19 +5,18 @@ alias reload!='. ~/.zshrc'
 alias cl='clear'
 
 # workspaces
-alias dev='cd ~/dev'
+alias dev='cd ~/dev/ekweible'
 alias devconf='cd ~/dev/config'
-alias devekw='cd ~/dev/ekweible'
-alias devwf='cd ~/dev/wf'
 
 # projects
-alias cert='cd ~/dev/wf/certifier-client'
+alias alfred='cd ~/dev/ekweible/alfred-workflows'
+alias deca='cd ~/dev/ekweible/iadeca'
 alias dotfiles='cd ~/dev/config/dotfiles'
-alias home='cd ~/dev/wf/wf-home-html'
-alias ra='cd ~/dev/wf/richapps'
-alias sky='cd ~/dev/wf/bigsky'
-alias wb='cd ~/dev/wf/web-bones'
-alias wfjsv='cd ~/dev/wf/wf-js-vendor'
+alias ekw='cd ~/dev/ekweible/ekweible.github.io'
+alias fpm='cd ~/dev/ekweible/fpm'
+alias iadeca='deca'
+alias portfolio='ekw'
+alias secrets='cd ~/dev/config/secrets'
 
 # check for virtualenv upon entering directories
 has_virtualenv() {
@@ -31,6 +30,6 @@ venv_cd () {
 alias cd="venv_cd"
 
 # gae aliases
-function run() {
-    python ~/dev/wf/scripts/runserver.py "`pwd`" "$@"
-}
+#function run() {
+#    python ~/dev/ekweible/scripts/runserver.py "`pwd`" "$@"
+#}

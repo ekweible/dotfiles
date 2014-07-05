@@ -15,11 +15,12 @@ Dotfiles
   - GitHub > Account Settings > SSH Keys > Add SSH Key
   - Test it out: `ssh -T git@github.com`
 1. Create a dev directory and a directory specifically for config related dev
-  - `mkdir ~/dev && mkdir ~/dev/config && mkdir ~/dev/config`
+  - `mkdir ~/dev && mkdir ~/dev/config`
 1. Run `git` and when prompted, click "install" to install the command line developer tools
 1. Install this dotfiles repo:
   - `cd ~/dev/config`
   - `git clone git@github.com:ekweible/dotfiles.git`
+1. Create `applications/manifest.json` and `git/repos.json` using the examples as templates if you'd like
 1. Run the bootstrap script:
   - `cd ~/dev/config/dotfiles`
   - `sh bootstrap.sh`
@@ -49,7 +50,7 @@ The bootstrap script runs through a series of steps that setup and configure dif
 which is optional and can be skipped.
 
 1. If `git/gitconfig.symlink` is not found, you will be prompted for a username and email and one will be created using
-[`git/gitconfig.symlink.example` as a template.
+`git/gitconfig.symlink.example` as a template.
 1. If NodeJS is not installed, the NodeJS download page will be opened and you will be asked to rerun the script after
 installing it.
 1. Dotfiles will be symlinked to your home directory (every .symlink or .dirsymlink file).

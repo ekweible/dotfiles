@@ -3,8 +3,7 @@
 source $ZSH/scripts/includes.sh
 
 function install_node () {
-    which node &>/dev/null
-    if [ $? != 0 ]
+    if test ! $(which node)
     then
         error "NodeJS is not installed. Opening http://nodejs.org."
         sleep 3
@@ -12,7 +11,7 @@ function install_node () {
         info "Run bootstrap again when node is installed.\n"
         exit 1
     fi
-
+    
     user '- do you want to setup node? (Y/n)'
     read -n 1 action
     br
@@ -23,10 +22,19 @@ function install_node () {
     fi
 
     info 'setting permissions and installing default node dependencies...'
+    if [ ! -d "$HOME/.npm" ]; then
+	mkdir ~/.npm
+    fi
     run sudo chown -R `whoami` ~/.npm
+
+    if [ ! -d "/usr/local/lib/node_modules" ]; then
+    	mkdir /usr/local/lib/node_modules
+    fi
     run sudo chown -R `whoami` /usr/local/lib/node_modules
-    run npm install -g grunt-cli bower
+    
+    run sudo npm install -g grunt-cli bower
     success "node setup"
 }
 
 install_node
+

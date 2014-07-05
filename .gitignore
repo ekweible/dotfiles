@@ -1,6 +1,8 @@
 node_modules
 
+applications/manifest.json
 git/gitconfig.symlink
+git/repos.json
 npm/npmrc.symlink
 pip/pip.conf.dirsymlink
 _stderr.txt
