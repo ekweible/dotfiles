@@ -21,7 +21,8 @@ Huge thanks to both of those projects!
   - GitHub > Account Settings > SSH Keys > Add SSH Key
   - Test it out: ssh -T git@github.com
 
-1. Clone this dotfiles repo:
+
+2. Clone this dotfiles repo:
 
     ```bash
     $ mkdir  ~/dev
@@ -46,7 +47,8 @@ Huge thanks to both of those projects!
       git config user.signingkey [signingkey]
     ```
 
-1. Run the bootstrap script:
+
+3. Run the bootstrap script:
 
     ```bash
     $ cd ~/dev/dotfiles
@@ -55,7 +57,8 @@ Huge thanks to both of those projects!
 
     **This script is idempotent and safe to run multiple times.**
 
-1. Link 1Password to Dropbox
+
+4. Link 1Password to Dropbox
 
 
 ## Tools
