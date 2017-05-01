@@ -51,6 +51,39 @@ sed -e "s/GIT_AUTHOR_NAME/$GIT_AUTHOR_NAME/g" \
     ./templates/.gitconfig > ./homedir/.gitconfig
 ok
 
+# -----------------------------------------------------------------------------
+# Brew
+# -----------------------------------------------------------------------------
+group "Setting up brew"
+
+brew_bin=$(which brew) 2>&1 > /dev/null
+if [[ $? != 0 ]]
+then
+  runing "installing homebrew"
+  run_command "ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\""
+
+  if [[ $? != 0 ]]
+  then
+    error "unable to install homebrew, script $0 abort!"
+    exit 2
+  fi
+else
+  running "homebrew already installed"
+  ok
+
+  # Make sure we’re using the latest Homebrew
+  running "updating homebrew"
+  run_command "brew update"
+
+  response=$(prompt "run brew upgrade? [y|N]")
+  if [[ $response =~ ^(y|yes|Y) ]]
+  then
+    # Upgrade any already-installed formulae
+    running "upgrading brew packages"
+    run_command "brew upgrade"
+  fi
+fi
+
 
 # -----------------------------------------------------------------------------
 # Dart
