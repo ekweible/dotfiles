@@ -13,6 +13,7 @@ export GOPATH=/usr/local/bin
 #########################################################################
 # Tool settings
 #########################################################################
+export GPG_TTY=$(tty)
 export NVM_DIR=~/.nvm
 
 # virtualenvwrapper
