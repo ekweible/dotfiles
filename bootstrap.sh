@@ -252,19 +252,19 @@ else
   overwrite_all=false backup_all=false skip_all=false
 
   # symlink all dotfiles in homedir/
-  for src in $(find "$HOMEDIR" -maxdepth 1 -type f)
+  for src in $(find "$HOMEDIR" -mindepth 1 -maxdepth 1 -type f)
   do
     dst="$HOME/$(basename $src)"
     link_file "$src" "$dst"
   done
 
   # symlink all dotfiles that require a parent dir in homedir/
-  for dir in $(find "$HOMEDIR" -maxdepth 1 -type d)
+  for dir in $(find "$HOMEDIR" -mindepth 1 -maxdepth 1 -type d)
   do
     parent_dir="`dirname \"$dir\"`"
-    dst_dir="$HOME/`basename \"$parent_dir\"`/"
+    dst_dir="$HOME/`basename \"$dir\"`"
 
-    for src in $(find "$parent_dir" -maxdepth 1 -type f)
+    for src in $(find "$dir" -mindepth 1 -maxdepth 1 -type f)
     do
       dst="$dst_dir/$(basename $src)"
 
@@ -278,19 +278,19 @@ else
   done
 
   # symlink all private dotfiles from the path defined by the selected profile
-  for src in $(find "$HOMEDIR_PRIVATE" -maxdepth 1 -type f)
+  for src in $(find "$HOMEDIR_PRIVATE" -mindepth 1 -maxdepth 1 -type f)
   do
     dst="$HOME/$(basename $src)"
     link_file "$src" "$dst"
   done
 
   # symlink all private dotfiles that require a parent dir
-  for dir in $(find "$HOMEDIR_PRIVATE" -maxdepth 1 -type d)
+  for dir in $(find "$HOMEDIR_PRIVATE" -mindepth 1 -maxdepth 1 -type d)
   do
     parent_dir="`dirname \"$dir\"`"
-    dst_dir="$HOME/`basename \"$parent_dir\"`/"
+    dst_dir="$HOME/`basename \"$dir\"`"
 
-    for src in $(find "$parent_dir" -maxdepth 1 -type f)
+    for src in $(find "$dir" -mindepth 1 -maxdepth 1 -type f)
     do
       dst="$dst_dir/$(basename $src)"
 
