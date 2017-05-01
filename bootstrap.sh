@@ -52,9 +52,9 @@ sed -e "s/GIT_AUTHOR_NAME/$GIT_AUTHOR_NAME/g" \
 ok
 
 # -----------------------------------------------------------------------------
-# Brew
+# Brew & Brew Cask
 # -----------------------------------------------------------------------------
-group "Setting up brew"
+group "Setting up brew and brew cask"
 
 brew_bin=$(which brew) 2>&1 > /dev/null
 if [[ $? != 0 ]]
@@ -83,6 +83,19 @@ else
     run_command "brew upgrade"
   fi
 fi
+
+output=$(brew tap | grep cask)
+if [[ $? != 0 ]]
+then
+  running "installing brew-cask"
+  require_brew caskroom/cask/brew-cask
+else
+  running "brew-cask already installed"
+  ok
+fi
+
+running "tapping caskroom"
+run_command "brew tap caskroom/versions"
 
 
 # -----------------------------------------------------------------------------
