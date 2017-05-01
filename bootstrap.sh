@@ -46,8 +46,8 @@ running "$profile profile selected"
 ok
 
 running "generating .gitconfig"
-sed -e "s/GIT_AUTHOR_NAME/$GIT_AUTHOR_NAME/g" \
-    -e "s/GIT_AUTHOR_EMAIL/$GIT_AUTHOR_EMAIL/g" \
+sed -e "s/GIT_AUTHOR_NAME/$BOOTSTRAP_GIT_AUTHOR_NAME/g" \
+    -e "s/GIT_AUTHOR_EMAIL/$BOOTSTRAP_GIT_AUTHOR_EMAIL/g" \
     ./templates/.gitconfig > ./homedir/.gitconfig
 ok
 
