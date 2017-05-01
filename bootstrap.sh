@@ -211,7 +211,8 @@ then
   bot "setting latest homebrew zsh (/usr/local/bin/zsh) as your shell (password required)"
   # sudo bash -c 'echo "/usr/local/bin/zsh" >> /etc/shells'
   # chsh -s /usr/local/bin/zsh
-  sudo dscl . -change /Users/$USER UserShell $SHELL /usr/local/bin/zsh
+  # sudo dscl . -change /Users/$USER UserShell $SHELL /usr/local/bin/zsh
+  sudo dscl . change /users/$USER UserShell /bin/bash $(which zsh)
   ok
 else
   running "shell is already set to zsh"
