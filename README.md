@@ -24,6 +24,8 @@ Huge thanks to both of those projects!
 
 2. Clone this dotfiles repo:
 
+    > Don't forget to clone your private dotfiles repo, too.
+
     ```bash
     $ mkdir  ~/dev
     ```
