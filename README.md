@@ -6,33 +6,45 @@ Also draws inspiration from [Zach Holman's dotfiles](https://github.com/holman/d
 Huge thanks to both of those projects!
 
 
-## Installation
-
-> Don't forget to clone the private dotfiles repo, too.
-
-Clone this repo to `~/dev/`:
-
-**Personal Computer:**
-```bash
-cd ~/dev && git clone git@github.com:ekweible/dotfiles.git
-```
-
-**Work Computer:**
-```bash
-cd ~/dev && git clone git@github.com-ekweible:ekweible/dotfiles.git
-```
-
-Then configure the repo to the correct identity:
-
-```bash
-cd dotfiles && \
-  git config user.name [github_username] && \
-  git config user.email [github_email] && \
-  git config user.signingkey [signingkey]
-```
-
-
 ## Setup
+
+1. Generate SSH keys:
+
+    https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+    https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+
+  - `mkdir -p ~/.ssh/ekweible/ && cd ~/.ssh/ekweible`
+  - `ssh-keygen -t rsa -C "[email]"`
+  - create a passphrase & write it down
+  - `ssh-add ~/.ssh/ekweible/id_rsa`
+  - `pbcopy < ~/.ssh/ekweible/id_rsa.pub`
+  - GitHub > Account Settings > SSH Keys > Add SSH Key
+  - Test it out: ssh -T git@github.com
+
+1. Clone this dotfiles repo:
+
+    ```bash
+    $ mkdir  ~/dev
+    ```
+
+    **Personal Computer:**
+    ```bash
+    $ cd ~/dev && git clone git@github.com:ekweible/dotfiles.git
+    ```
+
+    **Work Computer:**
+    ```bash
+    $ cd ~/dev && git clone git@github.com-ekweible:ekweible/dotfiles.git
+    ```
+
+    Then configure the repo to the correct identity:
+
+    ```bash
+    $ cd dotfiles && \
+      git config user.name [github_username] && \
+      git config user.email [github_email] && \
+      git config user.signingkey [signingkey]
+    ```
 
 1. Run the bootstrap script:
 
@@ -41,10 +53,7 @@ cd dotfiles && \
     $ ./bootstrap.sh
     ```
 
-1. Generate SSH keys:
-
-    https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
-    https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+    **This script is idempotent and safe to run multiple times.**
 
 1. Link 1Password to Dropbox
 
