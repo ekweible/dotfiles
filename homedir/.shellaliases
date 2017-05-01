@@ -1,0 +1,44 @@
+#!/bin/sh
+
+#################################
+# Simple Program Name Shortening
+alias g=git
+
+
+#############################
+# Utilities
+
+alias cl='clear'
+
+# Directory listings
+# LS_COLORS='no=01;37:fi=01;37:di=07;96:ln=01;36:pi=01;32:so=01;35:do=01;35:bd=01;33:cd=01;33:ex=01;31:mi=00;05;37:or=00;05;37:'
+# -G Add colors to ls
+# -l Long format
+# -h Short size suffixes (B, K, M, G, P)
+# -p Postpend slash to folders
+alias ls='ls -G -h -p '
+alias ll='ls -l -G -h -p '
+
+# Quickly edit dotfiles
+alias dotfiles='code $DOTFILES'
+alias dotfilesp='code $DOTFILES_PRIVATE'
+
+# Workspaces
+alias dev='cd ~/dev/'
+alias devp='cd ~/dev/ekweible'
+alias devw='cd ~/dev/evanweible-wf'
+alias devs='cd ~/dev/sandbox'
+
+# dart
+alias ddev='pub run dart_dev'
+alias d='DART_FLAGS="--checked --load_deferred_eagerly" open /usr/local/opt/dart/Chromium.app'
+alias repub='pubclean; pub get $@'
+alias pubclean='rm -r .pub/ && echo "Removed .pub/"; rm -r packages/ && echo "Removed packages/"; rm .packages && echo "Removed .packages"; pubcleanlock'
+alias pubcleanlock='git ls-files pubspec.lock --error-unmatch &>/dev/null && echo "Not removing pubspec.lock - it is tracked" || (rm pubspec.lock && echo "Removed pubspec.lock")'
+alias wtp="pub upgrade --packages-dir --verbosity=solver | grep --after-context 2 "inconsistent constraints""
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec $SHELL -l"

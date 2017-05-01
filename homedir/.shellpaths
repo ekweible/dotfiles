@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# My Scripts
+export PATH=$PATH:$DOTFILES/bin
+export PATH=$PATH:$DOTFILES_PRIVATE/bin
+
+# Brew
+export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:$PATH
+
+# Dart
+export PATH=$PATH:~/.pub-cache/bin
+
+# GO
+#export PATH=$PATH:/usr/local/opt/go/libexec/bin

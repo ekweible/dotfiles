@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Set vim as default editor (vi is the default otherwise)
+export EDITOR="vim"
+bindkey -v
+
+#########################################################################
+# Tool paths
+#########################################################################
+export JAVA_HOME=$(/usr/libexec/java_home)
+export GOPATH=/usr/local/bin
+
+#########################################################################
+# Tool settings
+#########################################################################
+export NVM_DIR=~/.nvm
+
+# virtualenvwrapper
+export WORKON_HOME=~/.virtualenvs
+export PROJECT_HOME=~/dev
+source /usr/local/bin/virtualenvwrapper.sh
+
+#########################################################################
+# Dotfiles paths
+#########################################################################
+export DOTFILES="$HOME/dev/dotfiles"
+export HOMEDIR="$DOTFILES/homedir"
+source $HOMEDIR/.shellvars_private
