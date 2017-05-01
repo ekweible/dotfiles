@@ -174,6 +174,7 @@ require_brew zsh
 group "Installing brew casked applications"
 
 require_cask 1password
+# require_cask alfred  # need to upgrade to v3
 require_cask bartender
 require_cask bitbar
 require_cask caffeine
@@ -192,11 +193,10 @@ require_cask macdown
 require_cask mamp
 require_cask recordit
 require_cask sourcetree
-require_cask spotify
+# require_cask spotify  # .dmg installation is failing currently
 require_cask viscosity
 require_cask visual-studio-code
 
-#  alfred\  # need to upgrade to v3
 
 
 # -----------------------------------------------------------------------------
