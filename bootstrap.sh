@@ -146,13 +146,25 @@ fi
 
 
 # -----------------------------------------------------------------------------
+# Java
+# -----------------------------------------------------------------------------
+group "Setting up Java"
+
+require_cask java
+require_brew ant
+
+
+# -----------------------------------------------------------------------------
 # Brew Packages
 # -----------------------------------------------------------------------------
 group "Installing brew packages"
 
 require_brew coreutils
 require_brew git
+require_brew gnatsd
 require_brew gnupg
+require_brew lcov
+require_brew sassc
 require_brew zsh
 
 
