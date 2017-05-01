@@ -32,12 +32,12 @@ Huge thanks to both of those projects!
 
     **Personal Computer:**
     ```bash
-    $ cd ~/dev && git clone git@github.com:ekweible/dotfiles.git
+    $ cd ~/dev && git clone --recurse-submodules git@github.com:ekweible/dotfiles.git
     ```
 
     **Work Computer:**
     ```bash
-    $ cd ~/dev && git clone git@github.com-ekweible:ekweible/dotfiles.git
+    $ cd ~/dev && git clone --recurse-submodules git@github.com-ekweible:ekweible/dotfiles.git
     ```
 
     Then configure the repo to the correct identity:
