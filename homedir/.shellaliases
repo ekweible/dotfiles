@@ -21,7 +21,7 @@ alias ll='ls -l -G -h -p '
 
 # Quickly edit dotfiles
 alias dotfiles='code $DOTFILES'
-alias dotfilesp='code $DOTFILES_PRIVATE'
+alias dotfilesp='code $DOTFILES_PRIVATE/..'
 
 # Workspaces
 alias dev='cd ~/dev/'
