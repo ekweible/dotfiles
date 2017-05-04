@@ -19,19 +19,17 @@ alias cl='clear'
 alias ls='ls -G -h -p '
 alias ll='ls -l -G -h -p '
 
-# Quickly edit dotfiles
-alias dotfiles='code $DOTFILES'
-alias dotfilesp='code $DOTFILES_PRIVATE/..'
-
 # Workspaces
 alias dev='cd ~/dev/'
 alias devp='cd ~/dev/ekweible'
+alias devs='cd ~/dev/ekweible/sandbox'
 alias devw='cd ~/dev/evanweible-wf'
-alias devs='cd ~/dev/sandbox'
+alias dotfiles='cd $DOTFILES'
+alias dotfilesp='cd $DOTFILES_PRIVATE/..'
 
 # dart
 alias ddev='pub run dart_dev'
-alias d='DART_FLAGS="--checked --load_deferred_eagerly" open /usr/local/opt/dart/Chromium.app'
+alias dartium='DART_FLAGS="--checked --load_deferred_eagerly" open /usr/local/opt/dart/Chromium.app'
 alias repub='pubclean; pub get $@'
 alias pubclean='rm -r .pub/ && echo "Removed .pub/"; rm -r packages/ && echo "Removed packages/"; rm .packages && echo "Removed .packages"; pubcleanlock'
 alias pubcleanlock='git ls-files pubspec.lock --error-unmatch &>/dev/null && echo "Not removing pubspec.lock - it is tracked" || (rm pubspec.lock && echo "Removed pubspec.lock")'
