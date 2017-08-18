@@ -16,6 +16,9 @@ sudo -v
 # Keep-alive: update existing sudo time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+# TODO: move all prompts here so they can be answered immediately and the rest
+#       the script can execute without input
+
 
 # -----------------------------------------------------------------------------
 # Profile Selection
@@ -127,10 +130,11 @@ group "Setting up python"
 require_brew python
 
 # install pip if necessary
-if [ ! $(which pip) ]
+output=$(which pip)
+if [[ $? != 0 ]]
 then
   running "downloading and installing pip"
-  run_command curl -O https://bootstrap.pypa.io/get-pip.py && sudo python2.7 get-pip.py && rm get-pip.py
+  run_command "curl -O https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && rm get-pip.py"
 fi
 
 # upgrade pip
