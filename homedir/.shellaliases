@@ -35,6 +35,9 @@ alias pubclean='rm -r .pub/ && echo "Removed .pub/"; rm -r packages/ && echo "Re
 alias pubcleanlock='git ls-files pubspec.lock --error-unmatch &>/dev/null && echo "Not removing pubspec.lock - it is tracked" || (rm pubspec.lock && echo "Removed pubspec.lock")'
 alias wtp="pub upgrade --packages-dir --verbosity=solver | grep --after-context 2 "inconsistent constraints""
 
+# ssh
+alias mtgs='ssh evanweible.com@evanweible.com'
+
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 

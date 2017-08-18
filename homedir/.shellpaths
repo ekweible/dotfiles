@@ -12,4 +12,5 @@ export PATH=/usr/local/bin:$PATH
 export PATH=$PATH:~/.pub-cache/bin
 
 # GO
-#export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export PATH=$PATH:$GOPATH/bin

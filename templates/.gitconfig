@@ -3,6 +3,8 @@
     email = GIT_AUTHOR_EMAIL
 [credential]
     helper = osxkeychain
+[url "git@github.com:"]
+    insteadOf = https://github.com/
 [alias]
     br = branch
     co = checkout

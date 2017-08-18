@@ -161,6 +161,7 @@ group "Installing brew packages"
 
 require_brew coreutils
 require_brew git
+require_brew glide
 require_brew gnatsd
 require_brew gpg2
 require_brew lcov
@@ -186,7 +187,6 @@ require_cask flux
 require_cask google-chrome
 require_cask google-drive
 require_cask google-photos-backup
-# require_cask gpgtools
 require_cask hipchat
 require_cask iterm2
 require_cask macdown
