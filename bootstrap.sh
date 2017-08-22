@@ -164,6 +164,9 @@ require_brew ant
 group "Installing brew packages"
 
 require_brew coreutils
+require_brew docker
+require_brew docker-compose
+require_brew docker-machine
 require_brew git
 require_brew glide
 require_brew gnatsd
