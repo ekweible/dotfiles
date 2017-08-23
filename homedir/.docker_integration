@@ -1,6 +1,7 @@
-docker-machine active > /dev/null 2>&1
-if [[ $? != 0 ]]
-then
-   docker-machine start
-fi
-eval $(docker-machine env)
+# TODO: this seems to run every time
+# docker-machine active > /dev/null 2>&1
+# if [[ $? != 0 ]]
+# then
+#   docker-machine start
+# fi
+# eval $(docker-machine env)
