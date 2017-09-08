@@ -163,17 +163,18 @@ require_brew ant
 # -----------------------------------------------------------------------------
 group "Installing brew packages"
 
-require_brew coreutils
-require_brew docker
-require_brew docker-compose
-require_brew docker-machine
-require_brew git
-require_brew glide
-require_brew gnatsd
-require_brew gpg2
-require_brew lcov
-require_brew sassc
-require_brew zsh
+require_brew coreutils        # can't remember what this is used for
+require_brew docker           # docker
+require_brew docker-compose   # docker
+require_brew docker-machine   # docker
+require_brew git              # replace the Mac OS git
+require_brew glide            # go dep management
+require_brew gnatsd           # nats for messaging
+require_brew gpg2             # gpg key management
+require_brew lcov             # code coverage parser & report formatter
+require_brew leiningen        # clojure repl
+require_brew sassc            # sass compiler
+require_brew zsh              # shell replacement
 
 
 # -----------------------------------------------------------------------------
