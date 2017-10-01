@@ -16,27 +16,35 @@ sudo -v
 # Keep-alive: update existing sudo time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# TODO: move all prompts here so they can be answered immediately and the rest
-#       the script can execute without input
-
-
 # -----------------------------------------------------------------------------
-# Profile Selection
+# Prompts
 # -----------------------------------------------------------------------------
-group "Selecting a profile"
 
 while [[ ! "$profile" ]]
 do
-  response=$(prompt "Select a profile to bootstrap: [personal | workiva]")
+  profile_response=$(prompt "Select a profile to bootstrap: [personal | workiva]")
 
-  if [[ "$response" = "personal" ]]
+  if [[ "$profile_response" = "personal" ]]
   then
     profile="personal"
-  elif [[ "$response" = "workiva" ]]
+  elif [[ "$profile_response" = "workiva" ]]
   then
     profile="workiva"
   fi
 done
+
+brew_upgrade_response=$(prompt "Run brew upgrade? [y|N]")
+update_zsh_theme_response=$(prompt "Update the powerlevel9k oh-my-zsh theme? [y|N]")
+link_dotfiles_response=$(prompt "Link all dotfiles? [y|N]")
+install_fonts_response=$(prompt "Install fonts? [y|N]")
+bootstrap_git_response=$(prompt "Bootstrap your git repositories? [y|N]")
+app_download_response=$(prompt "Open non-casked app download pages now? [y|N]")
+
+
+# -----------------------------------------------------------------------------
+# Profile
+# -----------------------------------------------------------------------------
+group "Generating profile"
 
 export DOTFILES_PRIVATE="$HOME/dev/dotfiles_private/$profile"
 export HOMEDIR_PRIVATE="$DOTFILES_PRIVATE/homedir"
@@ -78,8 +86,7 @@ else
   running "updating homebrew"
   run_command "brew update"
 
-  response=$(prompt "run brew upgrade? [y|N]")
-  if [[ $response =~ ^(y|yes|Y) ]]
+  if [[ $brew_upgrade_response =~ ^(y|yes|Y) ]]
   then
     # Upgrade any already-installed formulae
     running "upgrading brew packages"
@@ -154,6 +161,7 @@ fi
 # -----------------------------------------------------------------------------
 group "Setting up Java"
 
+require_brew jenv
 require_cask java
 require_brew ant
 
@@ -232,8 +240,7 @@ then
   running "installing powerlevel9k oh-my-zsh theme"
   run_command "git clone https://github.com/bhilburn/powerlevel9k.git oh-my-zsh/custom/themes/powerlevel9k"
 else
-  response=$(prompt "Update the powerlevel9k oh-my-zsh theme? [y|N]")
-  if [[ $response =~ ^(y|yes|Y) ]]
+  if [[ $update_zsh_theme_response =~ ^(y|yes|Y) ]]
   then
     running "updating powerlevel9k oh-my-zsh theme"
     cd $DOTFILES/oh-my-zsh/custom/themes/powerlevel9k
@@ -248,9 +255,7 @@ fi
 # -----------------------------------------------------------------------------
 group "Symlinking dotfiles"
 
-response=$(prompt "Do you want to link all dotfiles? [Y|n]")
-
-if [[ $response =~ ^(no|n|N) ]]
+if [[ $link_dotfiles_response =~ ^(y|yes|Y) ]]
 then
   running "skipping symlinking dotfiles"
   ok
@@ -327,21 +332,27 @@ source $DOTFILES_PRIVATE/bootstrap.sh
 # -----------------------------------------------------------------------------
 group "Fonts"
 
-running "installing fonts"
-run_command "./fonts/install.sh"
+if [[ $install_fonts_response =~ ^(y|yes|Y) ]]
+then
+  running "skipping fonts installations"
+  ok
+else
+  running "installing fonts"
+  run_command "./fonts/install.sh"
 
-running "tapping cask fonts"
-run_command "brew tap caskroom/fonts"
+  running "tapping cask fonts"
+  run_command "brew tap caskroom/fonts"
 
-require_cask font-fontawesome
-require_cask font-awesome-terminal-fonts
-require_cask font-hack
-require_cask font-inconsolata-dz-for-powerline
-require_cask font-inconsolata-g-for-powerline
-require_cask font-inconsolata-for-powerline
-require_cask font-roboto-mono
-require_cask font-roboto-mono-for-powerline
-require_cask font-source-code-pro
+  require_cask font-fontawesome
+  require_cask font-awesome-terminal-fonts
+  require_cask font-hack
+  require_cask font-inconsolata-dz-for-powerline
+  require_cask font-inconsolata-g-for-powerline
+  require_cask font-inconsolata-for-powerline
+  require_cask font-roboto-mono
+  require_cask font-roboto-mono-for-powerline
+  require_cask font-source-code-pro
+fi
 
 
 # -----------------------------------------------------------------------------
@@ -447,9 +458,7 @@ ok
 # -----------------------------------------------------------------------------
 group "Bootstrapping git repositories"
 
-response=$(prompt "Do you want to bootstrap your git repositories? [Y|n]")
-
-if [[ $response =~ ^(no|n|N) ]]
+if [[ $bootstrap_git_response =~ ^(y|yes|Y) ]]
 then
   running "skipping git bootstrap"
   ok
@@ -463,9 +472,7 @@ fi
 # -----------------------------------------------------------------------------
 group "Opening download pages for non-casked applications"
 
-response=$(prompt "Do you want to open these download pages now? [Y|n]")
-
-if [[ $response =~ ^(no|n|N) ]]
+if [[ $app_download_response =~ ^(y|yes|Y) ]]
 then
   running "skipping opening download pages"
   ok
