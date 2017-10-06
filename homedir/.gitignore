@@ -85,6 +85,7 @@ node_modules
 ########
 # Dart #
 ########
+.dart_tool
 .packages
 .pub
 packages
