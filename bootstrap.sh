@@ -33,7 +33,8 @@ do
   fi
 done
 
-brew_upgrade_response=$(prompt "Run brew upgrade? [y|N]")
+brew_update_response=$(prompt "Update brew? [y|N]")
+brew_upgrade_response=$(prompt "Upgrade brew packages? [y|N]")
 update_zsh_theme_response=$(prompt "Update the powerlevel9k oh-my-zsh theme? [y|N]")
 link_dotfiles_response=$(prompt "Link all dotfiles? [y|N]")
 install_fonts_response=$(prompt "Install fonts? [y|N]")
@@ -82,15 +83,24 @@ else
   running "homebrew already installed"
   ok
 
-  # Make sure we’re using the latest Homebrew
-  running "updating homebrew"
-  run_command "brew update"
+  if [[ $brew_update_response =~ (y|yes|Y) ]]
+  then
+    # Make sure we’re using the latest Homebrew
+    running "updating homebrew"
+    run_command "brew update"
+  else
+    running "skipped homebrew update"
+    ok
+  fi
 
-  if [[ $brew_upgrade_response =~ ^(y|yes|Y) ]]
+  if [[ $brew_upgrade_response =~ (y|yes|Y) ]]
   then
     # Upgrade any already-installed formulae
     running "upgrading brew packages"
     run_command "brew upgrade"
+  else
+    running "skipped brew package upgrades"
+    ok
   fi
 fi
 
@@ -240,12 +250,15 @@ then
   running "installing powerlevel9k oh-my-zsh theme"
   run_command "git clone https://github.com/bhilburn/powerlevel9k.git oh-my-zsh/custom/themes/powerlevel9k"
 else
-  if [[ $update_zsh_theme_response =~ ^(y|yes|Y) ]]
+  if [[ $update_zsh_theme_response =~ (y|yes|Y) ]]
   then
     running "updating powerlevel9k oh-my-zsh theme"
     cd $DOTFILES/oh-my-zsh/custom/themes/powerlevel9k
     run_command "git fetch origin && git pull"
     cd $DOTFILES
+  else
+    running "skipped powerlevel9k oh-my-zsh theme upgrade"
+    ok
   fi
 fi
 
@@ -255,11 +268,8 @@ fi
 # -----------------------------------------------------------------------------
 group "Symlinking dotfiles"
 
-if [[ $link_dotfiles_response =~ ^(y|yes|Y) ]]
+if [[ $link_dotfiles_response =~ (y|yes|Y) ]]
 then
-  running "skipping symlinking dotfiles"
-  ok
-else
   running "symlinking dotfiles"
   echo -e ""
 
@@ -316,6 +326,9 @@ else
       link_file "$src" "$dst"
     done
   done
+else
+  running "skipped dotfiles symlinking"
+  ok
 fi
 
 
@@ -332,11 +345,8 @@ source $DOTFILES_PRIVATE/bootstrap.sh
 # -----------------------------------------------------------------------------
 group "Fonts"
 
-if [[ $install_fonts_response =~ ^(y|yes|Y) ]]
+if [[ $install_fonts_response =~ (y|yes|Y) ]]
 then
-  running "skipping fonts installations"
-  ok
-else
   running "installing fonts"
   run_command "./fonts/install.sh"
 
@@ -352,6 +362,9 @@ else
   require_cask font-roboto-mono
   require_cask font-roboto-mono-for-powerline
   require_cask font-source-code-pro
+else
+  running "skipped fonts installations"
+  ok
 fi
 
 
@@ -458,12 +471,12 @@ ok
 # -----------------------------------------------------------------------------
 group "Bootstrapping git repositories"
 
-if [[ $bootstrap_git_response =~ ^(y|yes|Y) ]]
+if [[ $bootstrap_git_response =~ (y|yes|Y) ]]
 then
-  running "skipping git bootstrap"
-  ok
-else
   source $DOTFILES_PRIVATE/bin/gboot
+else
+  running "skipped git bootstrap"
+  ok
 fi
 
 
@@ -472,11 +485,8 @@ fi
 # -----------------------------------------------------------------------------
 group "Opening download pages for non-casked applications"
 
-if [[ $app_download_response =~ ^(y|yes|Y) ]]
+if [[ $app_download_response =~ (y|yes|Y) ]]
 then
-  running "skipping opening download pages"
-  ok
-else
   running "opening"
 
   # BetterSnapTool
@@ -486,6 +496,9 @@ else
   # Todoist
   open https://todoist.com/mac
 
+  ok
+else
+  running "skipped opening download pages"
   ok
 fi
 
