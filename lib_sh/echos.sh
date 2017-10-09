@@ -5,45 +5,51 @@
 # @author Adam Eivy
 ###
 
-# Colors
-ESC_SEQ="\x1b["
-COL_RESET=$ESC_SEQ"39;49;00m"
-COL_RED=$ESC_SEQ"31;01m"
-COL_GREEN=$ESC_SEQ"32;01m"
-COL_YELLOW=$ESC_SEQ"33;01m"
-COL_BLUE=$ESC_SEQ"34;01m"
-COL_MAGENTA=$ESC_SEQ"35;01m"
-COL_CYAN=$ESC_SEQ"36;01m"
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+LIME_YELLOW=$(tput setaf 190)
+POWDER_BLUE=$(tput setaf 153)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+BRIGHT=$(tput bold)
+NORMAL=$(tput sgr0)
+BLINK=$(tput blink)
+REVERSE=$(tput smso)
+UNDERLINE=$(tput smul)
 
 function br() {
   printf "\n"
 }
 
 function ok() {
-  echo -e "$COL_GREEN[ok]$COL_RESET "$1
+  printf "%s\n" "$GREEN[ok]$NORMAL $1"
 }
 
 function bot() {
-  echo -e "\n$COL_GREEN\[._.]/$COL_RESET - "$1
+  printf "\n%s\n" "$GREEN\[._.]/$NORMAL - $1"
 }
 
 function group() {
-    echo -e "\n$COL_YELLOW[-----]$COL_RESET $1\n"
+  printf "\n%s\n\n" "$YELLOW[-----]$NORMAL $1"
 }
 
 function prompt() {
   read -r -p $'\x1b[32;01m?\x1b[39;49;00m'" $1 " response
-  echo $response
+  printf "$response\n"
 }
 
 function running() {
-  echo -en "$COL_YELLOW ⇒ $COL_RESET$1 "
+  printf "%s" "$YELLOW ⇒ $NORMAL$1 "
 }
 
 function warn() {
-  echo -e "$COL_YELLOW[warning]$COL_RESET "$1
+  printf "%s\n" "$YELLOW[warning]$NORMAL $1"
 }
 
 function error() {
-  echo -e "$COL_RED[error]$COL_RESET "$1
+  printf "%s\n" "$RED[error]$NORMAL $1"
 }
