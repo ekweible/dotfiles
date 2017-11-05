@@ -96,7 +96,8 @@ else
   if [[ $brew_upgrade_response =~ (y|yes|Y) ]]
   then
     # Upgrade any already-installed formulae
-    running "upgrading brew packages\n"
+    running "upgrading brew packages"
+    echo ""
     brew upgrade
     br
     running "upgraded brew packages"
