@@ -221,6 +221,7 @@ require_cask hipchat
 require_cask iterm2
 require_cask macdown
 require_cask mamp
+require_cask mullvad
 require_cask recordit
 require_cask sourcetree
 # require_cask spotify  # .dmg installation is failing currently
