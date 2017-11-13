@@ -224,6 +224,7 @@ require_cask macdown
 require_cask mamp
 require_cask mullvad
 require_cask recordit
+require_cask slack
 require_cask sourcetree
 # require_cask spotify  # .dmg installation is failing currently
 require_cask viscosity
