@@ -176,9 +176,20 @@ fi
 # -----------------------------------------------------------------------------
 group "Setting up Java"
 
-require_brew jenv
+#require_brew jenv  # not the most usable, and system java only required for bigsky anyway
 require_cask java
 require_brew ant
+
+
+# -----------------------------------------------------------------------------
+# Docker
+# -----------------------------------------------------------------------------
+group "Setting up Docker"
+
+require_brew docker
+require_brew docker-compose
+require_brew docker-machine
+docker-machine upgrade
 
 
 # -----------------------------------------------------------------------------
@@ -187,9 +198,6 @@ require_brew ant
 group "Installing brew packages"
 
 require_brew coreutils        # can't remember what this is used for
-require_brew docker           # docker
-require_brew docker-compose   # docker
-require_brew docker-machine   # docker
 require_brew git              # replace the Mac OS git
 require_brew glide            # go dep management
 require_brew gnatsd           # nats for messaging
@@ -229,6 +237,7 @@ require_cask sourcetree
 # require_cask spotify  # .dmg installation is failing currently
 require_cask viscosity
 require_cask visual-studio-code
+require_cask whatsapp
 
 
 

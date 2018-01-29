@@ -3,6 +3,10 @@
 #########################################
 # Utility Functions
 
+function dockerenv() {
+  source ~/.docker_integration
+}
+
 function pr() {
   local branch="$(git rev-parse --abbrev-ref HEAD)"
   local remote="$(git remote -v | grep origin -m 1 |  sed 's/.*git@github.com:\(.*\)\/.*/\1/g')"

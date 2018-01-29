@@ -16,5 +16,6 @@ export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export PATH=$PATH:$GOPATH/bin
 
 # JAVA
-export PATH=$PATH:/usr/local/bin/jenv
-eval "$(jenv init -)"
+# disabled jenv for now
+# export PATH=$PATH:/usr/local/bin/jenv
+# eval "$(jenv init -)"
