@@ -10,7 +10,7 @@ cached_profiles_json = None
 
 
 def get_current_name(exit_if_not_set=False):
-    current_profile_name = environ[ENV.DOTFILES_PROFILE]
+    current_profile_name = environ[ENV.DOTFILES_PROFILE] if ENV.DOTFILES_PROFILE in environ else None
     if exit_if_not_set and not current_profile_name:
         puts_err(colored.red('! No dotfiles profile set ($%s). Complete the bootstrap setup first.' %
                              ENV.DOTFILES_PROFILE))
@@ -38,27 +38,27 @@ def read_all():
 
 
 def read_brew(profile_name=None):
-    return read()['brew']
+    return read(profile_name)['brew']
 
 
 def read_brew_casks(profile_name=None):
-    return read_brew()['casks']
+    return read_brew(profile_name)['casks']
 
 
 def read_brew_formulae(profile_name=None):
-    return read_brew()['formulae']
+    return read_brew(profile_name)['formulae']
 
 
 def read_brew_taps(profile_name=None):
-    return read_brew()['taps']
+    return read_brew(profile_name)['taps']
 
 
 def read_git_workspace(git_user, profile_name=None):
     return read_git_workspaces(profile_name)[git_user]
 
 
-def read_git_workspace_names():
-    return read_git_workspaces().keys()
+def read_git_workspace_names(profile_name=None):
+    return read_git_workspaces(profile_name).keys()
 
 
 def read_git_workspaces(profile_name=None):
@@ -73,7 +73,7 @@ def read_git_workspace_ssh_config(git_user, profile_name=None):
 
 
 def read_names():
-    return load_json().keys()
+    return read_all().keys()
 
 
 def update_profiles(updater):

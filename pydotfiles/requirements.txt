@@ -9,7 +9,7 @@ nose==1.3.7
 pbr==5.1.0
 prompt-toolkit==1.0.14
 pycodestyle==2.4.0
--e git+git@github.com:ekweible/dotfiles.git@master#egg=pydotfiles&subdirectory=pydotfiles
+-e .
 Pygments==2.2.0
 PyInquirer==1.0.2
 pylint==2.1.1
