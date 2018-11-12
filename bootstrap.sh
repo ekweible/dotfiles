@@ -9,10 +9,6 @@ source ./lib_sh/runner.sh
 export DOTFILES="$HOME/dev/dotfiles"
 export HOMEDIR="$DOTFILES/homedir"
 
-# # Ask for the administrator password upfront
-# bot "Enter your sudo password"
-# sudo -v
-
 brew_bin=$(which brew) 2>&1 > /dev/null
 if [[ $? != 0 ]]
 then
