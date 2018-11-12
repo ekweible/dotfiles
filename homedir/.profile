@@ -7,10 +7,6 @@ source ~/.shellfn
 source ~/.shellpaths
 source ~/.shellaliases
 source ~/.iterm2_shell_integration.`basename $SHELL`
-
-# Too slow to be a part of every shell startup
-# Run `dockerenv` instead as needed
 # source ~/.docker_integration
-
 # Private/Proprietary shell aliases (not to be checked into the public repo) :)
 # source `$DOTFILES_PRIVATE`/.profile
