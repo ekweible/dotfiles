@@ -4,16 +4,8 @@
 export EDITOR="vim"
 bindkey -v
 
-#########################################################################
-# Tool paths
-#########################################################################
-export JAVA_HOME=$(/usr/libexec/java_home)
+# Go
 export GOPATH=~/dev/Go
-
-#########################################################################
-# Tool settings
-#########################################################################
-export NVM_DIR=~/.nvm
 
 # GPG
 export GPG_TTY=$(tty)
@@ -22,18 +14,28 @@ then
   eval $(gpg-agent --daemon)
 fi
 
+# Java/Android
+# export ANDROID_HOME=/usr/local/share/android-sdk
+# export ANDROID_NDK_HOME=/usr/local/share/android-ndk
+# export GRADLE_HOME=/usr/local/opt/gradle
+# export JAVA_HOME=$(/usr/libexec/java_home)
+# export MAVEN_HOME=/usr/local/opt/maven
+
+# NVM/Node
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
 # virtualenvwrapper
-export WORKON_HOME=~/.virtualenvs
-export PROJECT_HOME=~/dev
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/dev
 source /usr/local/bin/virtualenvwrapper.sh
 
-#########################################################################
-# Dotfiles paths
-#########################################################################
+# dotfiles
 export DOTFILES="$HOME/dev/dotfiles"
 export HOMEDIR="$DOTFILES/homedir"
 source $HOMEDIR/.shellvars_private
-
 
 # TODO: find out why/where these are getting exported
 # unset these to allow multiple git users to be used on the same machine

@@ -43,11 +43,11 @@ Session.vim
 *~
 
 
-#############
-# JetBrains #
-#############
+########
+# IDEs #
+########
 .idea
-
+.vscode
 
 #########
 # Maven #

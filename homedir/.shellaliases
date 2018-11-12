@@ -3,6 +3,7 @@
 #################################
 # Simple Program Name Shortening
 alias g=git
+alias lg=lazygit
 
 
 #############################

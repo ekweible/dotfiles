@@ -1,0 +1,11 @@
+class JOBS:
+    CHANGE_SHELL = 'change_shell'
+    CONFIGURE_SETTINGS = 'configure_settings'
+    IMPORT_GPG_KEYS = 'import_gpg_keys'
+    INSTALL_FONTS = 'install_fonts'
+    LINK_DOTFILES = 'link_dotfiles'
+    OPEN_NON_CASKED_APPS = 'open_non_casked_apps'
+    SYNC_GIT = 'sync_git'
+    UPDATE_ZSH_THEME = 'update_zsh_theme'
+    UPGRADE_BREW_CASKS = 'upgrade_brew_casks'
+    UPGRADE_BREW_PACKAGES = 'upgrade_brew_packages'
