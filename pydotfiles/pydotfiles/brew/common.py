@@ -72,3 +72,5 @@ def run_brew(brew_command):
     if brew_command.command_runner(input):
         for profile_name in selected_profiles:
             brew_command.json_updater(profile_name, input)
+        profiles.commit_and_push_changes(
+            'Brew %s: %s' % (brew_command.input_name, input))

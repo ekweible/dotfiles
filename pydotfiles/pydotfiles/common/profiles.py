@@ -1,5 +1,6 @@
 import json
 from os import environ
+import subprocess
 from sys import exit
 
 from clint.textui import puts, puts_err, colored
@@ -7,6 +8,65 @@ from clint.textui import puts, puts_err, colored
 from .constants import ENV, PATHS
 
 cached_profiles_json = None
+
+
+def ensure_master_branch_checked_out():
+    master_branch_check = subprocess.Popen(
+        ['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=PATHS.DOTFILES_PRIVATE, stdout=subprocess.PIPE)
+    master_branch_check.text_mode = True
+    stdout, _ = master_branch_check.communicate()
+    current_branch = str(stdout)
+    if 'master' not in current_branch:
+        puts_err(colored.red('! master branch not checked out here: %s' %
+                             PATHS.DOTFILES_PRIVATE))
+        exit(1)
+        return
+
+
+def fail_if_staged_changes():
+    # Check for pre-existing staged changes. This will exit with 1 if there are
+    # any staged changes, in which case we should exit early.
+    staged_changes_check = subprocess.Popen(
+        ['git', 'diff', '--cached', '--quiet'], cwd=PATHS.DOTFILES_PRIVATE)
+    return_code = staged_changes_check.wait()
+    if return_code != 0:
+        puts_err(colored.red(
+            '! There are already changes staged; cannot commit and push profiles.json changes.'))
+        exit(return_code)
+        return
+
+
+def commit_and_push_changes(commit_msg):
+    ensure_master_branch_checked_out()
+    fail_if_staged_changes()
+
+    puts(colored.magenta('>> Committing and pushing changes to profiles.json:'))
+
+    def run_git_cmd(command_and_args):
+        p = subprocess.Popen(command_and_args, cwd=PATHS.DOTFILES_PRIVATE)
+        return_code = p.wait()
+        if return_code != 0:
+            puts_err(colored.red('! %s failed' % ' '.join(command_and_args)))
+            exit(return_code)
+
+    run_git_cmd(['git', 'add', 'profiles.json'])
+    run_git_cmd(['git', 'commit', '-m', commit_msg])
+    run_git_cmd(['git', 'push', 'origin', 'master'])
+    puts(colored.green('✔'))
+
+
+def pull_changes():
+    ensure_master_branch_checked_out()
+
+    puts(colored.magenta('>> Pulling latest dotfiles_private changes:'))
+    p = subprocess.Popen(['git', 'pull'], cwd=PATHS.DOTFILES_PRIVATE)
+    return_code = p.wait()
+    if return_code == 0:
+        puts(colored.green('✔'))
+        return True
+
+    puts_err(colored.red('! git pull failed'))
+    exit(return_code)
 
 
 def get_current_name(exit_if_not_set=False):

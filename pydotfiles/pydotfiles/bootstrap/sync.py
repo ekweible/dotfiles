@@ -8,6 +8,7 @@ from pydotfiles.common import util
 
 
 def main():
+    profiles.pull_changes()
     current_profile_name = profiles.get_current_name(exit_if_not_set=True)
     puts(colored.blue('Profile: %s' % current_profile_name))
 

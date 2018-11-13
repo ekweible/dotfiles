@@ -25,12 +25,13 @@ Temporary Items
 ############
 id_rsa
 
-
 ###########
 # Tooling #
 ###########
 .vagrant/
 
+# Coverage directory used by tools like istanbul
+coverage
 
 #######
 # VIM #
@@ -41,7 +42,6 @@ id_rsa
 Session.vim
 .netrwhist
 *~
-
 
 ########
 # IDEs #
@@ -59,7 +59,6 @@ pom.xml.versionsBackup
 pom.xml.next
 release.properties
 
-
 ############
 # Node, JS #
 ############
@@ -71,16 +70,12 @@ pids
 *.pid
 *.seed
 
-# Coverage directory used by tools like istanbul
-coverage
-
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
 # JS dependency directories
 bower_components
 node_modules
-
 
 ########
 # Dart #
@@ -89,7 +84,6 @@ node_modules
 .packages
 .pub
 packages
-
 
 ##########
 # Python #

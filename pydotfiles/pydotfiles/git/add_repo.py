@@ -72,6 +72,9 @@ def main():
         profiles.update_profile_git_workspace_add_git_repo(
             profile_name, workspace, url, target_dirname)
         puts(colored.green('✔'))
+        puts('')
+        profiles.commit_and_push_changes(
+            'Git Repo: %s > %s' % (workspace, target_dirname))
     else:
         puts_err(colored.red('! git clone failed'))
         exit(return_code)

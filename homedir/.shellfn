@@ -3,14 +3,21 @@
 #########################################
 # Utility Functions
 
-function dockerenv() {
-  source ~/.docker_integration
+
+# Switch primary Dart install to Dart 1.x
+function d1() {
+  brew unlink dart
+  brew unlink dart@1
+  brew switch dart@1 1.24.3
+  brew link --force dart@1
+  dart --version
 }
 
-function pr() {
-  local branch="$(git rev-parse --abbrev-ref HEAD)"
-  local remote="$(git remote -v | grep origin -m 1 |  sed 's/.*git@github.com:\(.*\)\/.*/\1/g')"
-  local repo="$(git remote -v | grep origin -m 1 |  sed 's/.*git@github.com:.*\/\(.*\)\.git.*/\1/g')"
-
-  open "https://github.com/${remote}/${repo}/compare/${branch}?expand=1"
+# Switch primary Dart install to Dart 2.x
+function d2() {
+  brew unlink dart
+  brew unlink dart@1
+  brew switch dart 2.0.0
+  brew link dart
+  dart --version
 }

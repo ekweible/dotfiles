@@ -89,6 +89,9 @@ def main():
         profiles.update_profile_git_workspace_add_git_remote(
             profile_name, workspace, dirname, remote_name, remote_url)
         puts(colored.green('✔'))
+        puts('')
+        profiles.commit_and_push_changes(
+            'Git Remote: %s > %s > %s' % (workspace, dirname, remote_name))
     else:
         puts_err(colored.red('! git fetch failed'))
         exit(return_code)
