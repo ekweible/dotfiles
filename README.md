@@ -3,7 +3,7 @@
 - [Credit](#credit)
 - [What/why?](#whatwhy)
 - [How](#how)
-- [Tools](#command-line-tools)
+- [Tools](#tools)
 - [New machine setup](#new-machine-setup)
 
 ## Credit
@@ -346,7 +346,12 @@ _TODO: insert gif_
 
     ```bash
     git remote set-url origin git@github.com-ekweible:ekweible/dotfiles.git
+    git remote set-url origin git@github.com-ekweible:ekweible/dotfiles_private.git
     ```
+
+### System Preferences
+
+TODO
 
 [atomantic-dotfiles]: https://github.com/atomantic/dotfiles
 [holman-dotfiles]: https://github.com/holman/dotfiles
