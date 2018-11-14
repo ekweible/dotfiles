@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 
 source ~/.virtualenvs/dotfiles/bin/activate
-python ~/dev/dotfiles/pydotfiles/pydotfiles/git/add_repo.py
-
-# TODO: cd into newly created repo directory
+python ~/dev/dotfiles/pydotfiles/pydotfiles/bin/pgclone.py

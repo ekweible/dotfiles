@@ -2,7 +2,7 @@ from clint.textui import colored, puts, puts_err
 from PyInquirer import prompt
 
 from pydotfiles.bootstrap.constants import JOBS
-from pydotfiles.common import profiles
+from pydotfiles.util_with_io import profiles
 
 
 def jobs_filter(answers):

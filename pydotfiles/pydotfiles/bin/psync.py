@@ -3,12 +3,11 @@ from sys import exit
 from PyInquirer import prompt
 from clint.textui import colored, puts, puts_err
 
-from pydotfiles.common import profiles
-from pydotfiles.common import util
+from pydotfiles.util_with_io import brew, git, git_sync, profiles
 
 
 def main():
-    profiles.pull_changes()
+    git.dotfiles_private_pull_latest()
     current_profile_name = profiles.get_current_name(exit_if_not_set=True)
     puts(colored.blue('Profile: %s' % current_profile_name))
 
@@ -20,8 +19,7 @@ def main():
     workspace_names = profiles.read_git_workspace_names()
     workspace_info = []
     for workspace_name in workspace_names:
-        num_repos = len(profiles.read_git_workspace(
-            workspace_name)['repos'].keys())
+        num_repos = len(profiles.read_git_workspace_repos(workspace_name))
         workspace_info.append('%s: %d repos' % (workspace_name, num_repos))
 
     answers = prompt([
@@ -46,13 +44,13 @@ def main():
 
     for job in answers['jobs']:
         if job.startswith('Brew'):
-            util.update_brew()
-            util.install_or_upgrade_brew_formulae()
-            util.install_or_upgrade_brew_casks()
+            brew.update()
+            brew.tap_all_repos(profiles.read_brew_taps())
+            brew.install_or_upgrade_all_formulae(profiles.read_brew_formulae())
+            brew.install_or_upgrade_all_casks(profiles.read_brew_casks())
 
         if job.startswith('Git workspaces'):
-            for workspace_name in workspace_names:
-                puts(colored.magenta('>> Syncing %s workspace:' % workspace_name))
+            git_sync.run()
 
 
 main()

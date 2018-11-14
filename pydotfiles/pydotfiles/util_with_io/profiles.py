@@ -3,70 +3,12 @@ from os import environ
 import subprocess
 from sys import exit
 
-from clint.textui import puts, puts_err, colored
+from clint.textui import colored, puts, puts_err
 
-from .constants import ENV, PATHS
+from pydotfiles.constants import ENV, PATHS
+from pydotfiles.util_with_io import git
 
 cached_profiles_json = None
-
-
-def ensure_master_branch_checked_out():
-    master_branch_check = subprocess.Popen(
-        ['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=PATHS.DOTFILES_PRIVATE, stdout=subprocess.PIPE)
-    master_branch_check.text_mode = True
-    stdout, _ = master_branch_check.communicate()
-    current_branch = str(stdout)
-    if 'master' not in current_branch:
-        puts_err(colored.red('! master branch not checked out here: %s' %
-                             PATHS.DOTFILES_PRIVATE))
-        exit(1)
-        return
-
-
-def fail_if_staged_changes():
-    # Check for pre-existing staged changes. This will exit with 1 if there are
-    # any staged changes, in which case we should exit early.
-    staged_changes_check = subprocess.Popen(
-        ['git', 'diff', '--cached', '--quiet'], cwd=PATHS.DOTFILES_PRIVATE)
-    return_code = staged_changes_check.wait()
-    if return_code != 0:
-        puts_err(colored.red(
-            '! There are already changes staged; cannot commit and push profiles.json changes.'))
-        exit(return_code)
-        return
-
-
-def commit_and_push_changes(commit_msg):
-    ensure_master_branch_checked_out()
-    fail_if_staged_changes()
-
-    puts(colored.magenta('>> Committing and pushing changes to profiles.json:'))
-
-    def run_git_cmd(command_and_args):
-        p = subprocess.Popen(command_and_args, cwd=PATHS.DOTFILES_PRIVATE)
-        return_code = p.wait()
-        if return_code != 0:
-            puts_err(colored.red('! %s failed' % ' '.join(command_and_args)))
-            exit(return_code)
-
-    run_git_cmd(['git', 'add', 'profiles.json'])
-    run_git_cmd(['git', 'commit', '-m', commit_msg])
-    run_git_cmd(['git', 'push', 'origin', 'master'])
-    puts(colored.green('✔'))
-
-
-def pull_changes():
-    ensure_master_branch_checked_out()
-
-    puts(colored.magenta('>> Pulling latest dotfiles_private changes:'))
-    p = subprocess.Popen(['git', 'pull'], cwd=PATHS.DOTFILES_PRIVATE)
-    return_code = p.wait()
-    if return_code == 0:
-        puts(colored.green('✔'))
-        return True
-
-    puts_err(colored.red('! git pull failed'))
-    exit(return_code)
 
 
 def get_current_name(exit_if_not_set=False):
@@ -78,14 +20,6 @@ def get_current_name(exit_if_not_set=False):
     return current_profile_name
 
 
-def load_json():
-    global cached_profiles_json
-    if not cached_profiles_json:
-        with open(PATHS.PROFILES_JSON, 'r') as f:
-            cached_profiles_json = json.load(f)
-    return cached_profiles_json
-
-
 def read(profile_name=None):
     if not profile_name:
         profile_name = get_current_name(exit_if_not_set=True)
@@ -94,7 +28,15 @@ def read(profile_name=None):
 
 
 def read_all():
-    return load_json()
+    global cached_profiles_json
+    if not cached_profiles_json:
+        with open(PATHS.PROFILES_JSON, 'r') as f:
+            cached_profiles_json = json.load(f)
+    return cached_profiles_json
+
+
+def read_app_download_urls(profile_name=None):
+    return read(profile_name)['apps']
 
 
 def read_brew(profile_name=None):
@@ -121,14 +63,43 @@ def read_git_workspace_names(profile_name=None):
     return read_git_workspaces(profile_name).keys()
 
 
+def read_git_workspace_repos(git_user, profile_name=None):
+    return read_git_workspace(git_user, profile_name)['repos']
+
+
+def read_git_workspace_repo_items(git_user, profile_name=None):
+    json = read_git_workspace_repos(git_user, profile_name)
+    return [(repo_dirname, repo_json['url']) for repo_dirname, repo_json in json.items()]
+
+
+def read_git_workspace_repo(git_user, repo_dirname, profile_name=None):
+    return read_git_workspace_repos(git_user, profile_name)[repo_dirname]
+
+
+def read_git_workspace_repo_remotes(git_user, repo_dirname, profile_name=None):
+    return read_git_workspace_repo(git_user, repo_dirname, profile_name)['remotes']
+
+
+def read_git_workspace_repo_remote_items(git_user, repo_dirname, profile_name=None):
+    return read_git_workspace_repo_remotes(git_user, repo_dirname, profile_name).items()
+
+
 def read_git_workspaces(profile_name=None):
     profile_json = read(profile_name)
     return profile_json['git_workspaces']
 
 
+def read_git_workspace_config(git_user, profile_name=None):
+    git_workspace = read_git_workspace(git_user, profile_name=profile_name)
+    return {
+        'user.name': git_workspace['user'],
+        'user.email': git_workspace['email'],
+        'user.signingkey': git_workspace['signingkey'],
+    }
+
+
 def read_git_workspace_ssh_config(git_user, profile_name=None):
-    git_workspace = read_git_workspace(
-        git_user, profile_name=profile_name)
+    git_workspace = read_git_workspace(git_user, profile_name=profile_name)
     return git_workspace['ssh_config']
 
 
@@ -136,7 +107,7 @@ def read_names():
     return read_all().keys()
 
 
-def update_profiles(updater):
+def update_all_profiles(updater):
     write_json(updater(read_all()))
 
 
@@ -145,7 +116,16 @@ def update_profile(profile_name, updater):
         profiles[profile_name] = updater(profiles[profile_name])
         return profiles
 
-    update_profiles(profiles_updater)
+    update_all_profiles(profiles_updater)
+
+
+def update_profile_add_app_download_url(profile_name, url):
+    def profile_updater(profile):
+        if url not in profile['apps']:
+            profile['apps'].append(url)
+        return profile
+
+    update_profile(profile_name, profile_updater)
 
 
 def update_profile_add_brew_cask(profile_name, cask):
@@ -170,6 +150,14 @@ def update_profile_add_brew_tap(profile_name, tap):
     def profile_updater(profile):
         if tap not in profile['brew']['taps']:
             profile['brew']['taps'].append(tap)
+        return profile
+
+    update_profile(profile_name, profile_updater)
+
+
+def update_profile_remove_app_download_url(profile_name, url):
+    def profile_updater(profile):
+        profile['apps'].remove(url)
         return profile
 
     update_profile(profile_name, profile_updater)
@@ -208,6 +196,14 @@ def update_profile_git_workspace(profile_name, git_workspace, updater):
     update_profile(profile_name, profile_updater)
 
 
+def update_profile_git_workspace_add_git_remote(profile_name, git_workspace, dirname, remote_name, remote_url):
+    def git_workspace_updater(git_workspace):
+        git_workspace['repos'][dirname]['remotes'][remote_name] = remote_url
+        return git_workspace
+
+    return update_profile_git_workspace(profile_name, git_workspace, git_workspace_updater)
+
+
 def update_profile_git_workspace_add_git_repo(profile_name, git_workspace, url, dirname):
     def git_workspace_updater(git_workspace):
         git_workspace['repos'][dirname] = {
@@ -219,9 +215,19 @@ def update_profile_git_workspace_add_git_repo(profile_name, git_workspace, url, 
     return update_profile_git_workspace(profile_name, git_workspace, git_workspace_updater)
 
 
-def update_profile_git_workspace_add_git_remote(profile_name, git_workspace, dirname, remote_name, remote_url):
+def update_profile_git_workspace_remove_git_remote(profile_name, git_workspace, dirname, remote_name):
     def git_workspace_updater(git_workspace):
-        git_workspace['repos'][dirname]['remotes'][remote_name] = remote_url
+        if remote_name in git_workspace['repos'][dirname]['remotes']:
+            git_workspace['repos'][dirname]['remotes'].pop(remote_name)
+        return git_workspace
+
+    return update_profile_git_workspace(profile_name, git_workspace, git_workspace_updater)
+
+
+def update_profile_git_workspace_remove_git_repo(profile_name, git_workspace, dirname):
+    def git_workspace_updater(git_workspace):
+        if dirname in git_workspace['repos']:
+            git_workspace['repos'].pop(dirname)
         return git_workspace
 
     return update_profile_git_workspace(profile_name, git_workspace, git_workspace_updater)
@@ -234,6 +240,7 @@ def write_json(profiles_json):
         exit(1)
 
     for profile in profiles_json.values():
+        profile['apps'].sort()
         profile['brew']['casks'].sort()
         profile['brew']['formulae'].sort()
         profile['brew']['taps'].sort()

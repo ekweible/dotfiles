@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 source ~/.virtualenvs/dotfiles/bin/activate
-python ~/dev/dotfiles/pydotfiles/pydotfiles/git/add_remote.py
+python ~/dev/dotfiles/pydotfiles/pydotfiles/bin/pgaddr.py

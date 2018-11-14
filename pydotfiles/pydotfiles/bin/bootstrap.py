@@ -10,19 +10,13 @@ from PyInquirer import prompt
 
 from pydotfiles.bootstrap.constants import JOBS
 from pydotfiles.bootstrap.questions import ask_bootstrap_questions
-from pydotfiles.common.constants import PATHS
-from pydotfiles.common import profiles
-from pydotfiles.common import util
+from pydotfiles.constants import PATHS
+from pydotfiles.util_with_io import brew, git, git_sync, profiles
 
-cached_brew_list = None
-cached_brew_cask_list = None
-cached_brew_tap_list = None
+
 link_dotfiles_overwrite_all = None
 link_dotfiles_backup_all = None
 link_dotfiles_skip_all = None
-
-
-CWD = '%s/dev/dotfiles' % os.environ['HOME']
 
 
 def change_shell_to_zsh():
@@ -37,9 +31,9 @@ def change_shell_to_zsh():
             ['sudo', 'dscl', '.', 'change', PATHS.HOME, 'UserShell', '/bin/bash', '/bin/zsh'])
         return_code = change_shell_proc.wait()
         if return_code == 0:
-            puts(colored.green('✔'))
+            puts(colored.green('✔\n'))
         else:
-            puts_err(colored.red('! failed to change user shell to zsh'))
+            puts_err(colored.red('! failed to change user shell to zsh\n'))
     puts('')
 
 
@@ -48,10 +42,9 @@ def configure_iterm2():
     p = subprocess.Popen(['/bin/bash', PATHS.SCRIPTS_CONFIGURE_ITERM2])
     return_code = p.wait()
     if return_code == 0:
-        puts(colored.green('✔'))
+        puts(colored.green('✔\n'))
     else:
-        puts_err(colored.red('! failed to configure iterm2'))
-    puts('')
+        puts_err(colored.red('! failed to configure iterm2\n'))
 
 
 def configure_system_settings():
@@ -60,10 +53,9 @@ def configure_system_settings():
         ['/bin/bash', PATHS.SCRIPTS_CONFIGURE_SYSTEM_SETTINGS])
     return_code = p.wait()
     if return_code == 0:
-        puts(colored.green('✔'))
+        puts(colored.green('✔\n'))
     else:
-        puts_err(colored.red('! failed to configure system settings'))
-    puts('')
+        puts_err(colored.red('! failed to configure system settings\n'))
 
 
 def create_git_workspace_dirs(profile_name):
@@ -73,8 +65,7 @@ def create_git_workspace_dirs(profile_name):
         workspace_path = '%s/%s' % (PATHS.DEV_WORKSPACE, user)
         os.makedirs(workspace_path, exist_ok=True)
         puts(workspace_path)
-    puts(colored.green('✔'))
-    puts('')
+    puts(colored.green('✔\n'))
 
 
 def import_gpg_keys(profile_name):
@@ -82,12 +73,12 @@ def import_gpg_keys(profile_name):
 
     gpg_dir = '%s/%s/gpg' % (PATHS.DOTFILES_PRIVATE, profile_name)
     if not os.path.isdir(gpg_dir):
-        puts_err(colored.red('! no `gpg` directory here: %s' % gpg_dir))
+        puts_err(colored.red('! no `gpg` directory here: %s\n' % gpg_dir))
         return
 
     owner_trust_txt = '%s/ownertrust.txt' % gpg_dir
     if not os.path.isfile(owner_trust_txt):
-        puts_err(colored.red('! no `ownertrust.txt` found here: %s' % gpg_dir))
+        puts_err(colored.red('! no `ownertrust.txt` found here: %s\n' % gpg_dir))
         return
 
     errors = False
@@ -97,7 +88,7 @@ def import_gpg_keys(profile_name):
     if return_code == 0:
         puts('imported %s' % owner_trust_txt)
     else:
-        puts_err(colored.red('! failed to import %s' % owner_trust_txt))
+        puts_err(colored.red('! failed to import %s\n' % owner_trust_txt))
         errors = True
 
     for _, _, filenames in os.walk(gpg_dir):
@@ -109,12 +100,11 @@ def import_gpg_keys(profile_name):
                 if return_code == 0:
                     puts('imported %s' % path)
                 else:
-                    puts_err(colored.red('! failed to import %s' % path))
+                    puts_err(colored.red('! failed to import %s\n' % path))
                     errors = True
 
     if not errors:
-        puts(colored.green('✔'))
-    puts('')
+        puts(colored.green('✔\n'))
 
 
 def install_fonts():
@@ -123,10 +113,9 @@ def install_fonts():
     p = subprocess.Popen(['/bin/bash', PATHS.FONTS_INSTALL_SCRIPT])
     return_code = p.wait()
     if return_code == 0:
-        puts(colored.green('✔'))
+        puts(colored.green('✔\n'))
     else:
-        puts_err(colored.red('! failed to install fonts'))
-    puts('')
+        puts_err(colored.red('! failed to install fonts\n'))
 
 
 def install_or_update_powerlevel9k_theme():
@@ -136,21 +125,20 @@ def install_or_update_powerlevel9k_theme():
             ['git', 'clone', 'https://github.com/bhilburn/powerlevel9k.git', PATHS.POWERLEVEL9K_THEME])
         return_code = clone_proc.wait()
         if return_code == 0:
-            puts(colored.green('✔'))
+            puts(colored.green('✔\n'))
         else:
             puts_err(colored.red(
-                '! failed to install powerlevel9k oh-my-zsh theme'))
+                '! failed to install powerlevel9k oh-my-zsh theme\n'))
     else:
         puts(colored.magenta('>> Updating powerlevel9k oh-my-zsh theme:'))
         clone_proc = subprocess.Popen(
             ['git', 'pull'], cwd=PATHS.POWERLEVEL9K_THEME)
         return_code = clone_proc.wait()
         if return_code == 0:
-            puts(colored.green('✔'))
+            puts(colored.green('✔\n'))
         else:
             puts_err(colored.red(
-                '! failed to update powerlevel9k oh-my-zsh theme'))
-    puts('')
+                '! failed to update powerlevel9k oh-my-zsh theme\n'))
 
 
 def link_file(src, dest):
@@ -208,8 +196,7 @@ def link_dotfiles(profile_name):
     puts(colored.magenta('>> Linking dotfiles to ~/'))
     link_dotfiles_dir(PATHS.HOMEDIR)
     link_dotfiles_dir('%s/%s/homedir' % (PATHS.DOTFILES_PRIVATE, profile_name))
-    puts(colored.green('✔'))
-    puts('')
+    puts(colored.green('✔\n'))
 
 
 def link_dotfiles_dir(home_dirname):
@@ -239,6 +226,14 @@ def link_dotfiles_dir(home_dirname):
         break
 
 
+def open_app_download_urls(urls):
+    puts(colored.magenta('>> Opening download urls for non-casked apps:'))
+    for url in urls:
+        p = subprocess.Popen(['open', url])
+        p.wait()
+    puts(colored.green('✔\n'))
+
+
 def write_shellvars_private(profile_name):
     puts(colored.magenta('>> Writing private profile vars:'))
     with open(PATHS.TEMPLATES_SHELLVARS_PRIVATE, 'r') as f:
@@ -247,8 +242,7 @@ def write_shellvars_private(profile_name):
         for line in lines:
             out.write(re.sub(r'export DOTFILES_PROFILE="DOTFILES_PROFILE"',
                              'export DOTFILES_PROFILE="%s"' % profile_name, line))
-    puts(colored.green('✔'))
-    puts('')
+    puts(colored.green('✔\n'))
 
 
 def write_git_config(profile_name):
@@ -268,8 +262,7 @@ def write_git_config(profile_name):
                 line = re.sub(r'GIT_AUTHOR_EMAIL', email, line)
                 out.write(line)
 
-        puts(colored.green('✔'))
-        puts('')
+        puts(colored.green('✔\n'))
         break
 
 
@@ -293,8 +286,7 @@ def write_ssh_config(profile_name):
             out.write('\n'.join(lines) + '\n\n')
             for line in lines:
                 puts(line)
-    puts(colored.green('✔'))
-    puts('')
+    puts(colored.green('✔\n'))
 
 
 def main():
@@ -308,21 +300,23 @@ def main():
         link_dotfiles(selected_profile_name)
 
     if JOBS.UPGRADE_BREW_PACKAGES in jobs or JOBS.UPGRADE_BREW_CASKS in jobs:
-        util.update_brew()
-        util.tap_brew_repos(selected_profile_name)
+        brew.update()
+        brew_taps = profiles.read_brew_taps(selected_profile_name)
+        brew.tap_all_repos(brew_taps)
 
     if JOBS.UPGRADE_BREW_PACKAGES in jobs:
-        util.install_or_upgrade_brew_formulae(selected_profile_name)
+        brew_formulae = profiles.read_brew_formulae(selected_profile_name)
+        brew.install_or_upgrade_all_formulae(brew_formulae)
 
     if JOBS.UPGRADE_BREW_CASKS in jobs:
-        util.install_or_upgrade_brew_casks(selected_profile_name)
+        brew_casks = profiles.read_brew_casks(selected_profile_name)
+        brew.install_or_upgrade_all_casks(brew_casks)
 
     if JOBS.IMPORT_GPG_KEYS in jobs:
         import_gpg_keys(selected_profile_name)
 
     if JOBS.SYNC_GIT in jobs:
-        # TODO
-        pass
+        git_sync.run(selected_profile_name)
 
     if JOBS.CONFIGURE_SETTINGS in jobs:
         configure_iterm2()
@@ -338,8 +332,9 @@ def main():
         change_shell_to_zsh()
 
     if JOBS.OPEN_NON_CASKED_APPS in jobs:
-        # TODO
-        pass
+        app_download_urls = profiles.read_app_download_urls(
+            selected_profile_name)
+        open_app_download_urls(app_download_urls)
 
 
 main()

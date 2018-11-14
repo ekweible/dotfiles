@@ -61,4 +61,4 @@ fi
 running "installing python dependencies and switching to python bootstrap script"
 source $HOME/.virtualenvs/dotfiles/bin/activate \
   && cd pydotfiles && pip3 install -r requirements.txt > pip_install_stdout.txt && rm pip_install_stdout.txt && cd - \
-  && python pydotfiles/pydotfiles/bootstrap/bootstrap.py
+  && python pydotfiles/pydotfiles/bin/bootstrap.py

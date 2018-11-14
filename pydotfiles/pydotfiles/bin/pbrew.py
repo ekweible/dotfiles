@@ -6,9 +6,8 @@ from sys import exit
 from clint.textui import colored, puts, puts_err
 from PyInquirer import prompt
 
-from pydotfiles.common import profiles
-from pydotfiles.common.constants import PATHS
-from pydotfiles.common import util
+from pydotfiles.util_with_io import brew, git, profiles
+from pydotfiles.constants import PATHS
 
 
 class BrewCommand:
@@ -20,31 +19,33 @@ class BrewCommand:
 
 BREW_INSTALL_FORMULA = BrewCommand(
     'Formula',
-    util.install_brew_formula,
+    brew.install_formula,
     profiles.update_profile_add_brew_formula)
 BREW_INSTALL_CASK = BrewCommand(
     'Cask',
-    util.install_brew_cask,
+    brew.install_cask,
     profiles.update_profile_add_brew_cask)
 BREW_TAP = BrewCommand(
     'Tap',
-    util.tap_brew_repo,
+    brew.tap_repo,
     profiles.update_profile_add_brew_tap)
-# BREW_UNINSTALL_FORMULA = BrewCommand(
-#     'Formula',
-#     # ['brew', 'uninstall'],
-#     profiles.update_profile_remove_brew_formula)
-# BREW_UNINSTALL_CASK = BrewCommand(
-#     'Cask',
-#     # ['brew', 'cask', 'uninstall'],
-#     profiles.update_profile_remove_brew_cask)
-# BREW_UNTAP = BrewCommand(
-#     'Tap',
-#     # ['brew', 'untap'],
-#     profiles.update_profile_remove_brew_tap)
+BREW_UNINSTALL_FORMULA = BrewCommand(
+    'Uninstall Formula',
+    brew.uninstall_formula,
+    profiles.update_profile_remove_brew_formula)
+BREW_UNINSTALL_CASK = BrewCommand(
+    'Uninstall Cask',
+    brew.uninstall_cask,
+    profiles.update_profile_remove_brew_cask)
+BREW_UNTAP = BrewCommand(
+    'Untap',
+    brew.untap_repo,
+    profiles.update_profile_remove_brew_tap)
 
 
-def run_brew(brew_command):
+def run(brew_command):
+    git.dotfiles_private_pull_latest()
+
     profile = profiles.get_current_name(exit_if_not_set=True)
     profile_names = profiles.read_names()
     profile_choices = [{'name': n, 'checked': n == profile}
@@ -58,7 +59,7 @@ def run_brew(brew_command):
         {
             'name': 'profiles',
             'type': 'checkbox',
-            'message': 'Which profiles should this be associated with:',
+            'message': 'Which profiles should this affect:',
             'choices': profile_choices,
         },
     ])
@@ -72,5 +73,5 @@ def run_brew(brew_command):
     if brew_command.command_runner(input):
         for profile_name in selected_profiles:
             brew_command.json_updater(profile_name, input)
-        profiles.commit_and_push_changes(
+        git.dotfiles_private_commit_and_push_changes(
             'Brew %s: %s' % (brew_command.input_name, input))
