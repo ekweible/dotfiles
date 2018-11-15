@@ -124,7 +124,7 @@ def remove_remote(name, exit_on_error=False):
 
 
 def set_configs(configs, cwd=None, exit_on_error=False):
-    puts(colored.magenta('>> Configuring git repo:'))
+    puts(colored.magenta('>> Configuring git repo: %s' % cwd or ''))
     for key, value in configs.items():
         success, _ = git.set_config(key, value, cwd=cwd)
         if success:
