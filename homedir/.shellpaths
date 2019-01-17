@@ -11,6 +11,9 @@ export PATH=/usr/local/bin:$PATH
 # Dart
 export PATH=$PATH:~/.pub-cache/bin
 
+# Flutter
+export PATH=$PATH:~/dev/flutter/bin
+
 # GO
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export PATH=$PATH:$GOPATH/bin
