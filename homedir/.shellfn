@@ -13,11 +13,20 @@ function d1() {
   dart --version
 }
 
-# Switch primary Dart install to Dart 2.x
+# Switch primary Dart install to Dart 2.0.0
 function d2() {
   brew unlink dart
   brew unlink dart@1
   brew switch dart 2.0.0
+  brew link dart
+  dart --version
+}
+
+# Switch primary Dart install to Dart 2.1.0
+function d21() {
+  brew unlink dart
+  brew unlink dart@1
+  brew switch dart 2.1.0
   brew link dart
   dart --version
 }
