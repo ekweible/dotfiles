@@ -14,9 +14,11 @@ def jobs_filter(answers):
         'Generate & link all dotfiles': JOBS.LINK_DOTFILES,
         'Open non-casked app download pages': JOBS.OPEN_NON_CASKED_APPS,
         'Sync git repositories': JOBS.SYNC_GIT,
+        'Install NVM': JOBS.INSTALL_NVM,
         'Install/update the powerlevel9k oh-my-zsh theme': JOBS.UPDATE_ZSH_THEME,
         'Install/upgrade brew casks': JOBS.UPGRADE_BREW_CASKS,
         'Install/upgrade brew packages': JOBS.UPGRADE_BREW_PACKAGES,
+        'Install/upgrade ruby gems': JOBS.UPGRADE_GEM_RAKES,
     }
     return [answer_map.get(answer) for answer in answers]
 
@@ -56,6 +58,14 @@ def ask_bootstrap_questions():
                 {
                     'name': 'Install/upgrade brew casks',
                     'checked': True,
+                },
+                {
+                    'name': 'Install/upgrade gem rakes',
+                    'checked': True,
+                },
+                {
+                    'name': 'Install NVM',
+                    'checked': True
                 },
                 {
                     'name': 'Install/update the powerlevel9k oh-my-zsh theme',

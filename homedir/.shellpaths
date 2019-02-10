@@ -15,8 +15,10 @@ export PATH=$PATH:~/.pub-cache/bin
 export PATH=$PATH:~/dev/flutter/bin
 
 # GO
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+
+# Ruby
+export PATH=$PATH:$GEM_HOME/bin
 
 # Java/Android
 # export PATH=$MAVEN_HOME/bin:$PATH

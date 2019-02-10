@@ -55,6 +55,14 @@ def read_brew_taps(profile_name=None):
     return read_brew(profile_name)['taps']
 
 
+def read_gem(profile_name=None):
+    return read(profile_name)['gem']
+
+
+def read_gem_rakes(profile_name=None):
+    return read_gem(profile_name)['rakes']
+
+
 def read_git_workspace(git_user, profile_name=None):
     return read_git_workspaces(profile_name)[git_user]
 
@@ -154,6 +162,14 @@ def update_profile_add_brew_tap(profile_name, tap):
 
     update_profile(profile_name, profile_updater)
 
+
+def update_profile_add_gem_rake(profile_name, rake):
+    def proflie_updater(profile):
+        if rake not in profile['gem']['rakes']:
+            profile['gem']['rakes'].append(rake)
+        return profile
+
+    update_profile(profile_name, proflie_updater)
 
 def update_profile_remove_app_download_url(profile_name, url):
     def profile_updater(profile):

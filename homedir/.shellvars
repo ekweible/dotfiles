@@ -1,11 +1,14 @@
 #!/bin/sh
 
 # Set vim as default editor (vi is the default otherwise)
-export EDITOR="vim"
+export EDITOR=vim
 bindkey -v
 
 # Go
-export GOPATH=~/dev/Go
+export GOPATH=$HOME/dev/go
+export GOROOT=/usr/local/opt/go/libexec
+test -d $GOPATH || mkdir $GOPATH
+test -d $GOPATH/src/github.com || mkdir -p $GOPATH/src/github.com
 
 # GPG
 export GPG_TTY=$(tty)
@@ -17,16 +20,20 @@ fi
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home)
 
-# Java/Android
+# Ruby
+export GEM_HOME=$HOME/.gem
+
+# Java/Android/Maven
 # export ANDROID_HOME=/usr/local/share/android-sdk
 # export ANDROID_NDK_HOME=/usr/local/share/android-ndk
 # export GRADLE_HOME=/usr/local/opt/gradle
 # export JAVA_HOME=$(/usr/libexec/java_home)
 # export MAVEN_HOME=/usr/local/opt/maven
+export MAVEN_OPTS="-Xmx4096m -Xss1024m -XX:MaxPermSize=128m"
 
 # NVM/Node
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+export NVM_DIR="${XDG_CONFIG_HOME/:-$HOME/.}nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh --no-use" # This loads nvm
 
 # virtualenvwrapper
 export VIRTUALENVWRAPPER_PYTHON=$(which python3)

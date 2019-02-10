@@ -31,3 +31,4 @@ class PATHS:
     SCRIPTS = '%s/scripts' % DOTFILES
     SCRIPTS_CONFIGURE_ITERM2 = '%s/configure_iterm2.sh' % SCRIPTS
     SCRIPTS_CONFIGURE_SYSTEM_SETTINGS = '%s/configure_system_settings.sh' % SCRIPTS
+    SCRIPTS_INSTALL_NVM = '%s/install_nvm.sh' % SCRIPTS

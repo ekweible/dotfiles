@@ -11,7 +11,7 @@ from PyInquirer import prompt
 from pydotfiles.bootstrap.constants import JOBS
 from pydotfiles.bootstrap.questions import ask_bootstrap_questions
 from pydotfiles.constants import PATHS
-from pydotfiles.util_with_io import brew, git, git_sync, profiles
+from pydotfiles.util_with_io import brew, gem, git, git_sync, profiles
 
 
 link_dotfiles_overwrite_all = None
@@ -116,6 +116,16 @@ def install_fonts():
         puts(colored.green('✔\n'))
     else:
         puts_err(colored.red('! failed to install fonts\n'))
+
+
+def install_nvm():
+    puts(colored.magenta('>> Installing Node Version Manager:'))
+    p = subprocess.Popen(['/bin/bash', PATHS.SCRIPTS_CONFIGURE_ITERM2])
+    return_code = p.wait()
+    if return_code == 0:
+        puts(colored.green('✔\n'))
+    else:
+        puts_err(colored.red('! failed to install nvm\n'))
 
 
 def install_or_update_powerlevel9k_theme():
@@ -311,6 +321,13 @@ def main():
     if JOBS.UPGRADE_BREW_CASKS in jobs:
         brew_casks = profiles.read_brew_casks(selected_profile_name)
         brew.install_or_upgrade_all_casks(brew_casks)
+
+    if JOBS.UPGRADE_GEM_RAKES in jobs:
+        gem_rakes = profiles.read_gem_rakes(selected_profile_name)
+        gem.install_or_upgrade_all_gems(gem_rakes)
+
+    if JOBS.INSTALL_NVM in jobs:
+        install_nvm()
 
     if JOBS.IMPORT_GPG_KEYS in jobs:
         import_gpg_keys(selected_profile_name)

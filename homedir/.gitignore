@@ -48,6 +48,7 @@ Session.vim
 ########
 .idea
 .vscode
+.settings
 
 #########
 # Maven #
