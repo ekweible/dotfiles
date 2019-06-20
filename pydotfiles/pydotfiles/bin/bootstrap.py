@@ -213,7 +213,7 @@ def link_dotfiles_dir(home_dirname):
     # Link top-level dotfiles
     for _, _, filenames in os.walk(home_dirname):
         for filename in filenames:
-            src = '%s/%s' % (PATHS.HOMEDIR, filename)
+            src = '%s/%s' % (home_dirname, filename)
             dest = '%s/%s' % (PATHS.HOME, filename)
             link_file(src, dest)
         # only linking the top-level files (i.e. max-depth=1)

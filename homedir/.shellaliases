@@ -31,6 +31,7 @@ alias dotfilesp='cd $DOTFILES_PRIVATE/..'
 # dart
 alias ddev='pub run dart_dev'
 alias dartium='export DARTIUM_EXPIRATION_TIME=1577836800; DART_FLAGS="--checked --load_deferred_eagerly" open /usr/local/opt/dart@1/Chromium.app'
+alias pbr='pub run build_runner $@'
 alias repub='pubclean; pub get $@'
 alias pubclean='rm -r .pub/ && echo "Removed .pub/"; rm -r packages/ && echo "Removed packages/"; rm .packages && echo "Removed .packages"; pubcleanlock'
 alias pubcleanlock='git ls-files pubspec.lock --error-unmatch &>/dev/null && echo "Not removing pubspec.lock - it is tracked" || (rm pubspec.lock && echo "Removed pubspec.lock")'

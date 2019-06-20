@@ -4,9 +4,15 @@
 export EDITOR=vim
 bindkey -v
 
+# Brew
+# This prevents brew from automatically deleting old versions of all formulas
+# after an upgrade.
+export HOMEBREW_NO_INSTALL_CLEANUP="stop deleting my old versions"
+
 # Go
 export GOPATH=$HOME/dev/go
-export GOROOT=/usr/local/opt/go/libexec
+export GOROOT=/usr/local/opt/go@1.11/libexec
+# export GOROOT=/usr/local/opt/go/libexec
 test -d $GOPATH || mkdir $GOPATH
 test -d $GOPATH/src/github.com || mkdir -p $GOPATH/src/github.com
 
