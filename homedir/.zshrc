@@ -3,13 +3,21 @@ export ZSH=$HOME/dev/dotfiles/oh-my-zsh
 
 export TERM="xterm-256color"
 
+prompt_dart() {
+  local dart_version
+  dart_version=$(dart --version 2>&1 | grep -oe "\d*\.\d*\.\d*[^ ]*")
+
+  "$1_prompt_segment" "$0" "$2" "fuchsia" "white" "Dart $dart_version"
+}
+
 # if you want to use this, change your non-ascii font to Droid Sans Mono for Awesome
 # POWERLEVEL9K_MODE='awesome-patched'
 export ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 # https://github.com/bhilburn/powerlevel9k#customizing-prompt-segments
 # https://github.com/bhilburn/powerlevel9k/wiki/Stylizing-Your-Prompt
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv nvm node_version dir vcs)
+# Temporarily removed from left prompt: nvm node_version
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dart dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time swap time)
 # colorcode test
 # for code ({000..255}) print -P -- "$code: %F{$code}This is how your text would look like%f"
