@@ -22,9 +22,6 @@ alias ll='ls -l -G -h -p '
 
 # Workspaces
 alias dev='cd ~/dev/'
-alias devp='cd ~/dev/ekweible'
-alias devs='cd ~/dev/ekweible/sandbox'
-alias devw='cd ~/dev/evanweible-wf'
 alias dotfiles='cd $DOTFILES'
 alias dotfilesp='cd $DOTFILES_PRIVATE/..'
 

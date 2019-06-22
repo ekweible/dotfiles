@@ -3,6 +3,21 @@
 #########################################
 # Utility Functions
 
+function dp() {
+  cd $HOME/dev/ekweible/
+  if [ ! -z ${1+x} ]; then cd $1; fi
+}
+
+function dw() {
+  cd $HOME/dev/evanweible-wf/
+  if [ ! -z ${1+x} ]; then cd $1; fi
+}
+
+function ds() {
+  cd $HOME/dev/sandbox/
+  if [ ! -z ${1+x} ]; then cd $1; fi
+}
+
 export DART_2_VERSION="2.3.2"
 
 # Switch primary Dart install to Dart 1.x
