@@ -120,7 +120,7 @@ def install_fonts():
 
 def install_nvm():
     puts(colored.magenta('>> Installing Node Version Manager:'))
-    p = subprocess.Popen(['/bin/bash', PATHS.SCRIPTS_CONFIGURE_ITERM2])
+    p = subprocess.Popen(['/bin/bash', PATHS.SCRIPTS_INSTALL_NVM])
     return_code = p.wait()
     if return_code == 0:
         puts(colored.green('✔\n'))
