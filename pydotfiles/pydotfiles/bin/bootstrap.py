@@ -128,27 +128,15 @@ def install_nvm():
         puts_err(colored.red('! failed to install nvm\n'))
 
 
-def install_or_update_powerlevel9k_theme():
-    if not os.path.isdir(PATHS.POWERLEVEL9K_THEME):
-        puts(colored.magenta('>> Installing powerlevel9k oh-my-zsh theme:'))
-        clone_proc = subprocess.Popen(
-            ['git', 'clone', 'https://github.com/bhilburn/powerlevel9k.git', PATHS.POWERLEVEL9K_THEME])
-        return_code = clone_proc.wait()
-        if return_code == 0:
-            puts(colored.green('✔\n'))
-        else:
-            puts_err(colored.red(
-                '! failed to install powerlevel9k oh-my-zsh theme\n'))
+def init_and_update_submodules():
+    puts(colored.magenta('>> Initializing and updating submodules:'))
+    submodule_proc = subprocess.Popen(
+        ['git', 'submodule', 'update', '--init', '--remote'])
+    return_code = submodule_proc.wait()
+    if return_code == 0:
+        puts(colored.green('✔\n'))
     else:
-        puts(colored.magenta('>> Updating powerlevel9k oh-my-zsh theme:'))
-        clone_proc = subprocess.Popen(
-            ['git', 'pull'], cwd=PATHS.POWERLEVEL9K_THEME)
-        return_code = clone_proc.wait()
-        if return_code == 0:
-            puts(colored.green('✔\n'))
-        else:
-            puts_err(colored.red(
-                '! failed to update powerlevel9k oh-my-zsh theme\n'))
+        puts_err(colored.red('! failed to initialize or update submodules\n'))
 
 
 def link_file(src, dest):
@@ -309,6 +297,9 @@ def main():
         write_git_config(selected_profile_name)
         link_dotfiles(selected_profile_name)
 
+    if JOBS.UPDATE_SUBMODULES in jobs:
+        init_and_update_submodules()
+
     if JOBS.UPGRADE_BREW_PACKAGES in jobs or JOBS.UPGRADE_BREW_CASKS in jobs:
         brew.update()
         brew_taps = profiles.read_brew_taps(selected_profile_name)
@@ -341,9 +332,6 @@ def main():
 
     if JOBS.INSTALL_FONTS in jobs:
         install_fonts()
-
-    if JOBS.UPDATE_ZSH_THEME in jobs:
-        install_or_update_powerlevel9k_theme()
 
     if JOBS.CHANGE_SHELL in jobs:
         change_shell_to_zsh()

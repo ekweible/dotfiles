@@ -4,6 +4,7 @@ from PyInquirer import prompt
 from clint.textui import colored, puts, puts_err
 
 from pydotfiles.util_with_io import brew, git, git_sync, profiles
+from pydotfiles.bin.bootstrap import init_and_update_submodules
 
 
 def main():
@@ -36,6 +37,10 @@ def main():
                     'name': 'Git workspaces (%s)' % ', '.join(workspace_info),
                     'checked': True,
                 },
+                {
+                    'name': 'Dotfiles submodules',
+                    'checked': True,
+                },
             ],
         },
     ])
@@ -51,6 +56,9 @@ def main():
 
         if job.startswith('Git workspaces'):
             git_sync.run()
+
+        if job.contains('submodules'):
+            init_and_update_submodules()
 
 
 main()

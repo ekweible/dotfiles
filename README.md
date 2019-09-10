@@ -10,8 +10,10 @@
 
 Dotfiles setup originally forked from [atomantic's dotfiles][atomantic-dotfiles].
 Also draws inspiration from [Zach Holman's dotfiles][holman-dotfiles].
+And more recently, a minimal zsh theme and some iTerm2 configuration inspired by
+[Stefan Judis' iTerm2 + zsh setup][judas-iterm-zsh].
 
-Huge thanks to both of those projects!
+Huge thanks to all of these people and the resources they've shared!
 
 ## What/Why
 
@@ -102,7 +104,7 @@ TODO
 - `configs/`
 
     Contains color presets for iTerm2. These are imported automatically during
-    bootstrap.
+    bootstrap. _TODO: is this still needed?_
 
 - `fonts/`
 
@@ -142,13 +144,8 @@ TODO
   - `.zprofile`, `.zshenv` - zsh-specific shell config
   - `.zshrc` - configuration of zsh itself (e.g. zsh theme, plugins, etc)
 
-- `oh-my-zsh/` - oh-my-zsh as a submodule
-
-    _TODO: update this submodule automatically as a part of `psync`_
-
-  - `custom/themes/powerlevel9k/` - the powerlevel9k theme for oh-my-zsh, installed automatically during bootstrap.
-
-      _TODO: update this theme automatically as a part of `psync`_
+- `iterm2_profile/` - serialized iTerm2 preferences (auto-updated when iTerm2
+  exits). iTerm2 should be configured to load preferences from this folder.
 
 - `pydotfiles/` - (almost) all of the bootstrap and command-line tools are
   written in python and are housed here. The shell script entry points for these
@@ -159,11 +156,14 @@ TODO
   easier to do via a shell script rather than running the commands directly via
   python subprocesses.
 
+- `submodules/` - git submodules used by this dotfiles setup:
+  - [`oh-my-zsh/` - zsh shell](https://github.com/robbyrussell/oh-my-zsh)
+  - [`zsh-autosuggestions/` - zsh plugin](https://git@github.com/zsh-users/zsh-autosuggestions)
+  - [`zsh-syntax-highlighting/` - zsh plugin](https://git@github.com/zsh-users/zsh-syntax-highlighting)
+  - [`powerlevel9k/` - oh-my-zsh theme](https://github.com/bhilburn/powerlevel9k)
+
 - `templates/` - templates used to generate a couple dotfiles using information
   that is not known until a dotfiles profile is selected.
-
-- `z-zsh/` - honestly not sure what this is. It's leftover from when I first
-  forked this dotfiles repo and I need to figure out if I want to keep it.
 
 - `bootstrap.sh` - the entry point for bootstrapping a new machine (or
   refreshing a machine setup after making changes to dotfiles setup – it's safe
@@ -189,14 +189,14 @@ tool. The rest of the bootstrap process handles:
 - selecting a dotfiles profile from available profiles
 - generating dotfiles from templates as necessary
 - symlinking dotfiles to the home directory (`~/`)
+- initializing and updating git submodules used by this dotfiles setup
 - updating brew, tapping brew repos, installing/upgrading brew formulae/casks
 - importing GPG keys
-- creating and syncing git workspaces (TODO)
+- creating and syncing git workspaces
 - configuring some iTerm2 and system settings
 - installing fonts
-- installing/updating powerlevel9k oh-my-zsh theme
 - changing the user shell to `zsh`
-- opening download links for all non-casked applications (TODO)
+- opening download links for all non-casked applications
 
 _TODO: insert gif_
 
@@ -355,6 +355,7 @@ TODO
 
 [atomantic-dotfiles]: https://github.com/atomantic/dotfiles
 [holman-dotfiles]: https://github.com/holman/dotfiles
+[judas-iterm-zsh]: https://www.stefanjudis.com/blog/declutter-emojify-and-prettify-your-iterm2-terminal/
 [dashlane]: https://www.dashlane.com/download
 [github-help-generating-ssh-key]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 [github-help-adding-ssh-key]: https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/

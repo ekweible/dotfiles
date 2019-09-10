@@ -24,8 +24,6 @@ class PATHS:
     TEMPLATES_GITCONFIG = '%s/.gitconfig' % TEMPLATES
     TEMPLATES_SHELLVARS_PRIVATE = '%s/.shellvars_private' % TEMPLATES
 
-    POWERLEVEL9K_THEME = '%s/oh-my-zsh/custom/themes/powerlevel9k' % DOTFILES
-
     FONTS_INSTALL_SCRIPT = '%s/fonts/install.sh' % DOTFILES
 
     SCRIPTS = '%s/scripts' % DOTFILES

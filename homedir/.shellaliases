@@ -8,9 +8,9 @@ alias lg=lazygit
 
 #############################
 # Utilities
-
 alias cl='clear'
-alias ll='exa --all --long --header'
+alias ls='exa --all --long --header'
+alias cat='bat'
 
 # Workspaces
 alias dev='cd ~/dev/'

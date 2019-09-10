@@ -1,5 +1,5 @@
-# Path to your oh-my-zsh configuration.
-export ZSH=$HOME/dev/dotfiles/oh-my-zsh
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/dev/dotfiles/submodules/oh-my-zsh
 
 # ==============================================================================
 # Config
@@ -15,6 +15,8 @@ export DISABLE_AUTO_UPDATE="true"
 
 # disable autosetting terminal title.
 export DISABLE_AUTO_TITLE="true"
+
+export DISABLE_LS_COLORS="true"
 
 # ==============================================================================
 # Theme
@@ -34,8 +36,8 @@ export ZSH_THEME="evanweible/minimal"
 # ==============================================================================
 
 # Plugins are found in:
-#   ~/dev/dotfiles/oh-my-zsh/plugins/
-#   ~/dev/dotfiles/oh-my-zsh/custom/plugins/
+#   ~/dev/dotfiles/submodules/oh-my-zsh/plugins/
+#   ~/dev/dotfiles/submodules/oh-my-zsh/custom/plugins/
 # NOTE: zsh-syntax-highlighting must be sourced last
 plugins=(cp git history zsh-autosuggestions zsh-syntax-highlighting)
 

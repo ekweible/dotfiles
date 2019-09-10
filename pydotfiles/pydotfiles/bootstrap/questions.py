@@ -5,24 +5,6 @@ from pydotfiles.bootstrap.constants import JOBS
 from pydotfiles.util_with_io import profiles
 
 
-def jobs_filter(answers):
-    answer_map = {
-        'Change shell to zsh': JOBS.CHANGE_SHELL,
-        'Configure iterm2 and system settings': JOBS.CONFIGURE_SETTINGS,
-        'Import GPG keys': JOBS.IMPORT_GPG_KEYS,
-        'Install fonts': JOBS.INSTALL_FONTS,
-        'Generate & link all dotfiles': JOBS.LINK_DOTFILES,
-        'Open non-casked app download pages': JOBS.OPEN_NON_CASKED_APPS,
-        'Sync git repositories': JOBS.SYNC_GIT,
-        'Install NVM': JOBS.INSTALL_NVM,
-        'Install/update the powerlevel9k oh-my-zsh theme': JOBS.UPDATE_ZSH_THEME,
-        'Install/upgrade brew casks': JOBS.UPGRADE_BREW_CASKS,
-        'Install/upgrade brew packages': JOBS.UPGRADE_BREW_PACKAGES,
-        'Install/upgrade ruby gems': JOBS.UPGRADE_GEM_RAKES,
-    }
-    return [answer_map.get(answer) for answer in answers]
-
-
 def ask_bootstrap_questions():
     profile_names = list(profiles.read_names())
     current_profile_name = profiles.get_current_name(exit_if_not_set=False)
@@ -44,55 +26,54 @@ def ask_bootstrap_questions():
             'message': 'What would you like to do?',
             'choices': [
                 {
-                    'name': 'Change shell to zsh',
+                    'name': JOBS.CHANGE_SHELL,
                     'checked': True,
                 },
                 {
-                    'name': 'Generate & link all dotfiles',
+                    'name': JOBS.LINK_DOTFILES,
                     'checked': True,
                 },
                 {
-                    'name': 'Install/upgrade brew packages',
+                    'name': JOBS.UPDATE_SUBMODULES,
                     'checked': True,
                 },
                 {
-                    'name': 'Install/upgrade brew casks',
+                    'name': JOBS.UPGRADE_BREW_PACKAGES,
                     'checked': True,
                 },
                 {
-                    'name': 'Install/upgrade gem rakes',
+                    'name': JOBS.UPGRADE_BREW_CASKS,
                     'checked': True,
                 },
                 {
-                    'name': 'Install NVM',
+                    'name': JOBS.UPGRADE_GEM_RAKES,
+                    'checked': True,
+                },
+                {
+                    'name': JOBS.INSTALL_NVM,
                     'checked': True
                 },
                 {
-                    'name': 'Install/update the powerlevel9k oh-my-zsh theme',
+                    'name': JOBS.SYNC_GIT,
                     'checked': True,
                 },
                 {
-                    'name': 'Sync git repositories',
-                    'checked': True,
-                },
-                {
-                    'name': 'Configure iterm2 and system settings',
+                    'name': JOBS.CONFIGURE_SETTINGS,
                     'checked': False,
                 },
                 {
-                    'name': 'Import GPG keys',
+                    'name': JOBS.IMPORT_GPG_KEYS,
                     'checked': False,
                 },
                 {
-                    'name': 'Install fonts',
+                    'name': JOBS.INSTALL_FONTS,
                     'checked': False,
                 },
                 {
-                    'name': 'Open non-casked app download pages',
+                    'name': JOBS.OPEN_NON_CASKED_APPS,
                     'checked': False,
                 },
             ],
-            'filter': jobs_filter,
         },
         {
             'name': 'profile',
