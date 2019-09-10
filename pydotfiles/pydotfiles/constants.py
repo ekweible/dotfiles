@@ -30,3 +30,14 @@ class PATHS:
     SCRIPTS_CONFIGURE_ITERM2 = '%s/configure_iterm2.sh' % SCRIPTS
     SCRIPTS_CONFIGURE_SYSTEM_SETTINGS = '%s/configure_system_settings.sh' % SCRIPTS
     SCRIPTS_INSTALL_NVM = '%s/install_nvm.sh' % SCRIPTS
+
+    SUBMODULES = '%s/submodules' % DOTFILES
+    ZSH = '%s/oh-my-zsh' % SUBMODULES
+
+    ZSH_CUSTOM_PLUGINS = '%s/custom/plugins' % ZSH
+    ZSH_AUTOSUGGESTIONS = '%s/zsh-autosuggestions' % SUBMODULES
+    ZSH_SYNTAX_HIGHLIGHTING = '%s/zsh-syntax-highlighting' % SUBMODULES
+
+    ZSH_CUSTOM_THEMES = '%s/custom/themes' % ZSH
+    ZSH_EVANWEIBLE_MINIMAL = '%s/oh-my-zsh-custom/themes/evanweible' % DOTFILES
+    ZSH_POWERLINK9K = '%s/powerlevel9k' % SUBMODULES

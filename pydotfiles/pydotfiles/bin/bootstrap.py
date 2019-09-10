@@ -194,6 +194,8 @@ def link_dotfiles(profile_name):
     puts(colored.magenta('>> Linking dotfiles to ~/'))
     link_dotfiles_dir(PATHS.HOMEDIR)
     link_dotfiles_dir('%s/%s/homedir' % (PATHS.DOTFILES_PRIVATE, profile_name))
+    link_custom_zsh_plugins()
+    link_custom_zsh_themes()
     puts(colored.green('✔\n'))
 
 
@@ -222,6 +224,30 @@ def link_dotfiles_dir(home_dirname):
                 break
         # only linking the top-level dirs (i.e. max-depth=1)
         break
+
+
+def link_custom_zsh_plugins():
+    base_dest = '%s/' % PATHS.ZSH_CUSTOM_PLUGINS
+    custom_zsh_plugins = [
+        PATHS.ZSH_AUTOSUGGESTIONS,
+        PATHS.ZSH_SYNTAX_HIGHLIGHTING,
+    ]
+    for src in custom_zsh_plugins:
+        dest = '%s/%s' % (base_dest, os.path.basename(src))
+        if not os.path.islink(dest):
+            os.symlink(src, dest)
+
+
+def link_custom_zsh_themes():
+    base_dest = '%s/' % PATHS.ZSH_CUSTOM_THEMES
+    custom_zsh_themes = [
+        PATHS.ZSH_EVANWEIBLE_MINIMAL,
+        PATHS.ZSH_POWERLINK9K,
+    ]
+    for src in custom_zsh_themes:
+        dest = '%s/%s' % (base_dest, os.path.basename(src))
+        if not os.path.islink(dest):
+            os.symlink(src, dest)
 
 
 def open_app_download_urls(urls):
