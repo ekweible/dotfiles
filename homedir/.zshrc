@@ -39,7 +39,7 @@ export ZSH_THEME="evanweible/minimal"
 #   ~/dev/dotfiles/submodules/oh-my-zsh/plugins/
 #   ~/dev/dotfiles/submodules/oh-my-zsh/custom/plugins/
 # NOTE: zsh-syntax-highlighting must be sourced last
-plugins=(cp git history zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(z cp git history zsh-autosuggestions zsh-syntax-highlighting)
 
 # ==============================================================================
 # iTerm2
@@ -56,11 +56,21 @@ function iterm2_print_user_vars() {
   iterm2_set_user_var pwd $(pwd)
 }
 
+# Customize tab title to be the current project name:
+# See https://gist.github.com/phette23/5270658#gistcomment-3020766
+export DISABLE_AUTO_TITLE="true"
+function get_dir_or_repo_root() {
+    (git rev-parse --show-toplevel 2>/dev/null) || echo "$PWD"
+}
+precmd() {
+  echo -ne "\033]0;$(basename $(get_dir_or_repo_root))\007"
+}
+
 # ==============================================================================
 # ???
 # ==============================================================================
 
-# What does this do?
+# Disable zsh's autocorrect
 unsetopt correct
 
 # Uncomment for a colorcode test:
