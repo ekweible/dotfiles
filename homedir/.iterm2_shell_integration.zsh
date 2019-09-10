@@ -55,7 +55,7 @@ if [[ -o interactive ]]; then
 
     # Mark start of prompt
     iterm2_prompt_mark() {
-      # printf "\033]133;A\007"
+      printf "\033]133;A\007"
     }
 
     # Mark end of prompt
