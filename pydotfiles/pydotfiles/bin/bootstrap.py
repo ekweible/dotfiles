@@ -128,17 +128,6 @@ def install_nvm():
         puts_err(colored.red('! failed to install nvm\n'))
 
 
-def init_and_update_submodules():
-    puts(colored.magenta('>> Initializing and updating submodules:'))
-    submodule_proc = subprocess.Popen(
-        ['git', 'submodule', 'update', '--init', '--remote'])
-    return_code = submodule_proc.wait()
-    if return_code == 0:
-        puts(colored.green('✔\n'))
-    else:
-        puts_err(colored.red('! failed to initialize or update submodules\n'))
-
-
 def link_file(src, dest):
     global link_dotfiles_overwrite_all
     global link_dotfiles_backup_all
@@ -324,7 +313,7 @@ def main():
         link_dotfiles(selected_profile_name)
 
     if JOBS.UPDATE_SUBMODULES in jobs:
-        init_and_update_submodules()
+        git.init_and_update_submodules()
 
     if JOBS.UPGRADE_BREW_PACKAGES in jobs or JOBS.UPGRADE_BREW_CASKS in jobs:
         brew.update()

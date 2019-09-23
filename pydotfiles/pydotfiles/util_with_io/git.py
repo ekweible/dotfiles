@@ -137,3 +137,12 @@ def set_configs(configs, cwd=None, exit_on_error=False):
                 return False
     puts(colored.green('✔\n'))
     return True
+
+
+def init_and_update_submodules():
+    puts(colored.magenta('>> Initializing and updating submodules:'))
+    success, _ = git.init_and_update_submodules()
+    if success:
+        puts(colored.green('✔\n'))
+    else:
+        puts_err(colored.red('! failed to initialize or update submodules\n'))
