@@ -29,7 +29,7 @@ def main():
             'message': 'What would you like to sync:',
             'choices': [
                 {
-                    'name': 'Brew (%d items)' % num_brew_items,
+                    'name': 'Dotfiles submodules',
                     'checked': True,
                 },
                 {
@@ -37,7 +37,7 @@ def main():
                     'checked': True,
                 },
                 {
-                    'name': 'Dotfiles submodules',
+                    'name': 'Brew (%d items)' % num_brew_items,
                     'checked': True,
                 },
             ],
