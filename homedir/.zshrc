@@ -73,6 +73,10 @@ precmd() {
 # Disable zsh's autocorrect
 unsetopt correct
 
+# Workaround extremely slow paste due to syntax-highlighting:
+# https://github.com/zsh-users/zsh-syntax-highlighting/issues/295#issuecomment-214581607
+zstyle ':bracketed-paste-magic' active-widgets '.self-*'
+
 # Uncomment for a colorcode test:
 # for code ({000..255}) print -P -- "$code: %F{$code}This is how your text would look like%f"
 
