@@ -1651,13 +1651,13 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.27058824896812439</real>
+									<real>0.54117647058823526</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.65490198135375977</real>
+									<real>0.93725490196078431</real>
 									<key>Red Component</key>
-									<real>0.15686275064945221</real>
+									<real>0.34509803921568627</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1821,7 +1821,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>4043FC6F-CF26-4CE6-9FA7-42E6DF04712E</string>
 	<key>NoSyncLastTipTime</key>
-	<real>589838007.04293394</real>
+	<real>592239467.35710096</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
 	<integer>10</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
@@ -2637,6 +2637,25 @@
 		<string>0018</string>
 		<string>0019</string>
 		<string>0020</string>
+		<string>0021</string>
+		<string>0022</string>
+		<string>0023</string>
+		<string>0024</string>
+		<string>0025</string>
+		<string>0026</string>
+		<string>0027</string>
+		<string>0028</string>
+		<string>0029</string>
+		<string>0030</string>
+		<string>0031</string>
+		<string>0032</string>
+		<string>0033</string>
+		<string>0034</string>
+		<string>0035</string>
+		<string>0036</string>
+		<string>0037</string>
+		<string>0038</string>
+		<string>0039</string>
 	</array>
 	<key>Non Ascii Font</key>
 	<string>RobotoMonoForPowerline-Regular 12</string>
@@ -2645,6 +2664,8 @@
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenNoWindowsAtStartup</key>
+	<false/>
+	<key>PMPrintingExpandedStateForPrint2</key>
 	<false/>
 	<key>PointerActions</key>
 	<dict>
@@ -2681,6 +2702,8 @@
 	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>/Users/evanweible/dev/dotfiles/iterm2_profile</string>
+	<key>Print In Black And White</key>
+	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -2690,7 +2713,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-09-10T19:50:56Z</date>
+	<date>2019-10-04T19:27:31Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowPaneTitles</key>
