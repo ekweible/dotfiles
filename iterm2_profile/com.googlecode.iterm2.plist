@@ -844,7 +844,7 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>598 110 1016 291 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>530 476 620 392 0 0 1680 1027 </string>
+	<string>490 303 700 622 0 0 1680 1027 </string>
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>515 224 796 486 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
@@ -1651,13 +1651,13 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.54117647058823526</real>
+									<real>0.54117649793624878</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.93725490196078431</real>
+									<real>0.93725490570068359</real>
 									<key>Red Component</key>
-									<real>0.34509803921568627</real>
+									<real>0.34509804844856262</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1804,6 +1804,7 @@
 		<string>3.3.2</string>
 		<string>3.2.9</string>
 		<string>3.3.1</string>
+		<string>3.3.4</string>
 		<string>3.3.0</string>
 		<string>3.3.3</string>
 	</array>
@@ -1821,9 +1822,9 @@
 	<key>NoSyncInstallationId</key>
 	<string>4043FC6F-CF26-4CE6-9FA7-42E6DF04712E</string>
 	<key>NoSyncLastTipTime</key>
-	<real>592239467.35710096</real>
+	<real>592757882.03276896</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>10</integer>
+	<integer>11</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2656,6 +2657,11 @@
 		<string>0037</string>
 		<string>0038</string>
 		<string>0039</string>
+		<string>0040</string>
+		<string>0041</string>
+		<string>0042</string>
+		<string>0043</string>
+		<string>0044</string>
 	</array>
 	<key>Non Ascii Font</key>
 	<string>RobotoMonoForPowerline-Regular 12</string>
@@ -2713,7 +2719,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-10-04T19:27:31Z</date>
+	<date>2019-10-10T22:13:10Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowPaneTitles</key>
@@ -2737,7 +2743,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.3</string>
+	<string>3.3.4</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
