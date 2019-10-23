@@ -51,9 +51,13 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # See https://www.iterm2.com/3.3/documentation-scripting-fundamentals.html
 function iterm2_print_user_vars() {
+  iterm2_set_user_var pwd $(pwd)
   iterm2_set_user_var dartVersion $(dart --version 2>&1 | grep -oe "\d*\.\d*\.\d*[^ ]*")
   iterm2_set_user_var nodeVersion $(node -v)
-  iterm2_set_user_var pwd $(pwd)
+  iterm2_set_user_var pyVersion $(python --version 2>&1 | grep -oe "\d*\.\d*\.\d*[^ ]*")
+  if [ -n "$VIRTUAL_ENV" ]; then
+    iterm2_set_user_var pyVenv "($(basename "$VIRTUAL_ENV"))"
+  fi
 }
 
 # Customize tab title to be the current project name:
