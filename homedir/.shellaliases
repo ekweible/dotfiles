@@ -13,6 +13,9 @@ alias cl='clear'
 alias ls='exa --all --long --header'
 alias cat='bat'
 
+# Git/GitHub
+alias gh='open $(git config remote.origin.url | sed "s/git@\(.*\):\(.*\).git/https:\/\/\1\/\2/" | sed "s/github.com-ekweible/github.com/")/tree/$(git symbolic-ref --quiet --short HEAD)'
+
 # Workspaces
 alias dev='cd ~/dev/'
 alias dotfiles='cd $DOTFILES'
