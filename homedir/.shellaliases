@@ -13,9 +13,6 @@ alias cl='clear'
 alias ls='exa --all --long --header'
 alias cat='bat'
 
-# Git/GitHub
-alias gh='open $(git config remote.origin.url | sed "s/git@\(.*\):\(.*\).git/https:\/\/\1\/\2/" | sed "s/github.com-ekweible/github.com/")/tree/$(git symbolic-ref --quiet --short HEAD)'
-
 # Workspaces
 alias dev='cd ~/dev/'
 alias dotfiles='cd $DOTFILES'
@@ -25,12 +22,11 @@ alias dotfilesp='cd $DOTFILES_PRIVATE/..'
 alias ddev='pub run dart_dev'
 alias dartium='export DARTIUM_EXPIRATION_TIME=1577836800; DART_FLAGS="--checked --load_deferred_eagerly" open /usr/local/opt/dart@1/Chromium.app'
 alias pbr='pub run build_runner'
-alias pubg='pub get'
-alias pubu='pub upgrade'
-alias repub='pubclean; pub get $@'
+alias pubg='pub get --no-precompile'
+alias pubu='pub upgrade --no-precompile'
+alias repub='pubclean; pubg'
 alias pubclean='rm -r .pub/ && echo "Removed .pub/"; rm -r packages/ && echo "Removed packages/"; rm .packages && echo "Removed .packages"; pubcleanlock'
 alias pubcleanlock='git ls-files pubspec.lock --error-unmatch &>/dev/null && echo "Not removing pubspec.lock - it is tracked" || (rm pubspec.lock && echo "Removed pubspec.lock")'
-alias wtp="pub upgrade --packages-dir --verbosity=solver | grep --after-context 2 "inconsistent constraints""
 
 # ssh
 alias mtgs='ssh evanweible.com@evanweible.com'

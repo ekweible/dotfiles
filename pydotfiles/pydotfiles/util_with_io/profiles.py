@@ -100,6 +100,7 @@ def read_git_workspaces(profile_name=None):
 def read_git_workspace_config(git_user, profile_name=None):
     git_workspace = read_git_workspace(git_user, profile_name=profile_name)
     return {
+        'commit.gpgsign': 'true',
         'user.name': git_workspace['user'],
         'user.email': git_workspace['email'],
         'user.signingkey': git_workspace['signingkey'],
