@@ -8,7 +8,7 @@ alias lg=lazygit
 
 #############################
 # Utilities
-alias c='code .'
+alias c='code-insiders .'
 alias k='clear'
 alias ls='exa --all --long --header'
 alias cat='bat'
