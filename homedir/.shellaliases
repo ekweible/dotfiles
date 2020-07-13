@@ -31,6 +31,9 @@ alias pubcleanlock='git ls-files pubspec.lock --error-unmatch &>/dev/null && ech
 # plantuml
 alias plantuml="docker run -v $(pwd)/doc/design/assets/:/assets plantuml"
 
+# multi-git-status
+alias mg="~/dev/ekweible/multi-git-status/mgitstatus"
+
 # ssh
 alias mtgs='ssh evanweible.com@evanweible.com'
 
