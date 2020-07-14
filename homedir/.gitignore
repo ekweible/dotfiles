@@ -19,11 +19,28 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-
 ############
 # Security #
 ############
 id_rsa
+
+###########
+# VS Code #
+###########
+*.code-workspace
+
+########
+# Dart #
+########
+.dart_tool
+.packages
+.pub
+packages
+
+##########
+# Python #
+##########
+*.pyc
 
 ###########
 # Tooling #
@@ -77,20 +94,6 @@ pids
 # JS dependency directories
 bower_components
 node_modules
-
-########
-# Dart #
-########
-.dart_tool
-.packages
-.pub
-packages
-
-##########
-# Python #
-##########
-*.pyc
-
 
 #########
 # Tools #
