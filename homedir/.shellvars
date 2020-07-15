@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Set vim as default editor (vi is the default otherwise)
-export EDITOR=vim
+# Set VS code as default editor
+export EDITOR="code-insiders -w"
 bindkey -v
 
 # Brew
