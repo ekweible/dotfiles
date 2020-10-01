@@ -63,9 +63,6 @@ function iterm2_print_user_vars() {
 # Customize tab title to be the current project name:
 # See https://gist.github.com/phette23/5270658#gistcomment-3020766
 export DISABLE_AUTO_TITLE="true"
-function get_dir_or_repo_root() {
-    (git rev-parse --show-toplevel 2>/dev/null) || echo "$PWD"
-}
 precmd() {
   echo -ne "\033]0;$(basename $(get_dir_or_repo_root))\007"
 }

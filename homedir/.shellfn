@@ -3,6 +3,28 @@
 #########################################
 # Utility Functions
 
+function get_dir_or_repo_root() {
+  (git rev-parse --show-toplevel 2>/dev/null) || echo "$PWD"
+}
+
+function pwd_last_two_segments() {
+  PWD=$(pwd)
+  if [ "$PWD" = "$HOME" ]; then
+    echo "~"
+    return
+  fi
+
+  D1=$(basename $(dirname "$PWD"))
+  D2=$(basename "$PWD")
+  if [ "$D2" = "/" ]; then
+    echo "/"
+  elif [ "$D1" = "/" ]; then
+    echo "/$D2"
+  else
+    echo "$D1/$D2"
+  fi
+}
+
 function dp() {
   cd $HOME/dev/ekweible/
   if [ ! -z ${1+x} ]; then cd $1; fi
