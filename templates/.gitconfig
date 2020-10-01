@@ -16,7 +16,7 @@
     ui = true
 [core]
     excludesfile = ~/.gitignore
-    editor = 'code-insiders -w'
+    editor = code-insiders -w
 [apply]
     whitespace = nowarn
 [mergetool]
