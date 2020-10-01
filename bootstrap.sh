@@ -24,6 +24,16 @@ else
   ok "homebrew already installed"
 fi
 
+# TODO
+# - Get work laptop updated to Catalina and then figure this out, not worth
+#   making it work on both
+if [[ $(sw_vers -productVersion) == 10.14.* ]]
+then
+  PYTHON3_PATH=$(which python3) 2>&1 > /dev/null
+else
+  PYTHON3_PATH=$(which python) 2>&1 > /dev/null
+fi
+
 # replace Mac python with brew python
 python3_bin=$(which python3) 2>&1 > /dev/null
 if [[ $? != 0 ]]
@@ -44,7 +54,7 @@ else
 fi
 
 # configure virtualenvwrapper
-export VIRTUALENVWRAPPER_PYTHON=$(which python)
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/dev
