@@ -91,6 +91,6 @@ def upgrade_all():
 
 
 def upgrade_cask(cask):
-    p = subprocess.Popen(['brew', 'cask', 'upgrade', cask])
+    p = subprocess.Popen(['brew', 'upgrade', '--cask', cask])
     return_code = p.wait()
     return return_code == 0, return_code
