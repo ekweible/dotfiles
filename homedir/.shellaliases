@@ -24,6 +24,7 @@ alias dartium='export DARTIUM_EXPIRATION_TIME=1577836800; DART_FLAGS="--checked 
 alias pbr='pub run build_runner'
 alias pubg='pub get --no-precompile'
 alias pubu='pub upgrade --no-precompile'
+alias dv='pub run dependency_validator'
 alias repub='pubclean; pubg'
 alias pubclean='rm -r .pub/ && echo "Removed .pub/"; rm -r packages/ && echo "Removed packages/"; rm .packages && echo "Removed .packages"; pubcleanlock'
 alias pubcleanlock='git ls-files pubspec.lock --error-unmatch &>/dev/null && echo "Not removing pubspec.lock - it is tracked" || (rm pubspec.lock && echo "Removed pubspec.lock")'
