@@ -213,7 +213,7 @@ _TODO: insert gif_
 
 ### `pbrewic <cask>`
 
-Wrapper for `brew cask install <cask>`.
+Wrapper for `brew install --cask <cask>`.
 
 Asks you to select which of the available dotfiles profiles the given cask
 should be associated with (multiple profiles can be selected). Adds the cask to `profiles.json` under the selected dotfiles profiles configs. Commits and pushes
@@ -239,7 +239,7 @@ _TODO: insert gif_
 
 ### `pbrewuc <cask>`
 
-Wrapper for `brew cask uninstall <cask>`.
+Wrapper for `brew uninstall --cask <cask>`.
 
 _TODO: insert gif_
 

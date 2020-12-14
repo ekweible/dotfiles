@@ -7,7 +7,7 @@ cached_brew_tap_list = None
 
 
 def install_cask(cask):
-    p = subprocess.Popen(['brew', 'cask', 'install', cask])
+    p = subprocess.Popen(['brew', 'install', '--cask', cask])
     return_code = p.wait()
     return return_code == 0, return_code
 
@@ -61,7 +61,7 @@ def tap_repo(repo):
 
 
 def uninstall_cask(cask):
-    p = subprocess.Popen(['brew', 'cask', 'uninstall', cask])
+    p = subprocess.Popen(['brew', 'uninstall', '--cask', cask])
     return_code = p.wait()
     return return_code == 0, return_code
 
