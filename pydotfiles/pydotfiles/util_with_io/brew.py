@@ -4,7 +4,7 @@ from pydotfiles.util import brew
 
 
 def install_cask(cask):
-    puts(colored.magenta('>> brew cask install %s' % cask))
+    puts(colored.magenta('>> brew install --cask %s' % cask))
     success, _ = brew.install_cask(cask)
 
     if success:
@@ -16,7 +16,7 @@ def install_cask(cask):
 
 
 def install_formula(formula):
-    puts(colored.magenta('>> brew install %s' % formula))
+    puts(colored.magenta('>> brew install --cask %s' % formula))
     success, _ = brew.install_formula(formula)
 
     if success:
@@ -64,7 +64,7 @@ def tap_all_repos(repos):
 
 
 def uninstall_cask(cask):
-    puts(colored.magenta('>> brew cask uninstall %s' % cask))
+    puts(colored.magenta('>> brew uninstall --cask %s' % cask))
     success, _ = brew.uninstall_cask(cask)
     if success:
         puts(colored.green('✔\n'))
@@ -116,7 +116,7 @@ def upgrade_all():
 
 
 def upgrade_cask(cask):
-    puts(colored.magenta('>> brew cask upgrade %s' % cask))
+    puts(colored.magenta('>> brew upgrade --cask %s' % cask))
     success, _ = brew.upgrade_cask(cask)
     if success:
         puts(colored.green('✔\n'))

@@ -1,46 +1,52 @@
 #!/bin/sh
 
-# Set VS code as default editor
+# Set VS Code as default editor
 export EDITOR="code-insiders -w"
 bindkey -v
 
-# Brew
+# Terminal
+export TERM="xterm-256color"
+
+# ==== Brew ====
 # This prevents brew from automatically deleting old versions of all formulas
 # after an upgrade.
 export HOMEBREW_NO_INSTALL_CLEANUP="stop deleting my old versions"
 
-# Go
+# ==== Dart ====
+# Local Dart builds
+export LOCAL_DART_SDK_BIN="$HOME/dev/evanweible-wf/dart-sdk/sdk/sdk/bin"
+export PATH="$PATH:$HOME/dev/evanweible-wf/depot_tools"
+
+# ==== Go ====
 export GOPATH=$HOME/dev/go
 export GOROOT=/usr/local/opt/go@1.15/libexec
 test -d $GOPATH || mkdir $GOPATH
 test -d $GOPATH/src/github.com || mkdir -p $GOPATH/src/github.com
 
-# GPG
+# ==== GPG ====
 export GPG_TTY=$(tty)
 if [ -z "$(pgrep gpg-agent)" ]
 then
   eval $(gpg-agent --daemon)
 fi
 
-# Java
-export JAVA_HOME=$(/usr/libexec/java_home)
-
-# Ruby
+# ==== Ruby ====
 export GEM_HOME=$HOME/.gem
 
-# Java/Android/Maven
+# ==== Java/Android/Maven ====
+export JAVA_HOME=$(/usr/libexec/java_home)
+export MAVEN_OPTS="-Xmx4096m -Xss1024m -XX:MaxPermSize=128m"
 # export ANDROID_HOME=/usr/local/share/android-sdk
 # export ANDROID_NDK_HOME=/usr/local/share/android-ndk
 # export GRADLE_HOME=/usr/local/opt/gradle
 # export JAVA_HOME=$(/usr/libexec/java_home)
 # export MAVEN_HOME=/usr/local/opt/maven
-export MAVEN_OPTS="-Xmx4096m -Xss1024m -XX:MaxPermSize=128m"
 
-# NVM/Node
-export NVM_DIR="${XDG_CONFIG_HOME/:-$HOME/.}nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh --no-use" # This loads nvm
+# ==== NVM/Node ====
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
 
-# virtualenvwrapper
+# ==== Python ====
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export VIRTUALENVWRAPPER_PYTHON=$(which python3)
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
@@ -48,10 +54,9 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/dev
 source /usr/local/bin/virtualenvwrapper.sh
 
-# dotfiles
+# ==== dotfiles ====
 export DOTFILES="$HOME/dev/dotfiles"
 export HOMEDIR="$DOTFILES/homedir"
-source $HOMEDIR/.shellvars_private
 
 # TODO: find out why/where these are getting exported
 # unset these to allow multiple git users to be used on the same machine

@@ -10,3 +10,6 @@
 [submodule "submodules/powerlevel9k"]
 	path = submodules/powerlevel9k
 	url = git@github.com:bhilburn/powerlevel9k
+[submodule "submodules/zplug"]
+	path = submodules/zplug
+	url = git@github.com:zplug/zplug.git

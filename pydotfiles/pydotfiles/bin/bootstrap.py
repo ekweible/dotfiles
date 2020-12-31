@@ -247,17 +247,6 @@ def open_app_download_urls(urls):
     puts(colored.green('✔\n'))
 
 
-def write_shellvars_private(profile_name):
-    puts(colored.magenta('>> Writing private profile vars:'))
-    with open(PATHS.TEMPLATES_SHELLVARS_PRIVATE, 'r') as f:
-        lines = f.readlines()
-    with open(PATHS.HOMEDIR_SHELLVARS_PRIVATE, 'w+') as out:
-        for line in lines:
-            out.write(re.sub(r'export DOTFILES_PROFILE="DOTFILES_PROFILE"',
-                             'export DOTFILES_PROFILE="%s"' % profile_name, line))
-    puts(colored.green('✔\n'))
-
-
 def write_git_config(profile_name):
     for git_workspace in profiles.read_git_workspaces(profile_name).values():
         if not git_workspace['primary']:
@@ -277,6 +266,17 @@ def write_git_config(profile_name):
 
         puts(colored.green('✔\n'))
         break
+
+
+def write_dotfiles_profile(profile_name):
+    puts(colored.magenta('>> Writing dotfiles profile:'))
+    with open(PATHS.TEMPLATES_DOTFILES_PROFILE, 'r') as f:
+        lines = f.readlines()
+    with open(PATHS.HOMEDIR_DOTFILES_PROFILE, 'w+') as out:
+        for line in lines:
+            out.write(re.sub(r'export DOTFILES_PROFILE="DOTFILES_PROFILE"',
+                             'export DOTFILES_PROFILE="%s"' % profile_name, line))
+    puts(colored.green('✔\n'))
 
 
 def write_ssh_config(profile_name):
@@ -306,14 +306,14 @@ def main():
     jobs, selected_profile_name = ask_bootstrap_questions()
 
     if JOBS.LINK_DOTFILES in jobs:
-        write_shellvars_private(selected_profile_name)
+        write_dotfiles_profile(selected_profile_name)
         create_git_workspace_dirs(selected_profile_name)
         write_ssh_config(selected_profile_name)
         write_git_config(selected_profile_name)
         link_dotfiles(selected_profile_name)
 
     if JOBS.UPDATE_SUBMODULES in jobs:
-        git.init_and_update_submodules()
+        git.init_and_update_submodules(cwd=PATHS.DOTFILES)
 
     if JOBS.UPGRADE_BREW_PACKAGES in jobs or JOBS.UPGRADE_BREW_CASKS in jobs:
         brew.update()

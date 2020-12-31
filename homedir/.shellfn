@@ -1,8 +1,5 @@
 #!/bin/sh
 
-#########################################
-# Utility Functions
-
 function copy_last_commit_hash() {
   HASH=$(git log -n 1 --pretty=format:"%H")
   echo -n "$HASH" | pbcopy # Use -n to strip trailing newline
@@ -46,32 +43,6 @@ function ds() {
   if [ ! -z ${1+x} ]; then cd $1; fi
 }
 
-export DART_2_VERSION="2.5.0"
-
-# Switch primary Dart install to Dart 1.x
-function d1() {
-  brew unlink dart
-  brew unlink dart@1
-  brew switch dart@1 1.24.3
-  brew link --force dart@1
-  dart --version
-}
-
-# Switch primary Dart install to latest Dart 2.x (2.2.0)
-function d2() {
-  brew unlink dart
-  brew unlink dart@1
-  brew switch dart $DART_2_VERSION
-  brew link dart
-  dart --version
-}
-
-function pub2get {
-  export DART_2_PATH=/usr/local/Cellar/dart/$DART_2_VERSION/bin/
-  _PUB_TEST_SDK_VERSION=1.24.3 "$DART_2_PATH/pub" get --no-precompile "$@" && pub get --offline "$@"
-}
-
-function pub2upgrade {
-  export DART_2_PATH=/usr/local/Cellar/dart/$DART_2_VERSION/bin/
-  _PUB_TEST_SDK_VERSION=1.24.3 "$DART_2_PATH/pub" upgrade --no-precompile "$@" && pub upgrade --offline "$@"
+function localdart() {
+    "$LOCAL_DART_SDK_BIN/$1" "${@:2}"
 }

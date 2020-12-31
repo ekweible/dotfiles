@@ -1,88 +1,44 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/dev/dotfiles/submodules/oh-my-zsh
+# UNCOMMENT TO PROFILE ZSH STARTUP TIME
+# zmodload zsh/zprof
 
-# ==============================================================================
-# Config
-# ==============================================================================
+# === ZPLUG ===
+# https://github.com/zplug/zplug
+source $HOME/dev/dotfiles/submodules/zplug/init.zsh
 
-export TERM="xterm-256color"
+# === PLUGINS ===
 
-# Set to this to use case-sensitive completion
-export CASE_SENSITIVE="true"
+zplug "plugins/z", from:oh-my-zsh
+zplug "zsh-users/zsh-autosuggestions"
+zplug "lukechilds/zsh-nvm"
 
-# disable weekly auto-update checks
-export DISABLE_AUTO_UPDATE="true"
+# zsh-syntax-highlighting must be loaded after executing compinit command and
+# sourcing other plugins
+# (If the defer tag is given 2 or above, it runs after compinit command)
+# zplug "zsh-users/zsh-highlighting", from:github, defer:2
 
-# disable autosetting terminal title.
+# === THEME ===
+
+[[ ! -f ~/dev/dotfiles/zsh_local/p10k.zsh ]] || source ~/dev/dotfiles/zsh_local/p10k.zsh
+zplug romkatv/powerlevel10k, as:theme, depth:1
+
+# === OPTIONS ===
+
+unsetopt correct # disable zsh autocorrect
+export CASE_SENSITIVE="true" # case-sensitive completion
 export DISABLE_AUTO_TITLE="true"
-
 export DISABLE_LS_COLORS="true"
 
-# ==============================================================================
-# Theme
-# ==============================================================================
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
 
-export ZSH_THEME="evanweible/minimal"
+# === ZPLUG ===
+# Source plugins and add commands to $PATH
+zplug load # --verbose
 
-# https://github.com/bhilburn/powerlevel9k#customizing-prompt-segments
-# https://github.com/bhilburn/powerlevel9k/wiki/Stylizing-Your-Prompt
-# export ZSH_THEME="powerlevel9k/powerlevel9k"
-# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=()
-# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time time)
-# POWERLEVEL9K_SHOW_CHANGESET=true
-
-# ==============================================================================
-# Plugins
-# ==============================================================================
-
-# Plugins are found in:
-#   ~/dev/dotfiles/submodules/oh-my-zsh/plugins/
-#   ~/dev/dotfiles/submodules/oh-my-zsh/custom/plugins/
-# NOTE: zsh-syntax-highlighting must be sourced last
-plugins=(z cp git history zsh-autosuggestions zsh-syntax-highlighting)
-
-# ==============================================================================
-# iTerm2
-# ==============================================================================
-
-# To regenerated this script:
-#   iTerm2 > Install Shell Integration > navigate to zsh source and copy/paste
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# See https://www.iterm2.com/3.3/documentation-scripting-fundamentals.html
-function iterm2_print_user_vars() {
-  iterm2_set_user_var pwd $(pwd)
-  iterm2_set_user_var dartVersion $(dart --version 2>&1 | grep -oe "\d*\.\d*\.\d*[^ ]*")
-  iterm2_set_user_var nodeVersion $(node -v)
-  iterm2_set_user_var pyVersion $(python --version 2>&1 | grep -oe "\d*\.\d*\.\d*[^ ]*")
-  if [ -n "$VIRTUAL_ENV" ]; then
-    iterm2_set_user_var pyVenv "($(basename "$VIRTUAL_ENV"))"
-  fi
-}
-
-# Customize tab title to be the current project name:
-# See https://gist.github.com/phette23/5270658#gistcomment-3020766
-export DISABLE_AUTO_TITLE="true"
-precmd() {
-  echo -ne "\033]0;$(basename $(get_dir_or_repo_root))\007"
-}
-
-# ==============================================================================
-# ???
-# ==============================================================================
-
-# Disable zsh's autocorrect
-unsetopt correct
-
-# Workaround extremely slow paste due to syntax-highlighting:
-# https://github.com/zsh-users/zsh-syntax-highlighting/issues/295#issuecomment-214581607
-zstyle ':bracketed-paste-magic' active-widgets '.self-*'
-
-# Uncomment for a colorcode test:
-# for code ({000..255}) print -P -- "$code: %F{$code}This is how your text would look like%f"
-
-# ==============================================================================
-# oh-my-zsh
-# ==============================================================================
-
-source $ZSH/oh-my-zsh.sh
+# UNCOMMENT TO PROFILE ZSH STARTUP TIME
+# zprof

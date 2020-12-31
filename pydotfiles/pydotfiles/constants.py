@@ -16,13 +16,13 @@ class PATHS:
 
     HOMEDIR = '%s/homedir' % DOTFILES
     HOMEDIR_GITCONFIG = '%s/.gitconfig' % HOMEDIR
-    HOMEDIR_SHELLVARS_PRIVATE = '%s/.shellvars_private' % HOMEDIR
+    HOMEDIR_DOTFILES_PROFILE = '%s/.dotfiles_profile' % HOMEDIR
     HOMEDIR_SSH = '%s/.ssh' % HOMEDIR
     HOMEDIR_SSH_CONFIG = '%s/config' % HOMEDIR_SSH
 
     TEMPLATES = '%s/templates' % DOTFILES
+    TEMPLATES_DOTFILES_PROFILE = '%s/.dotfiles_profile' % TEMPLATES
     TEMPLATES_GITCONFIG = '%s/.gitconfig' % TEMPLATES
-    TEMPLATES_SHELLVARS_PRIVATE = '%s/.shellvars_private' % TEMPLATES
 
     FONTS_INSTALL_SCRIPT = '%s/fonts/install.sh' % DOTFILES
 

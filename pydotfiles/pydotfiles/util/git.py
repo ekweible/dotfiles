@@ -59,9 +59,10 @@ def dotfiles_private_run_git_cmd(command_and_args):
     return return_code == 0, return_code
 
 
-def init_and_update_submodules():
+def init_and_update_submodules(cwd=None):
     submodule_proc = subprocess.Popen(
-        ['git', 'submodule', 'update', '--init', '--remote'])
+        ['git', 'submodule', 'update', '--init', '--remote'],
+        cwd=cwd)
     return_code = submodule_proc.wait()
     return return_code == 0, return_code
 

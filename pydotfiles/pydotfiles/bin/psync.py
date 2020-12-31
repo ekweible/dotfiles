@@ -3,6 +3,7 @@ from sys import exit
 from PyInquirer import prompt
 from clint.textui import colored, puts, puts_err
 
+from pydotfiles.constants import PATHS
 from pydotfiles.util_with_io import brew, git, git_sync, profiles
 
 
@@ -57,7 +58,7 @@ def main():
             git_sync.run()
 
         if 'submodules' in job:
-            git.init_and_update_submodules()
+            git.init_and_update_submodules(cwd=PATHS.DOTFILES)
 
 
 main()

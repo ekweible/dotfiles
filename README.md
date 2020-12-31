@@ -28,7 +28,7 @@ things like your git workspace, system dependencies, and applications, the
 bootstrap script becomes outdated as soon as you add something new.
 
 To solve this problem, this repo includes several command-line tools that wrap
-`brew tap`, `brew install`, `brew cask install`, `git clone`, and `git remote add`. These
+`brew tap`, `brew install`, `brew install --cask`, `git clone`, and `git remote add`. These
 tools will perform the intended task, but will also add the new dependency to
 a local JSON file that is then committed and pushed automatically. Then, another
 command-line tool provided by this repo makes it easy to sync all brew formulae,
@@ -91,10 +91,10 @@ TODO
     The following executables are included:
 
   - `pbrewi` - wrapper for `brew install <formula>`
-  - `pbrewic` - wrapper for `brew cask install <cask>`
+  - `pbrewic` - wrapper for `brew install --cask <cask>`
   - `pbrewt` - wrapper for `brew tap <repo>`
   - `pbrewu` - wrapper for `brew uninstall <formula>` _(TODO)_
-  - `pbrewuc` - wrapper for `brew cask uninstall <cask>` _(TODO)_
+  - `pbrewuc` - wrapper for `brew uninstall --cask <cask>` _(TODO)_
   - `pbrewut` - wrapper for `brew untap <repo>` _(TODO)_
   - `pgaddr` - wrapper for `git remote add <name> <url>`
   - `pgclone` - wrapper for `git clone <repo> <url>`
