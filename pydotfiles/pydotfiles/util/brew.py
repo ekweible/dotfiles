@@ -22,10 +22,16 @@ def is_cask_installed(cask):
     global cached_brew_cask_list
     if cached_brew_cask_list is None:
         brew_cask_list_proc = subprocess.Popen(
-            ['brew', 'cask', 'list'], stdout=subprocess.PIPE)
+            ['brew', 'list', '--cask'], stdout=subprocess.PIPE)
         brew_cask_list_proc.text_mode = True
         stdout, _ = brew_cask_list_proc.communicate()
         cached_brew_cask_list = str(stdout)
+
+    # For casks not available in the default registries,
+    # (like `homebrew/cask-versions/visual-studio-code-insiders`)
+    # only check for the last segment since that is what `brew list` outputs.
+    if '/' in cask:
+        cask = cask.split('/')[-1]
 
     return cask in cached_brew_cask_list
 
@@ -34,7 +40,7 @@ def is_formula_installed(formula):
     global cached_brew_list
     if cached_brew_list is None:
         brew_list_proc = subprocess.Popen(
-            ['brew', 'list'], stdout=subprocess.PIPE)
+            ['brew', 'list', '--formula'], stdout=subprocess.PIPE)
         brew_list_proc.text_mode = True
         stdout, _ = brew_list_proc.communicate()
         cached_brew_list = str(stdout)
