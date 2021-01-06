@@ -9,9 +9,12 @@ alias lg=lazygit
 #############################
 # Utilities
 alias c='code-insiders .'
+alias t='gittower .'
 alias k='clear'
 alias ls='exa --all --long --header'
-alias cat='bat'
+
+# Commented out because sometimes being able to run builtin cat is useful
+# alias cat='bat'
 
 # Workspaces
 alias dev='cd ~/dev/'
