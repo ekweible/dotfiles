@@ -16,7 +16,7 @@ def install_cask(cask):
 
 
 def install_formula(formula):
-    puts(colored.magenta('>> brew install --cask %s' % formula))
+    puts(colored.magenta('>> brew install %s' % formula))
     success, _ = brew.install_formula(formula)
 
     if success:
