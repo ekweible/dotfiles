@@ -15,19 +15,13 @@ export PATH=$PATH:~/.pub-cache/bin
 export PATH=$PATH:~/dev/flutter/bin
 
 # GO
-export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+export PATH=$PATH:$GOPATH/bin
 
 # Ruby
 export PATH=$PATH:$GEM_HOME/bin
 
-# Java/Android
-# export PATH=$MAVEN_HOME/bin:$PATH
-# export PATH=$GRADLE_HOME/bin:$PATH
-# export PATH=$ANDROID_HOME/tools:$PATH
-# export PATH=$ANDROID_HOME/platform-tools:$PATH
-# export PATH=$ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort | tail -1):$PATH
-# export PATH=$PATH:/usr/local/bin/jenv
-# eval "$(jenv init -)"
-# jenv enable-plugin ant 2>&1 > /dev/null
-# jenv enable-plugin gradle 2>&1 > /dev/null
-# jenv enable-plugin maven 2>&1 > /dev/null
+# gcloud & GAE
+# Updates PATH for the Google Cloud SDK.
+if [ -f '/Users/evanweible/dev/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/evanweible/dev/google-cloud-sdk/path.zsh.inc'; fi
+# Enables shell command completion for gcloud.
+if [ -f '/Users/evanweible/dev/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/evanweible/dev/google-cloud-sdk/completion.zsh.inc'; fi

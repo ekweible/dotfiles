@@ -24,51 +24,22 @@ else
   ok "homebrew already installed"
 fi
 
-# TODO
-# - Get work laptop updated to Catalina and then figure this out, not worth
-#   making it work on both
-if [[ $(sw_vers -productVersion) == 10.14.* ]]
-then
-  PYTHON3_PATH=$(which python3) 2>&1 > /dev/null
-else
-  PYTHON3_PATH=$(which python) 2>&1 > /dev/null
-fi
-
-# replace Mac python with brew python
-python3_bin=$(which python3) 2>&1 > /dev/null
-if [[ $? != 0 ]]
-then
-  running "installing python"
-  require_brew "python@3"
-else
-  ok "python3 already installed"
-fi
-
-# install virtualenvwrapper
-if [ ! -f /usr/local/bin/virtualenvwrapper.sh ]
-then
-  running "installing virtualenvwrapper"
-  run_command "pip3 install virtualenvwrapper"
-else
-  ok "virtualenvwrapper already installed"
-fi
-
-# configure virtualenvwrapper
-export VIRTUALENVWRAPPER_PYTHON=$(which python3)
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/dev
-
-source /usr/local/bin/virtualenvwrapper.sh
+require_brew "pyenv"
+require_brew "pyenv-virtualenv"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # create dotfiles virtualenv if one does not eist
-if [ ! -d $HOME/.virtualenvs/dotfiles ]
+if [ ! -d "$(pyenv root)/versions/dotfiles" ]
 then
   running "creating virtualenv for dotfiles tooling"
-  run_command "mkvirtualenv dotfiles"
+  run_command "pyenv virtualenv 3.9.4 dotfiles"
 fi
 
 running "installing python dependencies and switching to python bootstrap script"
-source $HOME/.virtualenvs/dotfiles/bin/activate \
-  && cd pydotfiles && pip3 install -r requirements.txt > pip_install_stdout.txt && rm pip_install_stdout.txt && cd - \
+eval "$(pyenv init -)" \
+  && eval "$(pyenv virtualenv-init -)" \
+  && pyenv activate dotfiles \
+  && cd pydotfiles \
+  && pip install -r requirements.txt > pip_install_stdout.txt && rm pip_install_stdout.txt && cd - \
   && python pydotfiles/pydotfiles/bin/bootstrap.py

@@ -24,6 +24,12 @@ Temporary Items
 ############
 id_rsa
 
+
+########
+# ASDF #
+########
+.tool-versions
+
 ###########
 # VS Code #
 ###########
