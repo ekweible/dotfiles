@@ -8,6 +8,9 @@ export PATH=$PATH:$DOTFILES_PRIVATE/bin
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 
+# Node/NPM
+export PATH=$PATH:$(npm get prefix -g)/bin
+
 # Dart
 export PATH=$PATH:~/.pub-cache/bin
 
