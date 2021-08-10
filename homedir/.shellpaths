@@ -15,7 +15,7 @@ export PATH=$PATH:$(npm get prefix -g)/bin
 export PATH=$PATH:~/.pub-cache/bin
 
 # Flutter
-export PATH=$PATH:~/dev/flutter/bin
+# export PATH=$PATH:~/dev/flutter/bin
 
 # GO
 export PATH=$PATH:$GOPATH/bin

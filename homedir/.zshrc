@@ -49,5 +49,7 @@ fi
 # Source plugins and add commands to $PATH
 zplug load # --verbose
 
+bash $HOME/.asdf/plugins/dart/tools/dart_version_watcher.sh
+
 # UNCOMMENT TO PROFILE ZSH STARTUP TIME
 # zprof
