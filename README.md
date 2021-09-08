@@ -1,28 +1,21 @@
 # Dotfiles
 
 - [Dotfiles](#dotfiles)
-  - [Versions/Credits](#versionscredits)
   - [What/Why](#whatwhy)
   - [How](#how)
   - [New machine setup](#new-machine-setup)
-
-## Versions/Credits
-
-- V1: Originally forked from [atomantic's dotfiles][atomantic-dotfiles].
-- V2: Overall setup inspired by [Zach Holman's dotfiles][holman-dotfiles].
-- V2: A minimal zsh theme and some iTerm2 configuration inspired by
-[Stefan Judis' iTerm2 + zsh setup][judas-iterm-zsh].
-- V3: A simplified approach that relies on [brew bundle][brew-bundle] for
-declarative dependencies, [mackup][mackup] for syncing config/settings, and
-shell config and shell scripts for everything else.
-
-Huge thanks to all of these people and the resources they've shared!
+  - [Versions/Credits](#versionscredits)
+  - [Workflows](#workflows)
+    - [Installing a new dependency](#installing-a-new-dependency)
 
 ## What/Why
 
-The primary goal of this repo is to make it easy to setup a new machine to be
-immediately ready for development work and to provide a way to continuously
-track changes to dependencies and config files.
+The primary goals of this repo are:
+
+1. Make it easy to setup a new machine to be ready for development work
+2. Provide tools and a workflow for adding dependencies, apps, etc. while also
+tracking those changes in this repo. This allows other workstations to stay in
+sync and prevents this repo from becoming outdated.
 
 ## How
 
@@ -81,7 +74,19 @@ GitHub username instead of the defaults.
 
 1. Run `p10k configure` to configure the powerlevel10k theme and install fonts.
 
+2. See private repo README for configuring Internet Accounts.
 
+## Versions/Credits
+
+- V1: Originally forked from [atomantic's dotfiles][atomantic-dotfiles].
+- V2: Overall setup inspired by [Zach Holman's dotfiles][holman-dotfiles].
+- V2: A minimal zsh theme and some iTerm2 configuration inspired by
+[Stefan Judis' iTerm2 + zsh setup][judas-iterm-zsh].
+- V3: A simplified approach that relies on [brew bundle][brew-bundle] for
+declarative dependencies, [mackup][mackup] for syncing config/settings, and
+shell config and shell scripts for everything else.
+
+Huge thanks to all of these people and the resources they've shared!
 [atomantic-dotfiles]: https://github.com/atomantic/dotfiles
 [brew-bundle]: https://github.com/Homebrew/homebrew-bundle
 [github-help-generating-ssh-key]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
