@@ -9,13 +9,9 @@ cd "$(dirname "${BASH_SOURCE}")/.."
 source ./lib_sh/echos.sh
 source ./lib_sh/linkers.sh
 
-# Run backup again to make sure all config files have been captured.
-running "mackup backup..."
-mackup backup
-
 # Pull first so that conflicts are detected before committing.
 running "Pulling..."
-cd Mackup
+cd private
 git pull
 
 # If there are no changes, exit. Nothing to do.
@@ -38,12 +34,12 @@ fi
 # Commit & push
 running "Pushing..."
 git add .
-git commit -m 'mackup-update.sh'
-git push
+git commit -m 'dotfiles-private-update.sh'
+git push origin main
 
 # Update submodule ref
 running "Updating submodule..."
 cd ..
-git submodule update Mackup
+git submodule update private
 
 ok
