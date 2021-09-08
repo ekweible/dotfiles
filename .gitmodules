@@ -1,0 +1,6 @@
+[submodule "Mackup"]
+	path = Mackup
+	url = git@github.com:ekweible/Mackup.git
+[submodule "private"]
+	path = private
+	url = git@github.com:ekweible/dotfiles_private.git
