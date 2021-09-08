@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-source ~/.virtualenvs/dotfiles/bin/activate
-python ~/dev/dotfiles/pydotfiles/pydotfiles/bin/pbrewic.py

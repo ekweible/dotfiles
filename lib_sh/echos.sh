@@ -38,12 +38,11 @@ function group() {
 }
 
 function prompt() {
-  read -r -p $'\x1b[32;01m?\x1b[39;49;00m'" $1 " response
-  printf "$response\n"
+  read -p $'\x1b[32;01m?\x1b[39;49;00m'" $1 " "${@:2}"
 }
 
 function running() {
-  printf "%s" "$YELLOW ⇒ $NORMAL$1 "
+  printf "%s\n" "$YELLOW ⇒ $NORMAL$1"
 }
 
 function warn() {
