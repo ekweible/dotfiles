@@ -13,7 +13,7 @@
 The primary goals of this repo are:
 
 1. Make it easy to setup a new machine to be ready for development work
-2. Provide tools and a workflow for adding dependencies, apps, etc. while also
+1. Provide tools and a workflow for adding dependencies, apps, etc. while also
 tracking those changes in this repo. This allows other workstations to stay in
 sync and prevents this repo from becoming outdated.
 
@@ -67,14 +67,14 @@ GitHub username instead of the defaults.
 1. Run the bootstrap script:
 
     ```bash
-    cd ~/.config/dotfiles && ./bin/bootstrap.sh
+    ./bin/bootstrap.sh
     ```
 
     **This script is idempotent and safe to run multiple times.**
 
 1. Run `p10k configure` to configure the powerlevel10k theme and install fonts.
 
-2. See private repo README for configuring Internet Accounts.
+1. See private repo README for configuring Internet Accounts.
 
 ## Versions/Credits
 

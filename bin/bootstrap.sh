@@ -11,14 +11,14 @@ source ./lib_sh/linkers.sh
 
 # Make sure we're on latest
 running "Pulling..."
-# git pull origin main
+git pull origin main
 running "Updating submodules..."
 git submodule update --remote
 
-# Configure the signing key for these repos
-source ./bin/git-config-signingkey.ekweible.sh
-(cd Mackup && source ../bin/git-config-signingkey.ekweible.sh)
-(cd private && source ../bin/git-config-signingkey.ekweible.sh)
+# Configure the user options and remote url for these repos
+source ./bin/git-config.ekweible.sh && git remote set-url origin git@github.com-ekweible:ekweible/dotfiles.git
+(cd Mackup && source ../bin/git-config.ekweible.sh && git remote set-url origin git@github.com-ekweible:ekweible/Mackup.git)
+(cd private && source ../bin/git-config.ekweible.sh && git remote set-url origin git@github.com-ekweible:ekweible/dotfiles_private.git)
 
 # Update Mac OS settings
 running "Mac OS setup..."
