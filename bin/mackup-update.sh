@@ -44,6 +44,6 @@ git push
 # Update submodule ref
 running "Updating submodule..."
 cd ..
-git submodule update Mackup
+git submodule update --remote Mackup
 
 ok
