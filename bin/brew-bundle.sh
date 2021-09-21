@@ -26,13 +26,13 @@ else
 fi
 
 # Install dependencies and apps using brew bundle
-running "brew bundle -v --file Brewfile"
-brew bundle -v --file Brewfile
+running "brew bundle -v --file Brewfile $@"
+brew bundle -v --file Brewfile $@
 
 # If the private profile includes a Brewfile, install it, too.
 if [ -f ./private/Brewfile ]; then
-    running "brew bundle -v --file private/Brewfile"
-    brew bundle -v --file private/Brewfile
+    running "brew bundle -v --file private/Brewfile $@"
+    brew bundle -v --file private/Brewfile $@
 fi
 
 ok
