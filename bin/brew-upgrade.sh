@@ -15,4 +15,7 @@ brew upgrade
 running "brew upgrade --cask --greedy"
 brew upgrade --cask --greedy
 
+# Run brew-bundle.sh again to update the Brewfile.lock.json
+source ./bin/brew-bundle.sh
+
 ok

@@ -1,7 +1,7 @@
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
-cask_args appdir: "~/Applications"
+cask_args appdir: "/Applications"
 
 brew "asdf"
 brew "bat"
