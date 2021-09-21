@@ -16,6 +16,7 @@ mackup backup
 # Pull first so that conflicts are detected before committing.
 running "Pulling..."
 cd Mackup
+git checkout main
 git pull
 
 # If there are no changes, exit. Nothing to do.
