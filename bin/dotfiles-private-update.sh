@@ -12,6 +12,7 @@ source ./lib_sh/linkers.sh
 # Pull first so that conflicts are detected before committing.
 running "Pulling..."
 cd private
+git checkout $DOTFILES_PRIVATE_BRANCH
 git pull
 
 # If there are no changes, exit. Nothing to do.
@@ -35,7 +36,7 @@ fi
 running "Pushing..."
 git add .
 git commit -m 'dotfiles-private-update.sh'
-git push origin main
+git push origin $DOTFILES_PRIVATE_BRANCH
 
 # Update submodule ref
 running "Updating submodule..."
