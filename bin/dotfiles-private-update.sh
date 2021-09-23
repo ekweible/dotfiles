@@ -41,6 +41,6 @@ git push origin $DOTFILES_PRIVATE_BRANCH
 # Update submodule ref
 running "Updating submodule..."
 cd ..
-git submodule update private
+git submodule update --remote private
 
 ok
