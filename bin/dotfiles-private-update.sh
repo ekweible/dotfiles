@@ -38,9 +38,22 @@ git add .
 git commit -m 'dotfiles-private-update.sh'
 git push origin $DOTFILES_PRIVATE_BRANCH
 
-# Update submodule ref
+# Update submodule and commit the updated ref
 running "Updating submodule..."
 cd ..
 git submodule update --remote private
+git add private
+
+# Log working tree for visibility.
+warn "Changes:"
+git status --porcelain
+
+# Confirm before commiting and pushing the updated submodule ref
+prompt "This will commit and push these changes. Continue? (y/n)" -n 1
+echo ""
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    warn "Aborted."
+    exit 1
+fi
 
 ok

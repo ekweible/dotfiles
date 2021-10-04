@@ -7,15 +7,15 @@ cd "$(dirname "${BASH_SOURCE}")/.."
 source ./lib_sh/echos.sh
 source ./lib_sh/linkers.sh
 
-# Run brew-bundle.sh first to ensure brew and all declared deps are installed
-source ./bin/brew-bundle.sh
+# Run this first to ensure brew and all declared deps are installed
+source ./bin/dotfiles-brew-bundle.sh
 
 running "brew upgrade"
 brew upgrade
 running "brew upgrade --cask --greedy"
 brew upgrade --cask --greedy
 
-# Run brew-bundle.sh again to update the Brewfile.lock.json
-source ./bin/brew-bundle.sh
+# Run this again to update the Brewfile.lock.json
+source ./bin/dotfiles-brew-bundle.sh
 
 ok
