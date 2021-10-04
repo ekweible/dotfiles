@@ -60,4 +60,7 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
+git commit -m 'dotfiles-mackup-update.sh'
+git push
+
 ok
