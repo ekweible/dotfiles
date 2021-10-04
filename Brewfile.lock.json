@@ -2,13 +2,13 @@
   "entries": {
     "tap": {
       "homebrew/cask": {
-        "revision": "769bb7364676fe9c0da06490c48daa4dfe06b6bb"
+        "revision": "fbb400f158da52033dbd26cbc3a537106ee8d3fe"
       },
       "homebrew/cask-versions": {
-        "revision": "437e1ab896bb0acb0cbb0bc9a33768a19df2f6f5"
+        "revision": "60cdf05958d9a1d365e36fa42b4a6cb89801ebca"
       },
       "homebrew/cask-fonts": {
-        "revision": "0cee3bfeb9e50323984c65b32e76c578a9cf3a60"
+        "revision": "5918091e9904bb200dff2f2b7d057f5b67e5c07f"
       }
     },
     "brew": {
@@ -527,7 +527,7 @@
     },
     "cask": {
       "raycast": {
-        "version": "1.23.1",
+        "version": "1.24.0",
         "options": {
           "full_name": "raycast",
           "args": {
@@ -536,7 +536,7 @@
         }
       },
       "visual-studio-code-insiders": {
-        "version": "1.61.0,1b9403cd461c9c975bcb9e48d84ba9e4ea86559e",
+        "version": "1.61.0,5991e3c4b97eca5568069bf3e0910ab693ad3549",
         "options": {
           "full_name": "visual-studio-code-insiders",
           "args": {
@@ -554,7 +554,7 @@
         }
       },
       "google-chrome": {
-        "version": "93.0.4577.82",
+        "version": "94.0.4606.61",
         "options": {
           "full_name": "google-chrome",
           "args": {
@@ -563,11 +563,11 @@
         }
       },
       "google-drive": {
-        "version": "50.0.11",
+        "version": "51.0.14",
         "options": {
           "full_name": "google-drive",
           "args": {
-            "appdir": "~/Applications"
+            "appdir": "/Applications"
           }
         }
       },
@@ -599,7 +599,7 @@
         }
       },
       "bitwarden": {
-        "version": "1.28.2",
+        "version": "1.28.3",
         "options": {
           "full_name": "bitwarden",
           "args": {
@@ -671,7 +671,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "3.2.13",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "3e6857147b30a97d2da1a3feed214e51c60329db",
+        "Homebrew/homebrew-core": "169bce688d9c7f42dad9625aa31aa6a82a9a497e",
         "CLT": "13.0.0.0.1.1630607135",
         "Xcode": "13.0",
         "macOS": "11.6"
