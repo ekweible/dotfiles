@@ -1,7 +1,7 @@
 # Used to build the `plantuml` image to easily build local PlantUML diagrams.
 # The `plantuml` shell alias depends on this image.
 # To rebuild, run from this directory:
-#     docker build -t plantuml .
+#     docker build -f plantuml.Dockerfile -t plantuml .
 
 FROM amazoncorretto:latest
 
@@ -14,7 +14,7 @@ RUN yum update -y && \
 
 ENV GRAPHVIZ_DOT=/usr/bin/dot
 
-RUN wget 'https://downloads.sourceforge.net/project/plantuml/1.2020.9/plantuml.1.2020.9.jar'
+RUN wget 'https://downloads.sourceforge.net/project/plantuml/1.2021.12/plantuml.1.2021.12.jar'
 
-ENTRYPOINT [ "java", "-jar", "/workspace/plantuml.1.2020.9.jar", "-progress" ]
+ENTRYPOINT [ "java", "-jar", "/workspace/plantuml.1.2021.12.jar", "-progress" ]
 CMD [ "/assets" ]
