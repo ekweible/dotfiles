@@ -36,5 +36,6 @@ cask "slack"
 cask "spotify"
 cask "viscosity"
 cask "visual-studio-code-insiders"
+cask "zoom"
 
 mas "Things 3", id: 904280696
