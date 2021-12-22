@@ -31,6 +31,9 @@ source ./bin/dotfiles-brew-bundle.sh
 # Restore config files from the Mackup submodule
 source ./bin/dotfiles-mackup-restore.sh
 
+# Bootstrap asdf plugins and latest installations.
+source ./bin/dotfiles-asdf-bootstrap.sh
+
 # Hand-off to private bootstrap, if available
 [ -f ./private/bootstrap.sh ] && source ./private/bootstrap.sh
 
