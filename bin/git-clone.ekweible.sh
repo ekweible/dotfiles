@@ -3,4 +3,4 @@
 set -e
 
 source _git-clone.sh git@github.com-ekweible $@
-source git-config-signingkey.ekweible.sh
+source git-config.ekweible.sh
