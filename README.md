@@ -3,47 +3,108 @@
 - [Dotfiles](#dotfiles)
   - [What/Why](#whatwhy)
   - [How](#how)
+    - [Submodules](#submodules)
+  - [Scripts](#scripts)
+    - [Dotfiles Bootstrapping & Upkeep](#dotfiles-bootstrapping--upkeep)
+    - [Git Helpers](#git-helpers)
   - [New machine setup](#new-machine-setup)
   - [Versions/Credits](#versionscredits)
-  - [Workflows](#workflows)
-    - [Installing a new dependency](#installing-a-new-dependency)
 
 ## What/Why
 
 The primary goals of this repo are:
 
 1. Make it easy to setup a new machine to be ready for development work
-1. Provide tools and a workflow for adding dependencies, apps, etc. while also
-tracking those changes in this repo. This allows other workstations to stay in
-sync and prevents this repo from becoming outdated.
+2. Provide tools and workflows for adding dependencies, apps, and so on while
+also tracking those changes in this repo. This allows other workstations to stay
+in sync and prevents this repo from becoming outdated.
 
 ## How
 
-- `brew bundle` installs dependencies and applications via homebrew and the
-[Mac App Store CLI][mas].
-- `mackup restore` symlinks config files from a git submodule into their
+- [`brew bundle`][brew-bundle] lets me list dependencies and applications in a
+declarative `Brewfile` format so that they can then be installed automatically
+via homebrew and the [Mac App Store CLI][mas].
+- [`mackup`][mackup] symlinks config files from a git submodule into their
 target destinations (usually the `$HOME` directory).
-- `zplug` (configured in `~/.zshrc`) installs and loads zsh-specific plugins.
-- A few shell scripts in this repo help with initial bootstrapping and then the
-upkeep of this system over time.
-  - `bootstrap.sh` runs everything needed to setup a new machine, but should
-  also be safe to run at any time.
-  - `brew-bundle.sh` will install homebrew if missing and then runs
-  `brew bundle` to install all dependencies in the `Brewfile`
-  - `macos.sh` will update Mac OS settings, typically via the `defaults` CLI
-  - `mackup-restore.sh` runs `mackup restore` and then also runs a script to
-  allow the profile to do some supplemental linking, which is necessary to
-  support profiles with different config requirements.
-  - `mackup-update.sh` runs `mackup backup` to capture the latest config files,
-  commits and pushes them (via a private submodule), and then updates the
-  submodule ref in the root of this repo.
+- [`zplug`][zplug] (configured in `~/.zshrc`) installs and loads zsh-specific
+plugins.
+- A few [shell scripts](#Scripts) in this repo help with initial bootstrapping
+and then the upkeep of this system over time.
+
+### Submodules
+
 - The `Mackup` submodule contains everything that `mackup` syncs. For now, I'm
 keeping this as a private submodule in case those files contain something
 sensitive. Ideally these could all be included directly in this repo.
 - The `private` submodule contains config files, scripts, and gpg keys that need
-to be kept private and thus can't live in this repo. The above scripts and the
+to be kept private and thus can't live in this repo. The scripts below and the
 shell profile/rc files will check for similarly named files in this submodule
 and source them appropriately.
+
+For both of these, I have a shell script that I run periodically that commits
+and pushes any changes within these submodules and then updates the submodule
+revisions in this parent repo.
+
+## Scripts
+
+### Dotfiles Bootstrapping & Upkeep
+
+- `dotfiles-asdf-bootstrap.sh` installs all of the asdf plugins that I use along
+with the latest version of each of the languages provided by these plugins. Note
+that this depends on asdf already being installed.
+- `dotfiles-bootstrap.sh` runs everything needed to setup a new machine, but
+should also be safe to run at any time.
+  - If a `bootstrap.sh` script exists in the `private/` submodule, it will be
+  sourced last.
+- `dotfiles-brew-bundle.sh` installs homebrew if missing and then runs
+`brew bundle` to install all dependencies in the `Brewfile`
+  - If a `Brewfile` exists in the `private/` submodule, it will be used to run
+  `brew bundle`, as well.
+- `dotfiles-brew-upgrade.sh` runs `dotfiles-brew-bundle.sh` to ensure that Brew
+and everything in the `Brewfile`s are installed. Then upgrades all Brew formulae
+and casks. Finally updates the `Brewfile.lock.json`s.
+- `dotfiles-mackup-restore.sh` runs `mackup restore` which links all of the
+config files from the `Mackup/` submodule into the expected location (typically
+the HOME directory).
+  - If a `mackup-restore.sh` script exists in the `private/` submodule, it is
+  sourced after running `mackup restore`. This allows for profile-specific
+  linking of configuration files. For example, you may have multiple profiles
+  each with a unique `.pip/pip.conf`.
+- `dotfiles-mackup-update.sh` runs `mackup backup` to capture the latest config
+files, then commits and pushes them (via the private submodule), and then
+updates the submodule ref in the root of this repo.
+- `dotfiles-macos.sh` will update Mac OS settings and user preferences.
+- `dotfiles-private-update.sh` commits and pushes any updates in the `private/`
+submodule and then updates the submodule ref in the root of this repo.
+
+### Git Helpers
+
+- `git-clone.<username>.sh <repo> [<name>]` clones the given `<repo>` into a
+subdirectory of the current working directory. If given, `<name>` will be the
+name of the newly created directory, otherwise it defaults to the name of the
+repo.
+
+    The `<username>` determines which SSH key and GPG signing key this repo will
+    be associated with.
+
+    Note that for `<repo>`, the host and the `.git` are optional. In other
+words, the following formats are supported:
+  - `git@github.com:<org>/<repo>.git`
+  - `<org>/<repo>.git`
+  - `<org>/<repo>`
+
+- `git-config.<username>.sh` runs several `git config` commands in the current
+working directory to ensure that the repo is configured correctly for the given
+`<username>`. This configures `user.name`, `user.email`, and `user.signingkey`
+and then lists out the remote URLs so it can be verified they match the expected
+SSH host config.
+
+- `git-remote-add.<username>.sh <name> <remote>` adds a remote to the git repo
+in the current working directory. `<name>` will be the name of this new remote
+and `<remote>` should be the URL.
+
+    The given `<username>` determines which SSH key the remote will be
+    associated with.
 
 ## New machine setup
 
@@ -67,7 +128,7 @@ GitHub username instead of the defaults.
 1. Run the bootstrap script:
 
     ```bash
-    ./bin/bootstrap.sh
+    ./bin/dotfiles-bootstrap.sh
     ```
 
     **This script is idempotent and safe to run multiple times.**
@@ -87,6 +148,7 @@ declarative dependencies, [mackup][mackup] for syncing config/settings, and
 shell config and shell scripts for everything else.
 
 Huge thanks to all of these people and the resources they've shared!
+
 [atomantic-dotfiles]: https://github.com/atomantic/dotfiles
 [brew-bundle]: https://github.com/Homebrew/homebrew-bundle
 [github-help-generating-ssh-key]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
@@ -96,3 +158,4 @@ Huge thanks to all of these people and the resources they've shared!
 [mackup]: https://github.com/lra/mackup
 [mas]: https://github.com/mas-cli/mas
 [p10k-fonts]: https://github.com/romkatv/powerlevel10k#manual-font-installation
+[zplug]: https://github.com/zplug/zplug
