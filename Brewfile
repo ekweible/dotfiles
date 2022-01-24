@@ -23,11 +23,12 @@ brew "yq"
 brew "zplug"
 
 cask "bitwarden"
-cask "devonthink"
+cask "devonthink" # remove once migrated to Obsidian
 cask "docker"
 cask "font-fira-code"
 cask "google-chrome"
 cask "google-drive"
+cask "insomnia"
 cask "intellij-idea-ce"
 cask "iterm2"
 cask "notion"
@@ -40,3 +41,4 @@ cask "visual-studio-code-insiders"
 cask "zoom"
 
 mas "Things 3", id: 904280696
+mas "Todoist", id: 585829637
