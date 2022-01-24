@@ -25,6 +25,7 @@ brew "zplug"
 cask "bitwarden"
 cask "devonthink" # remove once migrated to Obsidian
 cask "docker"
+cask "fig"
 cask "font-fira-code"
 cask "google-chrome"
 cask "google-drive"
