@@ -14,7 +14,7 @@ RUN yum update -y && \
 
 ENV GRAPHVIZ_DOT=/usr/bin/dot
 
-RUN wget 'https://downloads.sourceforge.net/project/plantuml/1.2021.12/plantuml.1.2021.12.jar'
+RUN wget 'https://downloads.sourceforge.net/project/plantuml/1.2022.6/plantuml.1.2022.6.jar'
 
-ENTRYPOINT [ "java", "-jar", "/workspace/plantuml.1.2021.12.jar", "-progress" ]
+ENTRYPOINT [ "java", "-jar", "/workspace/plantuml.1.2022.6.jar", "-progress" ]
 CMD [ "/assets" ]
