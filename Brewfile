@@ -40,6 +40,7 @@ cask "raycast"
 cask "slack"
 cask "spotify"
 cask "viscosity"
+cask "visual-studio-code"
 cask "visual-studio-code-insiders"
 cask "zoom"
 
