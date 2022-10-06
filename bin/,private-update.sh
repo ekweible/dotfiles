@@ -9,14 +9,10 @@ cd "$(dirname "${BASH_SOURCE}")/.."
 source ./lib_sh/echos.sh
 source ./lib_sh/linkers.sh
 
-# Run backup again to make sure all config files have been captured.
-running "mackup backup..."
-mackup backup
-
 # Pull first so that conflicts are detected before committing.
 running "Pulling..."
-cd Mackup
-git checkout main
+cd private
+git checkout $DOTFILES_PRIVATE_BRANCH
 git pull
 
 # If there are no changes, exit. Nothing to do.
@@ -39,14 +35,14 @@ fi
 # Commit & push
 running "Pushing..."
 git add .
-git commit -m 'dotfiles-mackup-update.sh'
-git push
+git commit -m ',private-update.sh'
+git push origin $DOTFILES_PRIVATE_BRANCH
 
 # Update submodule and commit the updated ref
 running "Updating submodule..."
 cd ..
-git submodule update --remote Mackup
-git add Mackup
+git submodule update --remote private
+git add private
 
 # Log working tree for visibility.
 warn "Changes:"
@@ -60,7 +56,7 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
-git commit -m 'dotfiles-mackup-update.sh'
+git commit -m ',private-update.sh'
 git push
 
 ok

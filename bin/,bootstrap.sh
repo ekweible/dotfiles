@@ -22,17 +22,17 @@ source ./bin/git-config.ekweible.sh && git remote set-url origin git@github.com-
 
 # Update Mac OS settings
 running "Mac OS setup..."
-source ./bin/dotfiles-macos.sh
+source ./bin/,macos.sh
 
 # Install homebrew and use it to install dependencies and apps
 running "Installing brew, deps, and apps..."
-source ./bin/dotfiles-brew-bundle.sh
+source ./bin/,brew-bundle.sh
 
 # Restore config files from the Mackup submodule
-source ./bin/dotfiles-mackup-restore.sh
+source ./bin/,mackup-restore.sh
 
 # Bootstrap asdf plugins and latest installations.
-source ./bin/dotfiles-asdf-bootstrap.sh
+source ./bin/,asdf-bootstrap.sh
 
 # Hand-off to private bootstrap, if available
 [ -f ./private/bootstrap.sh ] && source ./private/bootstrap.sh

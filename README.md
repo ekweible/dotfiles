@@ -6,7 +6,6 @@
     - [Submodules](#submodules)
   - [Scripts](#scripts)
     - [Dotfiles Bootstrapping & Upkeep](#dotfiles-bootstrapping--upkeep)
-    - [Git Helpers](#git-helpers)
   - [New machine setup](#new-machine-setup)
   - [Versions/Credits](#versionscredits)
 
@@ -49,62 +48,33 @@ revisions in this parent repo.
 
 ### Dotfiles Bootstrapping & Upkeep
 
-- `dotfiles-asdf-bootstrap.sh` installs all of the asdf plugins that I use along
+- `,asdf-bootstrap.sh` installs all of the asdf plugins that I use along
 with the latest version of each of the languages provided by these plugins. Note
 that this depends on asdf already being installed.
-- `dotfiles-bootstrap.sh` runs everything needed to setup a new machine, but
+- `,bootstrap.sh` runs everything needed to setup a new machine, but
 should also be safe to run at any time.
   - If a `bootstrap.sh` script exists in the `private/` submodule, it will be
   sourced last.
-- `dotfiles-brew-bundle.sh` installs homebrew if missing and then runs
+- `,brew-bundle.sh` installs homebrew if missing and then runs
 `brew bundle` to install all dependencies in the `Brewfile`
   - If a `Brewfile` exists in the `private/` submodule, it will be used to run
   `brew bundle`, as well.
-- `dotfiles-brew-upgrade.sh` runs `dotfiles-brew-bundle.sh` to ensure that Brew
+- `,brew-upgrade.sh` runs `,brew-bundle.sh` to ensure that Brew
 and everything in the `Brewfile`s are installed. Then upgrades all Brew formulae
 and casks. Finally updates the `Brewfile.lock.json`s.
-- `dotfiles-mackup-restore.sh` runs `mackup restore` which links all of the
+- `,mackup-restore.sh` runs `mackup restore` which links all of the
 config files from the `Mackup/` submodule into the expected location (typically
 the HOME directory).
   - If a `mackup-restore.sh` script exists in the `private/` submodule, it is
   sourced after running `mackup restore`. This allows for profile-specific
   linking of configuration files. For example, you may have multiple profiles
   each with a unique `.pip/pip.conf`.
-- `dotfiles-mackup-update.sh` runs `mackup backup` to capture the latest config
+- `,mackup-update.sh` runs `mackup backup` to capture the latest config
 files, then commits and pushes them (via the private submodule), and then
 updates the submodule ref in the root of this repo.
-- `dotfiles-macos.sh` will update Mac OS settings and user preferences.
-- `dotfiles-private-update.sh` commits and pushes any updates in the `private/`
+- `,macos.sh` will update Mac OS settings and user preferences.
+- `,private-update.sh` commits and pushes any updates in the `private/`
 submodule and then updates the submodule ref in the root of this repo.
-
-### Git Helpers
-
-- `git-clone.<username>.sh <repo> [<name>]` clones the given `<repo>` into a
-subdirectory of the current working directory. If given, `<name>` will be the
-name of the newly created directory, otherwise it defaults to the name of the
-repo.
-
-    The `<username>` determines which SSH key and GPG signing key this repo will
-    be associated with.
-
-    Note that for `<repo>`, the host and the `.git` are optional. In other
-words, the following formats are supported:
-  - `git@github.com:<org>/<repo>.git`
-  - `<org>/<repo>.git`
-  - `<org>/<repo>`
-
-- `git-config.<username>.sh` runs several `git config` commands in the current
-working directory to ensure that the repo is configured correctly for the given
-`<username>`. This configures `user.name`, `user.email`, and `user.signingkey`
-and then lists out the remote URLs so it can be verified they match the expected
-SSH host config.
-
-- `git-remote-add.<username>.sh <name> <remote>` adds a remote to the git repo
-in the current working directory. `<name>` will be the name of this new remote
-and `<remote>` should be the URL.
-
-    The given `<username>` determines which SSH key the remote will be
-    associated with.
 
 ## New machine setup
 
@@ -128,7 +98,7 @@ GitHub username instead of the defaults.
 1. Run the bootstrap script:
 
     ```bash
-    ./bin/dotfiles-bootstrap.sh
+    ./bin/,bootstrap.sh
     ```
 
     **This script is idempotent and safe to run multiple times.**
