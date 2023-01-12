@@ -6,6 +6,7 @@ brew "asdf"
 brew "bat"
 brew "exa"
 brew "fd"
+brew "flyctl"
 brew "fswatch"
 brew "gh"
 brew "git"
@@ -29,7 +30,9 @@ brew "zplug"
 cask "bitwarden"
 cask "devonthink" # remove once migrated to Obsidian
 cask "docker"
+cask "font-caskaydia-cove-nerd-font"
 cask "font-fira-code"
+cask "font-hack-nerd-font"
 cask "google-chrome"
 cask "google-drive"
 cask "insomnia"
@@ -44,5 +47,6 @@ cask "visual-studio-code"
 cask "visual-studio-code-insiders"
 cask "zoom"
 
+mas "MyMind", id: 1532801185
 mas "Things 3", id: 904280696
 mas "Todoist", id: 585829637
