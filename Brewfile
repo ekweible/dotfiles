@@ -27,6 +27,7 @@ brew "tldr"
 brew "yq"
 brew "zplug"
 
+cask "arc"
 cask "bitwarden"
 cask "devonthink" # remove once migrated to Obsidian
 cask "docker"
