@@ -46,7 +46,6 @@ cask "slack"
 cask "spotify"
 cask "viscosity"
 cask "visual-studio-code"
-cask "visual-studio-code-insiders"
 cask "zoom"
 
 mas "MyMind", id: 1532801185

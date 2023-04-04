@@ -1,1 +1,1 @@
-alias code="code-insiders"
+# alias code="code-insiders"

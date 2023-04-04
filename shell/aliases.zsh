@@ -3,7 +3,6 @@ alias dev="cd ~/dev/"
 alias dotfiles="cd $DOTFILES"
 
 # programs
-alias code="code-insiders"
 alias g="git"
 alias ls='exa --all --long --header'
 
