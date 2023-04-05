@@ -11,7 +11,7 @@ source ./lib_sh/linkers.sh
 
 # Confirm the branch is correct
 branch="$(git rev-parse --abbrev-ref HEAD)"
-prompt "Bootstrapping from branch '$branch'. Continue? (y/n)" -n 1
+prompt "Bootstrapping from branch $CYAN$branch$NORMAL. Continue? (y/n)" -n 1
 echo ""
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     warn "Aborted."
