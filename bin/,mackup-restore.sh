@@ -17,6 +17,9 @@ setup_brew_env_if_missing
 running "Updating Mackup submodule..."
 git submodule update --init --recursive Mackup
 
+# During initial bootstrap, we may need to link the Mackup config file
+test -e "$HOME/.mackup.cfg" || link_file $HOME/.config/dotfiles/Mackup/.mackup.cfg $HOME/.mackup.cfg
+
 # Restore
 running "Restoring..."
 mackup restore
