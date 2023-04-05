@@ -6,8 +6,12 @@ set -e
 cd "$(dirname "${BASH_SOURCE}")/.."
 
 # Source some utils
+source ./lib_sh/brew.sh
 source ./lib_sh/echos.sh
 source ./lib_sh/linkers.sh
+
+# During initial bootstrap, brew env may need to be setup for this shell session
+setup_brew_env_if_missing
 
 # Make sure we're on latest
 running "Updating Mackup submodule..."
