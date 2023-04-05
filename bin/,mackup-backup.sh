@@ -44,6 +44,6 @@ fi
 
 # Some config files cannot be shared between different profiles (like personal
 # and work), so we allow the profile to hook into the post-backup stage here.
-[ -f ./private/mackup-backup.sh ] && source ./private/mackup-backup.sh
+[ -f ./private/mackup-backup.sh ] && ./private/mackup-backup.sh
 
 ok

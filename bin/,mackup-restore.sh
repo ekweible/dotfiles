@@ -19,6 +19,6 @@ mackup restore
 
 # Some config files cannot be shared between different profiles (like personal
 # and work), so we allow the profile to hook into the post-restore stage here.
-[ -f ./private/mackup-restore.sh ] && source ./private/mackup-restore.sh
+[ -f ./private/mackup-restore.sh ] && ./private/mackup-restore.sh
 
 ok
