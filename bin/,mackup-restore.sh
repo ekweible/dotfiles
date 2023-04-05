@@ -11,7 +11,7 @@ source ./lib_sh/linkers.sh
 
 # Make sure we're on latest
 running "Updating Mackup submodule..."
-git submodule update Mackup
+git submodule update --init --recursive Mackup
 
 # Restore
 running "Restoring..."

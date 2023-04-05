@@ -10,8 +10,8 @@ source ./lib_sh/echos.sh
 source ./lib_sh/linkers.sh
 
 # Confirm the branch is correct
-branch=$(git rev-parse --abbrev-ref HEAD)
-prompt "Bootstrapping from branch `$branch`. Continue? (y/n)" -n 1
+branch="$(git rev-parse --abbrev-ref HEAD)"
+prompt "Bootstrapping from branch '$branch'. Continue? (y/n)" -n 1
 echo ""
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     warn "Aborted."
@@ -22,7 +22,7 @@ fi
 running "Pulling..."
 git pull
 running "Updating submodules..."
-git submodule update --remote
+git submodule update --init --recursive
 
 # Update Mac OS settings
 running "Mac OS setup..."

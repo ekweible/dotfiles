@@ -21,42 +21,18 @@ git pull
 # Update the private Mackup submodule
 if [ "$(git status --porcelain)" ]
 then
-    # Log working tree for visibility.
-    warn "Mackup Changes:"
-    git status --porcelain
-
-    # Confirm before commiting and pushing.
-    prompt "This will commit and push these changes and then update the submodule ref. Continue? (y/n)" -n 1
-    echo ""
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        warn "Aborted."
-        exit 1
-    fi
-
-    # Commit & push
-    running "Pushing..."
+    # Commit and push changes in the submodule
+    confirm_changes "dotfiles/private/Mackup"
+    running "Pushing changes to submodule..."
     git add .
     git commit -m ',private-update.sh'
-    git push origin main
+    git push
 
-    # Update submodule and commit the updated ref
-    running "Updating submodule..."
+    # Commit and push the updated submodule ref
+    running "Updating submodule ref..."
     cd ..
-    git submodule update --remote Mackup
     git add Mackup
-
-    # Log working tree for visibility.
-    warn "Changes:"
-    git status --porcelain
-
-    # Confirm before commiting and pushing the updated submodule ref
-    prompt "This will commit and push these changes. Continue? (y/n)" -n 1
-    echo ""
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        warn "Aborted."
-        exit 1
-    fi
-
+    confirm_changes "dotfiles/private"
     git commit -m ',private-update.sh'
     git push
 else
@@ -67,42 +43,18 @@ fi
 # Update the private submodule
 if [ "$(git status --porcelain)" ]
 then
-    # Log working tree for visibility.
-    warn "Private Changes:"
-    git status --porcelain
-
-    # Confirm before commiting and pushing.
-    prompt "This will commit and push these changes and then update the submodule ref. Continue? (y/n)" -n 1
-    echo ""
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        warn "Aborted."
-        exit 1
-    fi
-
-    # Commit & push
-    running "Pushing..."
+    # Commit and push changes in the submodule
+    confirm_changes "dotfiles/private"
+    running "Pushing changes to submodule..."
     git add .
     git commit -m ',private-update.sh'
-    git push origin $DOTFILES_PRIVATE_BRANCH
+    git push
 
-    # Update submodule and commit the updated ref
-    running "Updating submodule..."
+    # Commit and push the updated submodule ref
+    running "Updating submodule ref..."
     cd ..
-    git submodule update --remote private
     git add private
-
-    # Log working tree for visibility.
-    warn "Changes:"
-    git status --porcelain
-
-    # Confirm before commiting and pushing the updated submodule ref
-    prompt "This will commit and push these changes. Continue? (y/n)" -n 1
-    echo ""
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        warn "Aborted."
-        exit 1
-    fi
-
+    confirm_changes "dotfiles"
     git commit -m ',private-update.sh'
     git push
 else
