@@ -8,7 +8,7 @@ source ./lib_sh/echos.sh
 source ./lib_sh/linkers.sh
 
 # Run this first to ensure brew and all declared deps are installed
-source ./bin/,brew-bundle.sh
+./bin/,brew-bundle.sh
 
 running "brew upgrade"
 brew upgrade
@@ -16,6 +16,6 @@ running "brew upgrade --cask --greedy"
 brew upgrade --cask --greedy
 
 # Run this again to update the Brewfile.lock.json
-source ./bin/,brew-bundle.sh
+./bin/,brew-bundle.sh
 
 ok

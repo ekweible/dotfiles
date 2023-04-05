@@ -26,22 +26,22 @@ git submodule update --init --recursive
 
 # Update Mac OS settings
 running "Mac OS setup..."
-source ./bin/,macos.sh
+./bin/,macos.sh
 
 # Install homebrew and use it to install dependencies and apps
 running "Installing brew, deps, and apps..."
-source ./bin/,brew-bundle.sh
+./bin/,brew-bundle.sh
 
 # Restore config files from the Mackup submodule
-source ./bin/,mackup-restore.sh
+./bin/,mackup-restore.sh
 
 # Bootstrap asdf plugins and latest installations.
-source ./bin/,asdf-bootstrap.sh
+./bin/,asdf-bootstrap.sh
 
 # Link shell config into home directory
-source ./bin/,link.sh
+./bin/,link.sh
 
 # Hand-off to private bootstrap, if available
-[ -f ./private/bootstrap.sh ] && source ./private/bootstrap.sh
+[ -f ./private/bootstrap.sh ] && ./private/bootstrap.sh
 
 ok "Done. Login to a new shell."
