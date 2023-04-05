@@ -4,6 +4,7 @@ set -e
 
 # Allows this script to be run from anywhere
 cd "$(dirname "${BASH_SOURCE}")/.."
+DOTFILES="$(pwd)"
 
 # Source some utils
 source ./lib_sh/echos.sh
@@ -26,22 +27,25 @@ git submodule update --init --recursive
 
 # Update Mac OS settings
 running "Mac OS setup..."
-./bin/,macos.sh
+$DOTFILES/bin/,macos.sh
 
 # Install homebrew and use it to install dependencies and apps
 running "Installing brew, deps, and apps..."
-./bin/,brew-bundle.sh
+$DOTFILES/bin/,brew-bundle.sh
 
 # Restore config files from the Mackup submodule
-./bin/,mackup-restore.sh
+running "Restoring dotfiles via mackup..."
+$DOTFILES/bin/,mackup-restore.sh
 
 # Bootstrap asdf plugins and latest installations.
-./bin/,asdf-bootstrap.sh
+running "Bootstrapping asdf..."
+$DOTFILES/bin/,asdf-bootstrap.sh
 
 # Link shell config into home directory
-./bin/,link.sh
+running "Linking shell config files..."
+$DOTFILES/bin/,link.sh
 
 # Hand-off to private bootstrap, if available
-[ -f ./private/bootstrap.sh ] && ./private/bootstrap.sh
+[ -f $DOTFILES/private/bootstrap.sh ] && $DOTFILES/private/bootstrap.sh
 
 ok "Done. Login to a new shell."
