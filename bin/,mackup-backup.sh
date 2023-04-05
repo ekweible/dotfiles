@@ -39,7 +39,7 @@ fi
 # Commit & push
 running "Pushing..."
 git add .
-git commit -m ',mackup-update.sh'
+git commit -m ',mackup-backup.sh'
 git push
 
 # Update submodule and commit the updated ref
@@ -60,7 +60,11 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
-git commit -m ',mackup-update.sh'
+git commit -m ',mackup-backup.sh'
 git push
+
+# Some config files cannot be shared between different profiles (like personal
+# and work), so we allow the profile to hook into the post-backup stage here.
+[ -f ./private/mackup-backup.sh ] && source ./private/mackup-backup.sh
 
 ok

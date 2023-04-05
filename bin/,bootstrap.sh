@@ -15,11 +15,6 @@ git pull origin main
 running "Updating submodules..."
 git submodule update --remote
 
-# Configure the user options and remote url for these repos
-source ./bin/git-config.ekweible.sh && git remote set-url origin git@github.com-ekweible:ekweible/dotfiles.git
-(cd Mackup && source ../bin/git-config.ekweible.sh && git remote set-url origin git@github.com-ekweible:ekweible/Mackup.git)
-(cd private && source ../bin/git-config.ekweible.sh && git remote set-url origin git@github.com-ekweible:ekweible/dotfiles_private.git)
-
 # Update Mac OS settings
 running "Mac OS setup..."
 source ./bin/,macos.sh
@@ -34,7 +29,10 @@ source ./bin/,mackup-restore.sh
 # Bootstrap asdf plugins and latest installations.
 source ./bin/,asdf-bootstrap.sh
 
+# Link shell config into home directory
+source ./bin/,link.sh
+
 # Hand-off to private bootstrap, if available
 [ -f ./private/bootstrap.sh ] && source ./private/bootstrap.sh
 
-ok "Done. Login to a new shell. If you have not already, run `p10k configure`."
+ok "Done. Login to a new shell."

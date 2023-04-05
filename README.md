@@ -94,7 +94,7 @@ the HOME directory).
   sourced after running `mackup restore`. This allows for profile-specific
   linking of configuration files. For example, you may have multiple profiles
   each with a unique `.pip/pip.conf`.
-- `,mackup-update.sh` runs `mackup backup` to capture the latest config
+- `,mackup-backup.sh` runs `mackup backup` to capture the latest config
 files, then commits and pushes them (via the private submodule), and then
 updates the submodule ref in the root of this repo.
 - `,macos.sh` will update Mac OS settings and user preferences.
