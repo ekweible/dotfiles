@@ -4,6 +4,7 @@
 cd "$(dirname "${BASH_SOURCE}")/.."
 
 # Source some utils
+source ./lib_sh/brew.sh
 source ./lib_sh/echos.sh
 source ./lib_sh/linkers.sh
 
@@ -20,13 +21,12 @@ then
         exit 2
     fi
 
-    # This is only needed until the rest of the bootstrap can complete.
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-
     ok "done"
 else
     ok "homebrew already installed"
 fi
+
+setup_brew_env_if_missing
 
 # Install dependencies and apps using brew bundle
 running "brew bundle -v --file Brewfile $@"

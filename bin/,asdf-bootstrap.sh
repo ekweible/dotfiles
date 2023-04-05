@@ -3,6 +3,14 @@
 # Allows this script to be run from anywhere
 cd "$(dirname "${BASH_SOURCE}")/.."
 
+# Source some utils
+source ./lib_sh/brew.sh
+source ./lib_sh/echos.sh
+source ./lib_sh/linkers.sh
+
+# During initial bootstrap, brew env may need to be setup for this shell session
+setup_brew_env_if_missing
+
 asdf plugin-add dart https://github.com/patoconnor43/asdf-dart.git
 asdf plugin-add flutter
 asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
