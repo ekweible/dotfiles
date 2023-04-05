@@ -25,6 +25,10 @@ function br() {
   printf "\n"
 }
 
+function info() {
+  printf "%s\n" "$CYAN[info]$NORMAL $1"
+}
+
 function ok() {
   printf "%s\n" "$GREEN[ok]$NORMAL $1"
 }

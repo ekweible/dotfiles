@@ -14,49 +14,99 @@ running "Pulling..."
 cd private
 git checkout $DOTFILES_PRIVATE_BRANCH
 git pull
+cd Mackup
+git checkout main
+git pull
 
-# If there are no changes, exit. Nothing to do.
-# This will detect changes to tracked files as well as the presence of new,
-# untracked files. It will exclude gitignored files.
-test -n "$(git status --porcelain)" || (ok "No changes." && exit 0)
+# Update the private Mackup submodule
+if [ "$(git status --porcelain)" ]
+then
+    # Log working tree for visibility.
+    warn "Mackup Changes:"
+    git status --porcelain
 
-# Log working tree for visibility.
-warn "Changes:"
-git status --porcelain
+    # Confirm before commiting and pushing.
+    prompt "This will commit and push these changes and then update the submodule ref. Continue? (y/n)" -n 1
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        warn "Aborted."
+        exit 1
+    fi
 
-# Confirm before commiting and pushing.
-prompt "This will commit and push these changes and then update the submodule ref. Continue? (y/n)" -n 1
-echo ""
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    warn "Aborted."
-    exit 1
+    # Commit & push
+    running "Pushing..."
+    git add .
+    git commit -m ',private-update.sh'
+    git push origin main
+
+    # Update submodule and commit the updated ref
+    running "Updating submodule..."
+    cd ..
+    git submodule update --remote Mackup
+    git add Mackup
+
+    # Log working tree for visibility.
+    warn "Changes:"
+    git status --porcelain
+
+    # Confirm before commiting and pushing the updated submodule ref
+    prompt "This will commit and push these changes. Continue? (y/n)" -n 1
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        warn "Aborted."
+        exit 1
+    fi
+
+    git commit -m ',private-update.sh'
+    git push
+else
+    info "No changes in private Mackup"
+    cd ..
 fi
 
-# Commit & push
-running "Pushing..."
-git add .
-git commit -m ',private-update.sh'
-git push origin $DOTFILES_PRIVATE_BRANCH
+# Update the private submodule
+if [ "$(git status --porcelain)" ]
+then
+    # Log working tree for visibility.
+    warn "Private Changes:"
+    git status --porcelain
 
-# Update submodule and commit the updated ref
-running "Updating submodule..."
-cd ..
-git submodule update --remote private
-git add private
+    # Confirm before commiting and pushing.
+    prompt "This will commit and push these changes and then update the submodule ref. Continue? (y/n)" -n 1
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        warn "Aborted."
+        exit 1
+    fi
 
-# Log working tree for visibility.
-warn "Changes:"
-git status --porcelain
+    # Commit & push
+    running "Pushing..."
+    git add .
+    git commit -m ',private-update.sh'
+    git push origin $DOTFILES_PRIVATE_BRANCH
 
-# Confirm before commiting and pushing the updated submodule ref
-prompt "This will commit and push these changes. Continue? (y/n)" -n 1
-echo ""
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    warn "Aborted."
-    exit 1
+    # Update submodule and commit the updated ref
+    running "Updating submodule..."
+    cd ..
+    git submodule update --remote private
+    git add private
+
+    # Log working tree for visibility.
+    warn "Changes:"
+    git status --porcelain
+
+    # Confirm before commiting and pushing the updated submodule ref
+    prompt "This will commit and push these changes. Continue? (y/n)" -n 1
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        warn "Aborted."
+        exit 1
+    fi
+
+    git commit -m ',private-update.sh'
+    git push
+else
+    info "No changes in private submodule"
 fi
-
-git commit -m ',private-update.sh'
-git push
 
 ok
