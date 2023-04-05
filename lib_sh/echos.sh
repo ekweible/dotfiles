@@ -45,6 +45,23 @@ function prompt() {
     read -p $'\x1b[32;01m?\x1b[39;49;00m'" $1 " "${@:2}"
 }
 
+function confirm_changes() {
+    path="$1"
+    branch="$(git rev-parse --abbrev-ref HEAD)"
+
+    # Log working tree for visibility.
+    warn "Changes:"
+    git status --porcelain
+
+    # Confirm before commiting and pushing the updates
+    prompt "This will commit and push the above changes to $CYAN$path$NORMAL on the branch $CYAN$branch$NORMAL. Continue? (y/n)" -n 1
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        warn "Aborted."
+        exit 1
+    fi
+}
+
 function running() {
     printf "%s\n" "$YELLOW ⇒ $NORMAL$1"
 }

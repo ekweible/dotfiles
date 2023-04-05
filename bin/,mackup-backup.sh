@@ -24,42 +24,18 @@ git pull
 # untracked files. It will exclude gitignored files.
 if [ "$(git status --porcelain)" ]
 then
-    # Log working tree for visibility.
-    warn "Changes:"
-    git status --porcelain
-
-    # Confirm before commiting and pushing.
-    prompt "This will commit and push these changes and then update the submodule ref. Continue? (y/n)" -n 1
-    echo ""
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        warn "Aborted."
-        exit 1
-    fi
-
-    # Commit & push
-    running "Pushing..."
+    # Commit and push changes in the submodule
+    confirm_changes "dotfiles/Mackup"
+    running "Pushing changes to submodule..."
     git add .
     git commit -m ',mackup-backup.sh'
     git push
 
-    # Update submodule and commit the updated ref
-    running "Updating submodule..."
+    # Commit and push the updated submodule ref
+    running "Updating submodule ref..."
     cd ..
-    git submodule update --remote Mackup
     git add Mackup
-
-    # Log working tree for visibility.
-    warn "Changes:"
-    git status --porcelain
-
-    # Confirm before commiting and pushing the updated submodule ref
-    prompt "This will commit and push these changes. Continue? (y/n)" -n 1
-    echo ""
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        warn "Aborted."
-        exit 1
-    fi
-
+    confirm_changes "dotfiles"
     git commit -m ',mackup-backup.sh'
     git push
 else
