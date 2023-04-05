@@ -22,7 +22,7 @@ fi
 running "Pulling..."
 git pull
 running "Updating submodules..."
-git submodule update --remote
+git submodule update --init --recursive
 
 # Update Mac OS settings
 running "Mac OS setup..."
