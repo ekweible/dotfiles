@@ -4,6 +4,7 @@ set -e
 
 # Allows this script to be run from anywhere
 cd "$(dirname "${BASH_SOURCE}")/.."
+DOTFILES="$(pwd)"
 
 # Source some utils
 source ./lib_sh/echos.sh
