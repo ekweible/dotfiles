@@ -20,6 +20,9 @@ then
         exit 2
     fi
 
+    # This is only needed until the rest of the bootstrap can complete.
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
     ok "done"
 else
     ok "homebrew already installed"
