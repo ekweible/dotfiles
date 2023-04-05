@@ -13,6 +13,9 @@ config_files=($DOTFILES/*/*.zsh)
 # PHASE 1: path.zsh files
 ################################################################################
 
+# load brew path first, since others may depend on it
+source "$DOTFILES/brew.path.zsh"
+
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}; do
   source "$file"
