@@ -128,11 +128,7 @@ GitHub username instead of the defaults.
 
     **This script is idempotent and safe to run multiple times.**
 
-TODO: anything to configure starship.rs?
-
-<!-- 1. Run `p10k configure` to configure the powerlevel10k theme and install fonts. -->
-
-1. See private repo README for configuring Internet Accounts.
+2. See private repo README for configuring Internet Accounts.
 
 ## Benchmarking/Profiling
 
