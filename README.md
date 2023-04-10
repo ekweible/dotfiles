@@ -112,6 +112,9 @@ GitHub username instead of the defaults.
 
     [github-help-adding-ssh-key]
 
+    > Note: Be sure to create a `~/.ssh/config` that uses this SSH key with the
+    > `github.com` host. The bootstrap script below will then override it.
+
 1. Clone the dotfiles repo:
 
     ```bash
