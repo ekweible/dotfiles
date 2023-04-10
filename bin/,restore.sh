@@ -4,6 +4,9 @@ set -e
 
 # Allows this script to be run from anywhere
 cd "$(dirname "${BASH_SOURCE}")/.."
+DOTFILES="$(pwd)"
+DOTFILES_PRIVATE="$DOTFILES/../dotfiles_private"
+DOTFILES_PROFILE="$DOTFILES/../dotfiles_profile"
 
 # Source some utils
 source ./lib_sh/brew.sh
@@ -21,7 +24,7 @@ function restore() {
     running "[$repo] pulling..."
     git pull
 
-    if [ -f "Mackup/.mackup.cfg" ]
+    if [ -f Mackup/.mackup.cfg ]
     then
         # Link the mackup config and restore
         running "[$repo] mackup restore..."

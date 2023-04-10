@@ -15,7 +15,7 @@ source ./lib_sh/linkers.sh
 function backup() {
     repo="$(basename $(pwd))"
     running "[$repo] backing up..."
-    if [ -f "Mackup/.mackup.cfg" ]
+    if [ -f Mackup/.mackup.cfg ]
     then
         # Run backup to make sure all config files have been captured.
         running "[$repo] mackup backup..."
