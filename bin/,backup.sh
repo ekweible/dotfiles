@@ -20,6 +20,10 @@ function backup() {
         # Run backup to make sure all config files have been captured.
         running "[$repo] mackup backup..."
         link_file "$(pwd)/Mackup/.mackup.cfg" "$HOME/.mackup.cfg"
+        if [ -d "Mackup/.mackup" ]
+        then
+            link_file "$(pwd)/Mackup/.mackup" "$HOME/.mackup"
+        fi
         mackup backup
 
         # Next, pull so that conflicts are detected before committing.
