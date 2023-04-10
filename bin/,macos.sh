@@ -58,6 +58,9 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15
 # Show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
+# Show hidden files
+defaults write com.apple.finder AppleShowAllFiles YES
+
 # Show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
