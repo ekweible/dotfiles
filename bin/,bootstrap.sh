@@ -5,6 +5,8 @@ set -e
 # Allows this script to be run from anywhere
 cd "$(dirname "${BASH_SOURCE}")/.."
 DOTFILES="$(pwd)"
+DOTFILES_PRIVATE="$DOTFILES/../dotfiles_private"
+DOTFILES_PROFILE="$DOTFILES/../dotfiles_profile"
 
 # Source some utils
 source ./lib_sh/echos.sh
@@ -22,8 +24,6 @@ fi
 # Make sure we're on latest
 running "Pulling..."
 git pull
-running "Updating submodules..."
-git submodule update --init --recursive
 
 # Update Mac OS settings
 running "Mac OS setup..."
@@ -35,7 +35,7 @@ $DOTFILES/bin/,brew-bundle.sh
 
 # Restore config files from the Mackup submodule
 running "Restoring dotfiles via mackup..."
-$DOTFILES/bin/,mackup-restore.sh
+$DOTFILES/bin/,restore.sh
 
 # Bootstrap asdf plugins and latest installations.
 running "Bootstrapping asdf..."
@@ -46,6 +46,8 @@ running "Linking shell config files..."
 $DOTFILES/bin/,link.sh
 
 # Hand-off to private bootstrap, if available
-[ -f $DOTFILES/private/bootstrap.sh ] && $DOTFILES/private/bootstrap.sh
+[ -f $DOTFILES_PRIVATE/bootstrap.sh ] && $DOTFILES_PRIVATE/bootstrap.sh
+# Hand-off to profile bootstrap, if available
+[ -f $DOTFILES_PROFILE/bootstrap.sh ] && $DOTFILES_PROFILE/bootstrap.sh
 
 ok "Done. Login to a new shell."
