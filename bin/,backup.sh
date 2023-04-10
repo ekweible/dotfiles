@@ -23,6 +23,8 @@ function backup() {
         if [ -d "Mackup/.mackup" ]
         then
             link_file "$(pwd)/Mackup/.mackup" "$HOME/.mackup"
+        else
+            rm "$HOME/.mackup"
         fi
         mackup backup
 
