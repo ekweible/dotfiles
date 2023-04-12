@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/cask": {
-        "revision": "e23035399693c43680723781f43977b1a3a6fbfa"
+        "revision": "c2b7680e4871b0fbe4ccef5ff78d1cb492a749fc"
       },
       "homebrew/cask-versions": {
         "revision": "331990b5b9c13874063250f9e5a925e4dda7181d"
@@ -1328,7 +1328,7 @@
         "Homebrew/homebrew-core": "api",
         "CLT": "14.3.0.0.1.1679647830",
         "Xcode": "14.1",
-        "macOS": "13.3"
+        "macOS": "13.3.1"
       }
     }
   }
