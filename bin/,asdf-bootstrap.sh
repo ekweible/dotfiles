@@ -20,9 +20,15 @@ asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf plugin update --all
 
 asdf install dart latest
+asdf global dart latest
 asdf install flutter latest
+asdf global flutter latest
 asdf install golang latest
+asdf global golang latest
 asdf install nodejs latest
+asdf global nodejs latest
+asdf install java openjdk-20
+asdf global java openjdk-20
 
 # note: we don't install latest of java because there are several different
 # distributions and therefore no definitive latest
