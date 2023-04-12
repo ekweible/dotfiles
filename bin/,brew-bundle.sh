@@ -2,6 +2,9 @@
 
 # Allows this script to be run from anywhere
 cd "$(dirname "${BASH_SOURCE}")/.."
+DOTFILES="$(pwd)"
+DOTFILES_PRIVATE="$DOTFILES/../dotfiles_private"
+DOTFILES_PROFILE="$DOTFILES/../dotfiles_profile"
 
 # Source some utils
 source ./lib_sh/brew.sh
@@ -28,14 +31,24 @@ fi
 
 setup_brew_env_if_missing
 
-# Install dependencies and apps using brew bundle
-running "brew bundle -v --file Brewfile $@"
-brew bundle -v --file Brewfile $@
+function brew_bundle() {
+    repo="$(basename $(pwd))"
+    if [ -f Brewfile ]
+    then
+        running "[$repo] brew bundle -v --file Brewfile $@"
+        brew bundle -v --file Brewfile $@
+    fi
+}
 
-# If the private profile includes a Brewfile, install it, too.
-if [ -f ./private/Brewfile ]; then
-    running "brew bundle -v --file private/Brewfile $@"
-    brew bundle -v --file private/Brewfile $@
-fi
+# Step 1: brew bundle from the main dotfiles repo
+brew_bundle
+
+# Step 2: brew bundle from the private dotfiles repo
+cd $DOTFILES_PRIVATE
+brew_bundle
+
+# Step 3: brew bundle from the profile-specific dotfiles repo
+cd $DOTFILES_PROFILE
+brew_bundle
 
 ok
