@@ -13,8 +13,10 @@ source ./lib_sh/echos.sh
 source ./lib_sh/linkers.sh
 
 # Confirm the branch is correct
-branch="$(git rev-parse --abbrev-ref HEAD)"
-prompt "Bootstrapping from branch $CYAN$branch$NORMAL. Continue? (y/n)" -n 1
+dotfiles_branch="$(git rev-parse --abbrev-ref HEAD)"
+dotfiles_private_branch="$(cd ../dotfiles_private && git rev-parse --abbrev-ref HEAD)"
+dotfiles_profile_branch="$(cd ../dotfiles_profile && git rev-parse --abbrev-ref HEAD)"
+prompt "Bootstrapping from dotfiles/dotfiles_private/dotfiles_profile branches $CYAN$dotfiles_branch$NORMAL/$CYAN$dotfiles_private_branch$NORMAL/$CYAN$dotfiles_profile_branch$NORMAL. Continue? (y/n)" -n 1
 echo ""
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     warn "Aborted."
