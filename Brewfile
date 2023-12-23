@@ -35,7 +35,6 @@ cask "font-caskaydia-cove-nerd-font"
 cask "font-fira-code"
 cask "font-hack-nerd-font"
 cask "google-drive"
-cask "insomnia"
 cask "iterm2"
 cask "mysqlworkbench"
 cask "notion"
@@ -47,6 +46,5 @@ cask "viscosity"
 cask "visual-studio-code"
 cask "zoom"
 
-mas "MyMind", id: 1532801185
 mas "Things 3", id: 904280696
 mas "Todoist", id: 585829637
