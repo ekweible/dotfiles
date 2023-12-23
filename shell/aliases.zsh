@@ -1,6 +1,5 @@
 # cd
-alias dev="cd ~/dev/"
-alias dotfiles="cd $DOTFILES"
+alias dotfiles="code $DOTFILES; code $DOTFILES_PRIVATE; code $DOTFILES_PROFILE"
 
 # programs
 alias g="git"
