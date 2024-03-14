@@ -5,7 +5,7 @@
   - [How/Details](#howdetails)
     - [Prompt](#prompt)
     - [Zsh Config](#zsh-config)
-    - [Submodules](#submodules)
+    - [Sibling Repos](#sibling-repos)
     - [Scripts](#scripts)
   - [New machine setup](#new-machine-setup)
   - [Benchmarking/Profiling](#benchmarkingprofiling)
@@ -57,7 +57,7 @@ everything in `.zshrc`. Most of the top-level directories in this repo contain
 `.zsh` files that provide necessary zsh configuration for those languages,
 tools, etc.
 
-### Submodules
+### Sibling Repos
 
 - The `Mackup` submodule contains everything that `mackup` syncs. For now, I'm
 keeping this as a private submodule in case those files contain something
@@ -76,6 +76,9 @@ revisions in this parent repo.
 - `,asdf-bootstrap.sh` installs all of the asdf plugins that I use along
 with the latest version of each of the languages provided by these plugins. Note
 that this depends on asdf already being installed.
+- `,backup.sh` runs `mackup backup` to capture the latest config
+files, then commits and pushes them (via the private submodule), and then
+updates the submodule ref in the root of this repo.
 - `,bootstrap.sh` runs everything needed to setup a new machine, but
 should also be safe to run at any time.
   - If a `bootstrap.sh` script exists in the `private/` submodule, it will be
@@ -87,19 +90,15 @@ should also be safe to run at any time.
 - `,brew-upgrade.sh` runs `,brew-bundle.sh` to ensure that Brew
 and everything in the `Brewfile`s are installed. Then upgrades all Brew formulae
 and casks. Finally updates the `Brewfile.lock.json`s.
-- `,mackup-restore.sh` runs `mackup restore` which links all of the
+- `,link.sh` symlinks shell config files from these dotfiles repos into the home and config directories. Used by the `,bootstrap.sh` script.
+- `,macos.sh` will update Mac OS settings and user preferences.
+- `,restore.sh` runs `mackup restore` which links all of the
 config files from the `Mackup/` submodule into the expected location (typically
 the HOME directory).
-  - If a `mackup-restore.sh` script exists in the `private/` submodule, it is
+  - If a `restore.sh` script exists in the `private/` submodule, it is
   sourced after running `mackup restore`. This allows for profile-specific
   linking of configuration files. For example, you may have multiple profiles
   each with a unique `.pip/pip.conf`.
-- `,mackup-backup.sh` runs `mackup backup` to capture the latest config
-files, then commits and pushes them (via the private submodule), and then
-updates the submodule ref in the root of this repo.
-- `,macos.sh` will update Mac OS settings and user preferences.
-- `,private-update.sh` commits and pushes any updates in the `private/`
-submodule and then updates the submodule ref in the root of this repo.
 
 ## New machine setup
 
@@ -118,10 +117,10 @@ GitHub username instead of the defaults.
 1. Clone the dotfiles repo:
 
     ```bash
-    mkdir ~/.config; cd ~/.config && git clone --recurse-submodules git@github.com:ekweible/dotfiles.git && cd dotfiles
+    mkdir ~/.config; cd ~/.config && git clone git@github.com:ekweible/dotfiles.git && cd dotfiles
     ```
 
-1. Select a profile by updating the `branch` of the private submodule
+1. Clone the two sibling dotfiles repos (private config and the applicable profile config for this machine).
 
 1. Run the bootstrap script:
 
@@ -131,7 +130,7 @@ GitHub username instead of the defaults.
 
     **This script is idempotent and safe to run multiple times.**
 
-2. See private repo README for configuring Internet Accounts.
+1. See private repo README for configuring Internet Accounts.
 
 ## Benchmarking/Profiling
 
