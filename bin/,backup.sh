@@ -26,7 +26,8 @@ function backup() {
         else
             rm "$HOME/.mackup"
         fi
-        mackup backup
+        mackup backup --force
+        mackup uninstall --force # Workaround for https://github.com/lra/mackup/issues/1924, found here: https://github.com/lra/mackup/issues/1924#issuecomment-2032982796
 
         # Next, pull so that conflicts are detected before committing.
         running "[$repo] pulling..."

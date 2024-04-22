@@ -29,7 +29,8 @@ function restore() {
         # Link the mackup config and restore
         running "[$repo] mackup restore..."
         link_file "$(pwd)/Mackup/.mackup.cfg" "$HOME/.mackup.cfg"
-        mackup restore
+        mackup restore --force
+        mackup uninstall --force # Workaround for https://github.com/lra/mackup/issues/1924, found here: https://github.com/lra/mackup/issues/1924#issuecomment-2032982796
     fi
 }
 
