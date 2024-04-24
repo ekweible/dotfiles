@@ -17,16 +17,16 @@ function backup() {
     running "[$repo] backing up..."
     if [ -f Mackup/.mackup.cfg ]
     then
+        # Delete mackup config file symlinks before linking them again.
+        running "[$repo] linking mackup config files..."
+        rm "$HOME/.mackup.cfg"
+        link_file "$(pwd)/Mackup/.mackup.cfg" "$HOME/.mackup.cfg"
+        [ -d "$HOME/.mackup" ] && rm -r "$HOME/.mackup" && link_file "$(pwd)/Mackup/.mackup" "$HOME/.mackup"
+
         # Run backup to make sure all config files have been captured.
         running "[$repo] mackup backup..."
-        link_file "$(pwd)/Mackup/.mackup.cfg" "$HOME/.mackup.cfg"
-        if [ -d "Mackup/.mackup" ]
-        then
-            link_file "$(pwd)/Mackup/.mackup" "$HOME/.mackup"
-        else
-            rm "$HOME/.mackup"
-        fi
-        mackup backup --force
+        mackup backup --force --verbose
+        running "[$repo] mackup uninstall..."
         mackup uninstall --force # Workaround for https://github.com/lra/mackup/issues/1924, found here: https://github.com/lra/mackup/issues/1924#issuecomment-2032982796
 
         # Next, pull so that conflicts are detected before committing.
