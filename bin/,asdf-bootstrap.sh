@@ -11,6 +11,7 @@ source ./lib_sh/linkers.sh
 # During initial bootstrap, brew env may need to be setup for this shell session
 setup_brew_env_if_missing
 
+asdf plugin add bun
 asdf plugin-add dart https://github.com/patoconnor43/asdf-dart.git
 asdf plugin-add flutter
 asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
@@ -19,16 +20,18 @@ asdf plugin add kotlin
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf plugin update --all
 
+asdf install bun latest
+asdf global bun latest
 asdf install dart latest
 asdf global dart latest
 asdf install flutter latest
 asdf global flutter latest
 asdf install golang latest
 asdf global golang latest
+asdf install java openjdk-21 # *
+asdf global java openjdk-21
 asdf install nodejs latest
 asdf global nodejs latest
-asdf install java openjdk-20
-asdf global java openjdk-20
 
-# note: we don't install latest of java because there are several different
+# *note: we don't install latest of java because there are several different
 # distributions and therefore no definitive latest
