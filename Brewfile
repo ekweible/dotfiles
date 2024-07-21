@@ -23,6 +23,7 @@ brew "pyenv-virtualenv"
 brew "sd"
 brew "starship"
 brew "tldr"
+brew "tmux"
 brew "yq"
 brew "zplug"
 
