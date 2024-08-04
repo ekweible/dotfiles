@@ -1,3 +1,12 @@
+dotfiles() {
+  if command -v cursor &> /dev/null; then
+    editor="cursor"
+  else
+    editor="code"
+  fi
+  $editor ~/dev/workspaces/dotfiles.code-workspace
+}
+
 function pwd_last_two_segments() {
     PWD=$(pwd)
     if [ "$PWD" = "$HOME" ]; then

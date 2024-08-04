@@ -1,6 +1,3 @@
-# cd
-alias dotfiles="code $DOTFILES; code $DOTFILES_PRIVATE; code $DOTFILES_PROFILE"
-
 # programs
 alias g="git"
 alias ls='lsd'
