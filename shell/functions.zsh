@@ -4,7 +4,7 @@ dotfiles() {
   else
     editor="code"
   fi
-  $editor ~/dev/workspaces/dotfiles.code-workspace
+  $editor ~/.config/dotfiles/dotfiles.code-workspace
 }
 
 function pwd_last_two_segments() {

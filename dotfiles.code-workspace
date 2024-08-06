@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "./"
+    },
+    {
+      "path": "../dotfiles_private"
+    },
+    {
+      "path": "../dotfiles_profile"
+    }
+  ]
+}
