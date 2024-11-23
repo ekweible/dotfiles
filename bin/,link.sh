@@ -14,6 +14,7 @@ source ./lib_sh/linkers.sh
 link_file $DOTFILES/shell/.bash_profile $HOME/.bash_profile
 link_file $DOTFILES/shell/.bashrc $HOME/.bashrc
 link_file $DOTFILES/shell/.profile $HOME/.profile
+link_file $DOTFILES/shell/.sh_env $HOME/.sh_env
 link_file $DOTFILES/shell/.zlogout $HOME/.zlogout
 link_file $DOTFILES/shell/.zprofile $HOME/.zprofile
 link_file $DOTFILES/shell/.zshenv $HOME/.zshenv
