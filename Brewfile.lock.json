@@ -1268,12 +1268,6 @@
           "full_name": "font-hack-nerd-font"
         }
       },
-      "arc": {
-        "version": "1.66.0,55166",
-        "options": {
-          "full_name": "arc"
-        }
-      },
       "mysqlworkbench": {
         "version": "8.0.40",
         "options": {
@@ -1355,12 +1349,12 @@
         "macOS": "14.7.1"
       },
       "sequoia": {
-        "HOMEBREW_VERSION": "4.3.16",
+        "HOMEBREW_VERSION": "4.4.6",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
-        "CLT": "16.0.0.0.1.1722497825",
+        "CLT": "16.1.0.0.1.1729049160",
         "Xcode": "16.0",
-        "macOS": "15.0"
+        "macOS": "15.2"
       }
     }
   }
