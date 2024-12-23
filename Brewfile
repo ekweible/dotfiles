@@ -24,6 +24,7 @@ brew "sd"
 brew "starship"
 brew "tldr"
 brew "tmux"
+brew "uv"
 brew "yq"
 brew "zplug"
 
