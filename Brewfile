@@ -31,6 +31,7 @@ brew "zplug"
 cask "bitwarden"
 cask "bruno"
 cask "chromedriver"
+cask "claude"
 cask "devonthink" # remove once migrated to Obsidian
 cask "docker"
 cask "font-caskaydia-cove-nerd-font"
