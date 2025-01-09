@@ -1,6 +1,6 @@
 dotfiles() {
-  if command -v cursor &> /dev/null; then
-    editor="cursor"
+  if command -v windsurf &> /dev/null; then
+    editor="windsurf"
   else
     editor="code"
   fi
