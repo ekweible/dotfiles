@@ -49,6 +49,7 @@ cask "raycast"
 cask "slack"
 cask "viscosity"
 cask "visual-studio-code"
+cask "windsurf"
 cask "zoom"
 
 mas "Things 3", id: 904280696
