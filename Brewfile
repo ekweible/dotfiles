@@ -30,6 +30,7 @@ brew "zplug"
 
 cask "bitwarden"
 cask "bruno"
+cask "chatgpt"
 cask "chromedriver"
 cask "claude"
 cask "devonthink" # remove once migrated to Obsidian
