@@ -4,7 +4,7 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 
 # List of private key files
-private_key_files=(~/.ssh/*.id_ed25519)
+private_key_files=(~/.ssh/*id_ed25519)
 
 # List of key fingerprints currently loaded in the SSH agent
 loaded_key_fingerprints=$(ssh-add -l -E md5 | awk '{print $2}')
