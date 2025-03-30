@@ -40,9 +40,7 @@ function backup() {
         # Commit and push changes
         confirm_changes "$repo"
         running "[$repo] Committing and pushing changes..."
-        git add .
-        git commit -m ',backup.sh'
-        git push
+        (git add . && git commit -m ',backup.sh' && git push) || true
     else
         info "No changes."
     fi
