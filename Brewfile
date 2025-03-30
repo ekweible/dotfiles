@@ -1,6 +1,3 @@
-tap "homebrew/cask-fonts"
-tap "homebrew/cask-versions"
-
 brew "asdf"
 brew "bat"
 brew "fd"
