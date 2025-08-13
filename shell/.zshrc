@@ -45,20 +45,32 @@ if [[ ! -e ~/zsh-plugins ]]; then
   mkdir ~/zsh-plugins
 fi
 if [[ ! -e ~/zsh-plugins/zsh-syntax-highlighting ]]; then
-  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/zsh-plugins/zsh-syntax-highlighting
-  zcompile-many ~/zsh-plugins/zsh-syntax-highlighting/{zsh-syntax-highlighting.zsh,highlighters/*/*.zsh}
+  if git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/zsh-plugins/zsh-syntax-highlighting; then
+    zcompile-many ~/zsh-plugins/zsh-syntax-highlighting/{zsh-syntax-highlighting.zsh,highlighters/*/*.zsh}
+  else
+    echo "Warning: Failed to install zsh-syntax-highlighting"
+  fi
 fi
 if [[ ! -e ~/zsh-plugins/zsh-autosuggestions ]]; then
-  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git ~/zsh-plugins/zsh-autosuggestions
-  zcompile-many ~/zsh-plugins/zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}
+  if git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git ~/zsh-plugins/zsh-autosuggestions; then
+    zcompile-many ~/zsh-plugins/zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}
+  else
+    echo "Warning: Failed to install zsh-autosuggestions"
+  fi
 fi
 if [[ ! -e ~/zsh-plugins/zsh-history-substring-search ]]; then
-  git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git ~/zsh-plugins/zsh-history-substring-search
-  zcompile-many ~/zsh-plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+  if git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git ~/zsh-plugins/zsh-history-substring-search; then
+    zcompile-many ~/zsh-plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+  else
+    echo "Warning: Failed to install zsh-history-substring-search"
+  fi
 fi
 if [[ ! -e ~/zsh-plugins/zsh-z ]]; then
-  git clone --depth=1 https://github.com/agkozak/zsh-z.git ~/zsh-plugins/zsh-z
-  zcompile-many ~/zsh-plugins/zsh-z/zsh-z.plugin.zsh
+  if git clone --depth=1 https://github.com/agkozak/zsh-z.git ~/zsh-plugins/zsh-z; then
+    zcompile-many ~/zsh-plugins/zsh-z/zsh-z.plugin.zsh
+  else
+    echo "Warning: Failed to install zsh-z"
+  fi
 fi
 
 ################################################################################
