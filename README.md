@@ -1,142 +1,64 @@
 # Dotfiles
 
-- [Dotfiles](#dotfiles)
-  - [What/Why](#whatwhy)
-  - [How/Details](#howdetails)
-    - [Prompt](#prompt)
-    - [Zsh Config](#zsh-config)
-    - [Sibling Repos](#sibling-repos)
-    - [Scripts](#scripts)
-  - [New machine setup](#new-machine-setup)
-  - [Benchmarking/Profiling](#benchmarkingprofiling)
-  - [Versions/Credits](#versionscredits)
+My personal dotfiles managed by [chezmoi](https://chezmoi.io).
 
-## What/Why
+## Features
 
-The primary goals of this repo are:
+- 🏠 Single command setup for new machines
+- 🔄 Easy sync across multiple machines
+- 🎯 Profile-based configs (work/personal)
+- 🔐 Age encryption and Keeper CLI integration for sensitive files
+- 📦 Declarative package management with Brewfile
+- ⚙️ Automated macOS defaults configuration
+- 🐚 Modular zsh config phased loading, plugin compilation, and Starship prompt
 
-1. Make it easy to setup a new machine to be ready for development work
-2. Provide tools and workflows for adding dependencies, apps, and so on while
-also tracking those changes in this repo. This allows other workstations to stay
-in sync and prevents this repo from becoming outdated.
+## Quick Start
 
-## How/Details
+_Note: for a work machine, you'll need to first setup an SSH key so that chezmoi
+can clone the private work dotfiles repo._
 
-- [`brew bundle`][brew-bundle] lets me list dependencies and applications in a
-declarative `Brewfile` format so that they can then be installed automatically
-via homebrew and the [Mac App Store CLI][mas].
-- [`mackup`][mackup] symlinks config files from a git submodule into their
-target destinations (usually the `$HOME` directory).
-- [`zcompile-many`][zcompile-many] is a DIY alternative to zsh plugin managers
-like [`zplug`][zplug] (which I previously used). It is configured in `.zshrc`
-and is used to install and load zsh-specific plugins.
-- A few [shell scripts](#Scripts) in this repo help with initial bootstrapping
-and then the upkeep of this system over time.
+```bash
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ekweible
+```
 
-### Prompt
+During init, you'll be prompted to select a profile.
 
-For my shell prompt, I use [starship.rs][starship]. It's fast and the default
-theme and integration with the tools and languages I use is plenty sufficient.
+## Daily Usage
 
-### Zsh Config
+```bash
+# Pull latest and apply
+chezmoi update
 
-The `.zshrc` is broken into phases:
+# Edit a file
+chezmoi edit ~/.zshrc
 
-1. Path config - loads all `path.zsh` files found in this repo.
-1. General config - loads the remaining `*.zsh` files found in this repo,
-excluding `completion.zsh` files (that happens later).
-1. Install zsh plugins - installs and compiles zsh plugins.
-1. Enable zsh completion.
-1. Load zsh plugins.
-1. Completion config - loads all `completion.zsh` files found in this repo.
-1. Finally, initializes the shell prompt.
+# Add a new file
+chezmoi add ~/.newconfig
 
-Finding and automatically loading `.zsh` files from this repo in a particular
-order allows us to organize zsh config more sensibly rather than putting
-everything in `.zshrc`. Most of the top-level directories in this repo contain
-`.zsh` files that provide necessary zsh configuration for those languages,
-tools, etc.
+# Commit changes
+chezmoi cd && git add . && git commit -m "Update config" && git push
+```
 
-### Sibling Repos
+## Structure
 
-- The `Mackup` submodule contains everything that `mackup` syncs. For now, I'm
-keeping this as a private submodule in case those files contain something
-sensitive. Ideally these could all be included directly in this repo.
-- The `private` submodule contains config files, scripts, and gpg keys that need
-to be kept private and thus can't live in this repo. The scripts below and the
-shell profile/rc files will check for similarly named files in this submodule
-and source them appropriately.
+- Uses `.chezmoiroot` to keep dotfiles organized in `home/` subdirectory
+- Profile-based templating for work/personal differences
+- Brewfile with automatic installation on changes
+- Age encryption and Keeper CLI integration for sensitive files (SSH config, etc.)
 
-For both of these, I have a shell script that I run periodically that commits
-and pushes any changes within these submodules and then updates the submodule
-revisions in this parent repo.
+### Configuration Structure
 
-### Scripts
+Zsh configuration uses a consolidated structure for easier maintenance:
+- All path configs in one file (`path.zsh`)
+- All aliases in one file with profile conditionals (`aliases.zsh.tmpl`)
+- All functions in one file (`functions.zsh`)
+- Clear section headers within each file for easy navigation
 
-- `,asdf-bootstrap.sh` installs all of the asdf plugins that I use along
-with the latest version of each of the languages provided by these plugins. Note
-that this depends on asdf already being installed.
-- `,backup.sh` runs `mackup backup` to capture the latest config
-files, then commits and pushes them (via the private submodule), and then
-updates the submodule ref in the root of this repo.
-- `,bootstrap.sh` runs everything needed to setup a new machine, but
-should also be safe to run at any time.
-  - If a `bootstrap.sh` script exists in the `private/` submodule, it will be
-  sourced last.
-- `,brew-bundle.sh` installs homebrew if missing and then runs
-`brew bundle` to install all dependencies in the `Brewfile`
-  - If a `Brewfile` exists in the `private/` submodule, it will be used to run
-  `brew bundle`, as well.
-- `,brew-upgrade.sh` runs `,brew-bundle.sh` to ensure that Brew
-and everything in the `Brewfile`s are installed. Then upgrades all Brew formulae
-and casks. Finally updates the `Brewfile.lock.json`s.
-- `,link.sh` symlinks shell config files from these dotfiles repos into the home and config directories. Used by the `,bootstrap.sh` script.
-- `,macos.sh` will update Mac OS settings and user preferences.
-- `,restore.sh` runs `mackup restore` which links all of the
-config files from the `Mackup/` submodule into the expected location (typically
-the HOME directory).
-  - If a `restore.sh` script exists in the `private/` submodule, it is
-  sourced after running `mackup restore`. This allows for profile-specific
-  linking of configuration files. For example, you may have multiple profiles
-  each with a unique `.pip/pip.conf`.
+## Requirements
 
-## New machine setup
-
-1. Sign in to Chrome and GitHub
-
-1. Generate SSH keys. Follow these instructions, but name the files based on the
-GitHub username instead of the defaults.
-
-    [github-help-generating-ssh-key]
-
-    [github-help-adding-ssh-key]
-
-    > Note: Be sure to create a `~/.ssh/config` that uses this SSH key with the
-    > `github.com` host. The bootstrap script below will then override it.
-
-1. Clone the dotfiles repo:
-
-    ```bash
-    mkdir ~/.config; cd ~/.config && git clone git@github.com:ekweible/dotfiles.git && cd dotfiles
-    ```
-
-1. Clone the two sibling dotfiles repos (private config and the applicable profile config for this machine).
-
-1. Run the bootstrap script:
-
-    ```bash
-    ./bin/,bootstrap.sh
-    ```
-
-    **This script is idempotent and safe to run multiple times.**
-
-1. See private repo README for configuring Internet Accounts.
-
-## Benchmarking/Profiling
-
-- Uncomment the `zprof` lines at the top and bottom of `.zshrc` and then load a
-new shell to see profiling information.
-- Use [zsh-bench][zsh-bench].
+- macOS (Darwin)
+- Homebrew (auto-installed during init)
+- age (auto-installed during init)
 
 ## Versions/Credits
 
@@ -152,6 +74,11 @@ management (thanks to [zsh-bench][zsh-bench]!) and switched to
 [starship.rs][starship] for the shell prompt. To improve organization, switched
 to a module-based layout with directories containing zsh config for each thing
 (like a language or tool) that gets auto-loaded by `.zshrc`.
+- V5: Migrate to chezmoi as it takes care of most of the automation that was
+previously being managed in this repo while still supporting profile-specific
+files and configs. This allowed me to consolidate to a single repo (plus one
+private repo for work) and to get rid of Mackup, which I had some trouble with
+over the years.
 
 Huge thanks to all of these people and the resources they've shared!
 
@@ -168,3 +95,7 @@ Huge thanks to all of these people and the resources they've shared!
 [zcompile-many]: https://github.com/romkatv/zsh-bench/tree/master/configs/diy%2B%2B/skel
 [zsh-bench]: https://github.com/romkatv/zsh-bench
 [zplug]: https://github.com/zplug/zplug
+
+## License
+
+MIT

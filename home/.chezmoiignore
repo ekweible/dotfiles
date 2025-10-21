@@ -1,0 +1,22 @@
+# Don't manage actual SSH keys (per-machine, not in repo)
+.ssh/id_*
+.ssh/*.pem
+.ssh/*.key
+
+# Don't manage SSH authorized_keys (per-machine)
+.ssh/authorized_keys
+
+# But DO manage:
+# - .ssh/config (via template)
+# - .ssh/known_hosts (optional)
+
+{{ if ne .profile "work" -}}
+# Don't create work-specific files on non-work machines
+.gitconfig-work
+apply-work-tools.sh
+{{- end }}
+
+# Don't manage GPG private keys (will come from Keeper)
+.gnupg/*.gpg
+.gnupg/private-keys-v1.d/
+.gnupg/openpgp-revocs.d/

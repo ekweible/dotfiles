@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# Import GPG private keys from Keeper on personal/work machines
+
+set -e
+
+# Function to check if a GPG key is already imported
+gpg_key_exists() {
+    local key_id="$1"
+    gpg --list-secret-keys "$key_id" &> /dev/null
+}
+
+# Function to import and trust a GPG key from Keeper
+import_gpg_key() {
+    local key_id="$1"
+    local keeper_record="$2"
+    local description="$3"
+
+    if gpg_key_exists "$key_id"; then
+        echo "✅ GPG key $key_id ($description) already imported"
+        return 0
+    fi
+
+    echo "📥 Importing $description GPG key from Keeper..."
+
+    if keeper secret get -n "$keeper_record" | gpg --import; then
+        echo "✅ GPG key imported successfully"
+
+        # Set trust level to ultimate for your own key
+        echo "🔒 Setting trust level to ultimate..."
+        echo -e "5\ny\n" | gpg --command-fd 0 --expert --edit-key "$key_id" trust quit
+
+        echo "✅ $description GPG key setup complete"
+        return 0
+    else
+        echo "❌ Failed to import $description GPG key from Keeper"
+        return 1
+    fi
+}
+
+echo "🔐 Checking GPG key setup..."
+
+# Check if Keeper CLI is available
+if ! command -v keeper &> /dev/null; then
+    echo "⚠️  Keeper Commander CLI not installed. Skipping GPG key import."
+    echo "   Install with: brew install keeper-commander"
+    exit 0
+fi
+
+# Import personal GPG key (ekweible)
+import_gpg_key \
+    "F2B4B87D2390CC45" \
+    "keeper://GPG Private Key - ekweible/field/private_key" \
+    "personal (ekweible)"
+
+{{ if eq .profile "work" -}}
+# Import work GPG key (evanweible-wf)
+import_gpg_key \
+    "8C997CA8F29161D2" \
+    "keeper://GPG Private Key - evanweible-wf/field/private_key" \
+    "work (evanweible-wf)"
+{{- end }}
+
+# Check for any import failures
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "❌ Some GPG keys failed to import"
+    echo "   Make sure Keeper CLI is initialized:"
+    echo "   Run: keeper init"
+    exit 1
+fi
+
+echo ""
+echo "✅ All GPG keys configured successfully"

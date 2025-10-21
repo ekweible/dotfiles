@@ -1,0 +1,333 @@
+{{- define "vscode-settings.json" -}}
+{
+  // ============ \\
+  // WINDOW & UI  \\
+  // ============ \\
+
+  "window.zoomLevel": 1.2,
+  "window.clickThroughInactive": false,
+  "window.nativeFullScreen": false,
+  "window.newWindowDimensions": "inherit",
+  "window.openFoldersInNewWindow": "on",
+
+  // ========== \\
+  // WORKBENCH  \\
+  // ========== \\
+
+  "workbench.colorTheme": "Catppuccin Frappé",
+  "workbench.hover.delay": 2000,
+  "workbench.iconTheme": "catppuccin-frappe",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.editor.languageDetection": false,
+  "workbench.settings.editor": "json",
+  "workbench.sideBar.location": "right",
+  "workbench.tips.enabled": false,
+  "workbench.startupEditor": "none",
+  "workbench.colorCustomizations": {
+    "terminal.background": "#212529"
+  },
+
+  // ================ \\
+  // EDITOR - GENERAL \\
+  // ================ \\
+
+  "editor.detectIndentation": false,
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.emptySelectionClipboard": false,
+  "editor.wordSeparators": "`~!@#%^&*()=+[{]}\\|;:'\",.<>/?",
+
+  // ==================== \\
+  // EDITOR - APPEARANCE  \\
+  // ==================== \\
+
+  "editor.colorDecorators": false,
+  "editor.fontFamily": "'Fira Code', 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.suggestFontSize": 15,
+  "editor.cursorBlinking": "phase",
+  "editor.cursorSurroundingLines": 5,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.lightbulb.enabled": "off",
+  "editor.minimap.enabled": false,
+  "editor.occurrencesHighlight": "off",
+  "editor.overviewRulerBorder": false,
+  "editor.renderControlCharacters": false,
+  "editor.renderLineHighlight": "none",
+  "editor.selectionHighlight": false,
+  "editor.guides.indentation": true,
+  "editor.rulers": [80, 120],
+
+  // ================== \\
+  // EDITOR - BEHAVIOR  \\
+  // ================== \\
+
+  "editor.gotoLocation.multipleReferences": "goto",
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.gotoLocation.multipleDeclarations": "goto",
+  "editor.gotoLocation.multipleImplementations": "goto",
+  "editor.gotoLocation.multipleTypeDefinitions": "goto",
+  "editor.suggestSelection": "first",
+  "editor.suggest.localityBonus": true,
+  "editor.suggest.preview": true,
+  "editor.suggest.shareSuggestSelections": true,
+
+  // =========== \\
+  // DIFF EDITOR \\
+  // =========== \\
+
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": false,
+
+  // =================== \\
+  // EXPLORER & FILES    \\
+  // =================== \\
+
+  "explorer.openEditors.visible": 1,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "*.dart": "$(capture).g.dart",
+    "*.dart.js": "$(capture).dart.js_*.part.js, $(capture).dart.js.deps",
+    "pubspec.yaml": "analysis_options.yaml, build*.yaml, *build.yaml, dart_test.yaml, pubspec.lock",
+    "*.ts": "$(capture).d.ts, $(capture).js, $(capture).js.map"
+  },
+
+  "files.associations": {
+    ".php_cs": "php",
+    ".php_cs.dist": "php",
+    "*.envsh": "shellscript"
+  },
+  "files.autoSave": "onFocusChange",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/*.pyc": true,
+    "**/__pycache__": true,
+    "**/.atom": true,
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.idea": true,
+    "**/.project": true,
+    "**/.pub": true,
+    "**/.settings": true
+  },
+  "files.watcherExclude": {
+    "**/.dart_tool/**": true,
+    "**/build": true,
+    "**/node_modules/**": true
+  },
+
+  // ====== \\
+  // SEARCH \\
+  // ====== \\
+
+  "search.exclude": {
+    "**/.dart_tool": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/doc/api": true,
+    "**/node_modules/**": true,
+    "**/package-lock.json": true,
+    "**/pubspec.lock": true
+  },
+
+  // ========= \\
+  // GIT & SCM \\
+  // ========= \\
+
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableCommitSigning": true,
+  "git.mergeEditor": true,
+  "git.decorations.enabled": false,
+  "scm.defaultViewMode": "tree",
+
+  // ======== \\
+  // TERMINAL \\
+  // ======== \\
+
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.lineHeight": 1.25,
+  "terminal.integrated.scrollback": 100000,
+
+  // ============ \\
+  // APPLICATIONS \\
+  // ============ \\
+
+  "application.shellEnvironmentResolutionTimeout": 20,
+
+  // ========= \\
+  // PROBLEMS  \\
+  // ========= \\
+
+  "problems.decorations.enabled": false,
+
+  // ====================== \\
+  // LANGUAGE-SPECIFIC      \\
+  // ====================== \\
+
+  // C
+  "[c]": {
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+
+  // Dart
+  "[dart]": {
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": false,
+    "editor.insertSpaces": true,
+    "editor.suggest.insertMode": "replace",
+    "editor.tabSize": 2
+  },
+  "dart.analysisExcludedFolders": ["build/**"],
+  "dart.analyzerDiagnosticsPort": 9999,
+  "dart.checkForSdkUpdates": false,
+  "dart.debugExternalPackageLibraries": true,
+  "dart.debugSdkLibraries": true,
+  "dart.runPubGetOnPubspecChanges": "never",
+  "dart.sdkPath": "~/.asdf/installs/dart/2.19.6",
+
+  // GitHub Actions
+  "[github-actions-workflow]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+
+  // Golang
+  "go.formatTool": "goimports",
+
+  // HTML
+  "[html]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+
+  // JavaScript
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+  // JSON
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+  // Python
+  "[py]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false
+  },
+  "python.defaultInterpreterPath": "python3",
+  "python.venvPath": "~/.pyenv",
+
+  // Svelte
+  "[svelte]": {
+    "editor.tabSize": 2
+  },
+
+  // TypeScript
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+  // YAML
+  "[yaml]": {
+    "editor.tabSize": 2
+  },
+  "yaml.schemas": {
+    "https://json.schemastore.org/dart-build": [
+      "build.yaml",
+      "*.build.yaml",
+      "build.*.yaml"
+    ]
+  },
+  "yaml.maxItemsComputed": 50000,
+
+  // ================== \\
+  // EXTENSION SETTINGS \\
+  // ================== \\
+
+  "github.gitProtocol": "ssh",
+
+  "githubPullRequests.pullBranch": "never",
+
+  "overReact.formatOnSave.scanForNestedProjects": true,
+  "overReact.formatOnSave.showOutputOnError": false,
+
+  "plantuml.render": "PlantUMLServer",
+  "plantuml.server": "https://www.plantuml.com/plantuml"{{- if contains "Code/User" .chezmoi.targetFile }},
+
+  // ======================== \\
+  // VS CODE-SPECIFIC         \\
+  // ======================== \\
+
+  "totalTypeScript.hideAllTips": false,
+  "totalTypeScript.hideBasicTips": false,
+  "totalTypeScript.hiddenTips": [
+    "typing-function-parameters",
+    "basic-types",
+    "passing-generics-to-types",
+    "typeof",
+    "type-alias-declaration",
+    "variable-type-annotation",
+    "bigint",
+    "ts-object-type",
+    "optional-object-property",
+    "interface-declaration",
+    "array-type",
+    "function-return-type",
+    "literal-type",
+    "union-type",
+    "generic-slots-in-functions",
+    "mapped-type",
+    "remapping-in-mapped-type",
+    "conditional-type",
+    "any-type",
+    "tuple-type",
+    "non-null-expression",
+    "null-keyword"
+  ]{{- else if contains "Cursor/User" .chezmoi.targetFile }},
+
+  // ======================== \\
+  // CURSOR-SPECIFIC          \\
+  // ======================== \\
+
+  "cursor.composer.shouldChimeAfterChatFinishes": true,
+  "cursor.composer.shouldAllowCustomModes": true,
+
+  "eslint.enable": true,
+  "eslint.validate": ["javascript", "typescript"]{{- end }}
+}
+{{- /* Template uses .chezmoi.targetFile to determine which editor is being configured */ -}}
+{{- end -}}

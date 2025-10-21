@@ -1,0 +1,8 @@
+#!/bin/bash
+{{ if eq .profile "work" -}}
+# Apply work-private dotfiles if they exist
+if [ -d ~/.local/share/chezmoi-work ]; then
+    echo "🔐 Applying work-private dotfiles..."
+    chezmoi apply --source-path=~/.local/share/chezmoi-work
+fi
+{{- end }}

@@ -1,0 +1,19 @@
+# SSH config managed by chezmoi
+# Actual keys are per-machine and NOT managed by chezmoi (see .chezmoiignore)
+
+# Personal GitHub
+Host github.com
+    HostName github.com
+    IdentityFile /Users/evanweible/.ssh/ekweible.id_ed25519
+    User git
+    AddKeysToAgent yes
+    UseKeychain yes
+
+{{ if eq .profile "work" -}}
+Host github.com-evanweible-wf
+    HostName github.com
+    IdentityFile /Users/evanweible/.ssh/evanweible-wf.id_ed25519
+    User git
+    AddKeysToAgent yes
+    UseKeychain yes
+{{- end }}
