@@ -1,0 +1,12 @@
+{
+  "folders": [
+    {
+      "name": "dotfiles (chezmoi)",
+      "path": "{{ env "HOME" }}/.local/share/chezmoi"
+    }{{ if eq .profile "work" }},
+    {
+      "name": "dotfiles-work (chezmoi-work)",
+      "path": "{{ env "HOME" }}/.local/share/chezmoi-work"
+    }{{ end }}
+  ]
+}

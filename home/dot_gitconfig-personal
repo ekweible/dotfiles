@@ -1,0 +1,14 @@
+# Personal account configuration
+# Loaded on work machines for personal directories to override default work user/key
+
+[user]
+    name = ekweible
+    email = evan@weible.me
+    signingkey = F2B4B87D2390CC45
+
+# Rewrite URLs to use personal SSH key via SSH config
+[url "git@github.com-personal:"]
+    insteadOf = https://github.com/
+    insteadOf = git://github.com/
+    insteadOf = git@github.com:
+    insteadOf = ssh://git@github.com/

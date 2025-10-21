@@ -1,0 +1,164 @@
+#!/bin/bash
+
+# Import GPG private keys from Keeper on personal/work machines
+
+set -e
+
+# Function to check if a GPG key is already imported
+gpg_key_exists() {
+    local key_id="$1"
+    gpg --list-secret-keys "$key_id" &> /dev/null
+}
+
+# Function to import and trust a GPG key from Keeper
+import_gpg_key() {
+    local key_id="$1"
+    local record_name="$2"
+    local field_label="$3"
+    local description="$4"
+
+    if gpg_key_exists "$key_id"; then
+        echo "✅ GPG key $key_id ($description) already imported"
+        return 0
+    fi
+
+    echo "📥 Importing $description GPG key from Keeper..."
+    echo "   Record: $record_name"
+    echo "   Field: $field_label"
+
+    # Retrieve the key from Keeper using the 'get' command with JSON output
+    # Pass password via CLI arg to avoid stdout/stderr parsing issues
+    local key_data
+    local keeper_exit_code=0
+    key_data=$(keeper get --format=json --password="$KEEPER_PASSWORD" "$record_name" 2>&1) || keeper_exit_code=$?
+
+    if [ "$keeper_exit_code" -ne 0 ]; then
+        echo ""
+        echo "❌ Failed to retrieve record from Keeper (exit code: $keeper_exit_code)"
+        if [ "$keeper_exit_code" -eq 5 ]; then
+            echo "   This usually means authentication failed or was cancelled"
+            echo "   Try running: keeper login"
+        fi
+        echo "   Error output:"
+        echo "$key_data"
+        return 1
+    fi
+
+    # Extract the custom field value using jq
+    local extracted_value
+    extracted_value=$(echo "$key_data" | jq -r ".custom[]? | select(.label == \"$field_label\") | .value[]?" 2>/dev/null) || true
+
+    if [ -z "$extracted_value" ]; then
+        # Try alternate structure (value might not be an array)
+        extracted_value=$(echo "$key_data" | jq -r ".custom[]? | select(.label == \"$field_label\") | .value" 2>/dev/null) || true
+    fi
+
+    key_data="$extracted_value"
+
+    # Check if we got valid data
+    if [ -z "$key_data" ]; then
+        echo "❌ Retrieved empty data for $description GPG key from Keeper"
+        echo "   Record: $record_name"
+        echo "   Field: $field_label"
+        echo ""
+        echo "   Troubleshooting:"
+        echo "   1. Verify the record exists: keeper get \"$record_name\""
+        echo "   2. Check custom fields: keeper get --format=json \"$record_name\" | jq '.custom[] | {type, label}'"
+        echo "   3. Make sure the '$field_label' custom field is populated in Keeper"
+        return 1
+    fi
+
+    # Verify it looks like a GPG key
+    if ! echo "$key_data" | grep -q "BEGIN PGP PRIVATE KEY BLOCK"; then
+        echo "❌ Retrieved data doesn't appear to be a valid GPG private key"
+        echo "   Record: $record_name"
+        echo "   Field: $field_label"
+        echo "   Expected: ASCII-armored format starting with '-----BEGIN PGP PRIVATE KEY BLOCK-----'"
+        echo "   Got first 100 chars: ${key_data:0:100}"
+        return 1
+    fi
+
+    # Import the key
+    echo ""
+    echo "🔑 GPG will prompt for the passphrase to decrypt the key"
+    echo "   Get the passphrase from Keeper record: $record_name"
+    echo ""
+
+    if echo "$key_data" | gpg --import 2>&1; then
+        echo "✅ GPG key imported successfully"
+
+        # Set trust level to ultimate for your own key
+        echo "🔒 Setting trust level to ultimate..."
+        echo -e "5\ny\n" | gpg --command-fd 0 --expert --edit-key "$key_id" trust quit
+
+        echo "✅ $description GPG key setup complete"
+        return 0
+    else
+        echo "❌ Failed to import $description GPG key"
+        return 1
+    fi
+}
+
+echo "🔐 Checking GPG key setup..."
+
+# Check which keys need to be imported
+KEYS_TO_IMPORT=()
+
+if ! gpg_key_exists "F2B4B87D2390CC45"; then
+    KEYS_TO_IMPORT+=("personal")
+fi
+
+{{ if eq .profile "work" -}}
+if ! gpg_key_exists "8C997CA8F29161D2"; then
+    KEYS_TO_IMPORT+=("work")
+fi
+{{- end }}
+
+# If all keys are already imported, we're done
+if [ ${#KEYS_TO_IMPORT[@]} -eq 0 ]; then
+    echo "✅ All GPG keys already imported"
+    exit 0
+fi
+
+# Check if Keeper CLI is available
+if ! command -v keeper &> /dev/null; then
+    echo "⚠️  Keeper Commander CLI not installed. Skipping GPG key import."
+    echo "   Install with: brew install keeper-commander"
+    exit 0
+fi
+
+# Check if Keeper is configured
+if [ ! -f "$HOME/.keeper/config.json" ]; then
+    echo "⚠️  Keeper Commander is not configured"
+    echo "   Run: keeper init"
+    echo "   Or re-run: chezmoi apply"
+    exit 0
+fi
+
+echo ""
+echo "🔐 Enter your Keeper master password to retrieve GPG keys"
+read -s -p "Password: " KEEPER_PASSWORD
+echo ""
+echo ""
+
+# Ensure password is cleared from memory on exit (success or failure)
+trap 'unset KEEPER_PASSWORD' EXIT
+
+# Import personal GPG key (ekweible)
+import_gpg_key \
+    "F2B4B87D2390CC45" \
+    "GPG Private Key - ekweible" \
+    "private_key" \
+    "personal (ekweible)"
+
+{{ if eq .profile "work" -}}
+# Import work GPG key (evanweible-wf)
+import_gpg_key \
+    "8C997CA8F29161D2" \
+    "GPG Private Key - evanweible-wf" \
+    "private_key" \
+    "work (evanweible-wf)"
+{{- end }}
+
+echo ""
+echo "✅ All GPG keys configured successfully"

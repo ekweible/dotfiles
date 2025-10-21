@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Initialize Keeper Commander CLI if not already set up
+
+set -e
+
+echo "🔑 Checking Keeper Commander CLI setup..."
+
+# Check if Keeper CLI is available
+if ! command -v keeper &> /dev/null; then
+    echo "⚠️  Keeper Commander CLI not installed. Skipping initialization."
+    echo "   Install with: brew install keeper-commander"
+    exit 0
+fi
+
+# Check if Keeper config exists
+if [ -f "$HOME/.keeper/config.json" ]; then
+    echo "✅ Keeper Commander is already configured"
+    exit 0
+fi
+
+echo ""
+echo "🔐 Keeper Commander needs to be initialized"
+echo "   You'll need to set up your Keeper account"
+echo ""
+
+# Run keeper init interactively
+# This hands control over to the keeper init process
+if keeper init; then
+    echo ""
+    echo "✅ Keeper Commander initialized successfully"
+    echo ""
+    echo "ℹ️  Note: Keeper will prompt for your password when accessing secrets"
+    exit 0
+else
+    echo ""
+    echo "❌ Keeper initialization failed or was cancelled"
+    echo "   You can manually initialize later by running: keeper init"
+    exit 1
+fi

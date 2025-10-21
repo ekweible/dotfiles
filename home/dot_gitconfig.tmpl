@@ -1,0 +1,74 @@
+[credential]
+    helper = osxkeychain
+
+{{ if eq .profile "work" -}}
+[user]
+    name = evanweible-wf
+    email = evan.weible@workiva.com
+    signingkey = 8C997CA8F29161D2
+{{- else -}}
+[user]
+    name = ekweible
+    email = evan@weible.me
+    signingkey = F2B4B87D2390CC45
+{{- end }}
+
+[alias]
+    br = branch
+    co = checkout
+    st = status
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = true
+
+[core]
+    excludesfile = ~/.gitignore
+    editor = cursor --wait
+
+[apply]
+    whitespace = nowarn
+
+[difftool]
+    prompt = false
+
+[help]
+    autocorrect = 1
+
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[pull]
+    ff = only
+    autoSetupRemote = true
+
+[fetch]
+    prune = true
+
+[commit]
+    gpgsign = true
+
+[gpg]
+    program = gpg
+
+# Always rewrite HTTPS to SSH for GitHub
+# SSH config determines which key to use based on hostname
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+    insteadOf = git://github.com/
+    insteadOf = ssh://git@github.com/
+
+{{ if eq .profile "work" -}}
+# Directory-based account switching using includeIf
+# Personal repositories override to use personal user and git@github.com-personal: host
+
+[includeIf "gitdir:~/.local/share/chezmoi/"]
+    path = ~/.gitconfig-personal
+[includeIf "gitdir:~/Developer/me/**"]
+    path = ~/.gitconfig-personal
+[includeIf "gitdir:~/github.com/ekweible/**"]
+    path = ~/.gitconfig-personal
+{{- end }}

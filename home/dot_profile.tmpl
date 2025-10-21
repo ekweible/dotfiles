@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+{{ if eq .profile "work" -}}
+# Source work profile if it exists
+[ -f "$HOME/.local/share/chezmoi-work/.profile" ] && . "$HOME/.local/share/chezmoi-work/.profile"
+{{- end }}
