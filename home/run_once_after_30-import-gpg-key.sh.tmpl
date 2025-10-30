@@ -13,8 +13,9 @@ gpg_key_exists() {
 # Function to import and trust a GPG key from Keeper
 import_gpg_key() {
     local key_id="$1"
-    local keeper_record="$2"
-    local description="$3"
+    local record_name="$2"
+    local field_label="$3"
+    local description="$4"
 
     if gpg_key_exists "$key_id"; then
         echo "✅ GPG key $key_id ($description) already imported"
@@ -22,28 +23,46 @@ import_gpg_key() {
     fi
 
     echo "📥 Importing $description GPG key from Keeper..."
+    echo "   Record: $record_name"
+    echo "   Field: $field_label"
 
-    # Retrieve the key from Keeper
+    # Retrieve the key from Keeper using the 'get' command with JSON output
     local key_data
-    if ! key_data=$(keeper secret get -n "$keeper_record" 2>&1); then
-        echo "❌ Failed to retrieve $description GPG key from Keeper"
+    if ! key_data=$(keeper get --format=json "$record_name" 2>&1); then
+        echo "❌ Failed to retrieve record from Keeper"
         echo "   Error: $key_data"
-        echo "   Record: $keeper_record"
         return 1
     fi
+
+    # Extract the custom field value using jq
+    local extracted_value
+    extracted_value=$(echo "$key_data" | jq -r ".custom[] | select(.label == \"$field_label\") | .value[]?" 2>/dev/null)
+
+    if [ -z "$extracted_value" ]; then
+        # Try alternate structure (value might not be an array)
+        extracted_value=$(echo "$key_data" | jq -r ".custom[] | select(.label == \"$field_label\") | .value" 2>/dev/null)
+    fi
+
+    key_data="$extracted_value"
 
     # Check if we got valid data
     if [ -z "$key_data" ]; then
         echo "❌ Retrieved empty data for $description GPG key from Keeper"
-        echo "   Record: $keeper_record"
-        echo "   Make sure the private key field is populated in Keeper"
+        echo "   Record: $record_name"
+        echo "   Field: $field_label"
+        echo ""
+        echo "   Troubleshooting:"
+        echo "   1. Verify the record exists: keeper get \"$record_name\""
+        echo "   2. Check custom fields: keeper get --format=json \"$record_name\" | jq '.custom[] | {type, label}'"
+        echo "   3. Make sure the '$field_label' custom field is populated in Keeper"
         return 1
     fi
 
     # Verify it looks like a GPG key
     if ! echo "$key_data" | grep -q "BEGIN PGP PRIVATE KEY BLOCK"; then
         echo "❌ Retrieved data doesn't appear to be a valid GPG private key"
-        echo "   Record: $keeper_record"
+        echo "   Record: $record_name"
+        echo "   Field: $field_label"
         echo "   Expected: ASCII-armored format starting with '-----BEGIN PGP PRIVATE KEY BLOCK-----'"
         return 1
     fi
@@ -88,14 +107,16 @@ echo ""
 # Import personal GPG key (ekweible)
 import_gpg_key \
     "F2B4B87D2390CC45" \
-    "keeper://GPG Private Key - ekweible/field/private_key" \
+    "GPG Private Key - ekweible" \
+    "private_key" \
     "personal (ekweible)"
 
 {{ if eq .profile "work" -}}
 # Import work GPG key (evanweible-wf)
 import_gpg_key \
     "8C997CA8F29161D2" \
-    "keeper://GPG Private Key - evanweible-wf/field/private_key" \
+    "GPG Private Key - evanweible-wf" \
+    "private_key" \
     "work (evanweible-wf)"
 {{- end }}
 
