@@ -1,0 +1,158 @@
+[
+{{- if contains "Code/User" .chezmoi.targetFile }}
+  /** COPILOT **/
+  {
+    "key": "cmd+l",
+    "command": "-expandLineSelection"
+  },
+  {
+    "key": "cmd+l",
+    "command": "workbench.panel.chat"
+  },
+{{- end }}
+  /** WORKBENCH VIEWS & NAVIGATION **/
+  {
+    "key": "shift+cmd+s",
+    "command": "-workbench.action.files.saveAs"
+  },
+  {
+    "key": "shift+cmd+s",
+    "command": "workbench.view.scm"
+  },
+  {
+    "key": "cmd+r cmd+p",
+    "command": "workbench.action.focusPanel"
+  },
+  {
+    "key": "cmd+r cmd+right",
+    "command": "workbench.action.nextPanelView",
+    "when": "panelFocus"
+  },
+  {
+    "key": "cmd+r cmd+left",
+    "command": "workbench.action.previousPanelView",
+    "when": "panelFocus"
+  },
+  {
+    "key": "cmd+r cmd+m",
+    "command": "workbench.action.toggleMaximizedPanel",
+    "when": "panelFocus"
+  },
+
+  /** SPLIT EDITORS **/
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.joinAllGroups",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.splitEditor",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.navigateRight",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.navigateLeft",
+    "when": "editorFocus"
+  },
+
+  /** EDITING **/
+  {
+    "key": "ctrl+d",
+    "command": "editor.action.deleteLines",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+cmd+k",
+    "command": "-editor.action.deleteLines",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+d",
+    "command": "-deleteRight",
+    "when": "textInputFocus"
+  },
+
+  /** FILE EXPLORER **/
+  {
+    "key": "cmd+d",
+    "command": "duplicate.execute",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+  },
+  {
+    "key": "cmd+n",
+    "command": "explorer.newFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "shift+cmd+n",
+    "command": "explorer.newFolder",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+
+  /** INTELLISENSE **/
+  {
+    "key": "cmd+r cmd+enter",
+    "command": "editor.action.goToDeclaration",
+    "when": "editorTextFocus"
+  },
+
+  /** NOTIFS **/
+  {
+    "key": "escape",
+    "command": "notifications.hideToasts",
+    "when": "notificationToastsVisible"
+  },
+
+  /** TERMINAL **/
+{{- if contains "Code/User" .chezmoi.targetFile }}
+  {
+    "key": "cmd+r cmd+v",
+    "command": "plantuml.preview",
+    "when": "resourceExtname == .puml"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "-editor.action.transposeLetters",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "terminal.focus"
+  },
+{{- else if contains "Cursor/User" .chezmoi.targetFile }}
+  {
+    "key": "ctrl+t",
+    "command": "workbench.action.createTerminalEditor"
+  },
+  {
+    "key": "shift+cmd+k",
+    "command": "cursorai.action.generateInTerminal",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported || terminalHasBeenCreated && terminalPromptBarVisible || terminalProcessSupported && terminalPromptBarVisible"
+  },
+  {
+    "key": "cmd+k",
+    "command": "-cursorai.action.generateInTerminal",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported || terminalHasBeenCreated && terminalPromptBarVisible || terminalProcessSupported && terminalPromptBarVisible"
+  },
+
+  /** PLUGIN: PlantUML **/
+  {
+    "key": "cmd+r cmd+v",
+    "command": "plantuml.preview",
+    "when": "resourceExtname == .puml"
+  },
+{{- end }}
+
+  /** PLUGIN: Markdown **/
+  {
+    "key": "cmd+r cmd+v",
+    "command": "markdown.showPreviewToSide",
+    "when": "editorLangId == 'markdown'"
+  }
+]

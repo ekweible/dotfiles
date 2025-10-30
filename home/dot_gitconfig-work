@@ -1,0 +1,14 @@
+# Work account configuration
+# Loaded when in ~/Developer/git/work/ directory
+
+[user]
+    name = evanweible-wf
+    email = evan.weible@workiva.com
+    signingkey = 8C997CA8F29161D2
+
+# Rewrite URLs to use work SSH key via SSH config
+[url "git@github.com-evanweible-wf:"]
+    insteadOf = https://github.com/
+    insteadOf = git://github.com/
+    insteadOf = git@github.com:
+    insteadOf = ssh://git@github.com/

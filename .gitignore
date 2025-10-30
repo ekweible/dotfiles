@@ -1,2 +1,9 @@
+# Chezmoi working directory
+/.chezmoistate.boltdb
+
+# Local age key (NEVER commit this)
+/key.txt
+
+# TODO: remove
 Mackup.bak
 private.bak

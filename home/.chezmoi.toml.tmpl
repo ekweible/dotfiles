@@ -1,0 +1,9 @@
+{{- $profile := "personal" -}}
+{{- $profileChoices := list "personal" "work" "homeserver" -}}
+
+{{- $profile = promptChoiceOnce . "profile" "Select machine profile" $profileChoices "personal" -}}
+
+[data]
+    profile = "{{ $profile }}"
+    hostname = "{{ .chezmoi.hostname }}"
+    fullHostname = "{{ .chezmoi.fqdnHostname }}"

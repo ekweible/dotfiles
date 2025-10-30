@@ -1,0 +1,10 @@
+#!/bin/bash
+{{ if eq .chezmoi.os "darwin" -}}
+# Runs whenever Brewfile content changes
+# Brewfile hash: {{ include "Brewfile.tmpl" | sha256sum }}
+
+echo "📦 Installing/updating Homebrew packages..."
+brew bundle --file=/dev/stdin <<EOF
+{{ includeTemplate "Brewfile.tmpl" . }}
+EOF
+{{- end }}

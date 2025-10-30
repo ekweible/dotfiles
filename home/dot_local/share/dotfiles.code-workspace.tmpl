@@ -1,0 +1,12 @@
+{
+  "folders": [
+    {
+      "name": "dotfiles (chezmoi)",
+      "path": "../chezmoi"
+    }{{ if eq .profile "work" }},
+    {
+      "name": "dotfiles-work (external)",
+      "path": "../chezmoi-work"
+    }{{ end }}
+  ]
+}

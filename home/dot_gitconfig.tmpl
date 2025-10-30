@@ -1,0 +1,62 @@
+[credential]
+    helper = osxkeychain
+
+[user]
+    name = ekweible
+    email = evan@weible.me
+    signingkey = F2B4B87D2390CC45
+
+[alias]
+    br = branch
+    co = checkout
+    st = status
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = true
+
+[core]
+    excludesfile = ~/.gitignore
+    editor = cursor --wait
+
+[apply]
+    whitespace = nowarn
+
+[difftool]
+    prompt = false
+
+[help]
+    autocorrect = 1
+
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[pull]
+    ff = only
+    autoSetupRemote = true
+
+[fetch]
+    prune = true
+
+[commit]
+    gpgsign = true
+
+[gpg]
+    program = gpg
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+    insteadOf = git://github.com/
+    insteadOf = ssh://git@github.com/
+
+{{ if eq .profile "work" -}}
+# Directory-based account switching using includeIf
+[includeIf "gitdir:~/Developer/git/work/"]
+    path = ~/.gitconfig-work
+# TODO: remove
+[includeIf "gitdir:~/github.com/Workiva/]
+    path = ~/.gitconfig-work
+{{- end }}
