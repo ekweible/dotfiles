@@ -4,12 +4,6 @@
 
 set -e
 
-# Function to check if Keeper is initialized and authenticated
-keeper_is_ready() {
-    # Use timeout and redirect stdin to prevent hanging
-    timeout 5 keeper whoami < /dev/null &> /dev/null
-}
-
 # Function to check if a GPG key is already imported
 gpg_key_exists() {
     local key_id="$1"
@@ -79,13 +73,17 @@ if ! command -v keeper &> /dev/null; then
     exit 0
 fi
 
-# Check if Keeper is initialized and authenticated
-if ! keeper_is_ready; then
-    echo "⚠️  Keeper Commander is not initialized or authenticated"
+# Check if Keeper is configured
+if [ ! -f "$HOME/.keeper/config.json" ]; then
+    echo "⚠️  Keeper Commander is not configured"
     echo "   Run: keeper init"
     echo "   Or re-run: chezmoi apply"
     exit 0
 fi
+
+echo ""
+echo "ℹ️  Keeper will prompt for your password to access secrets"
+echo ""
 
 # Import personal GPG key (ekweible)
 import_gpg_key \

@@ -13,23 +13,15 @@ if ! command -v keeper &> /dev/null; then
     exit 0
 fi
 
-# Function to check if Keeper is initialized and can connect
-keeper_is_initialized() {
-    # Try to run a simple keeper command that requires authentication
-    # This will fail if keeper hasn't been initialized
-    # Use timeout and redirect stdin to prevent hanging
-    timeout 5 keeper whoami < /dev/null &> /dev/null
-}
-
-# Check if Keeper is already initialized
-if keeper_is_initialized; then
-    echo "✅ Keeper Commander is already initialized and authenticated"
+# Check if Keeper config exists
+if [ -f "$HOME/.keeper/config.json" ]; then
+    echo "✅ Keeper Commander is already configured"
     exit 0
 fi
 
 echo ""
-echo "🔐 Keeper Commander needs to be initialized and authenticated"
-echo "   You'll need to log in with your Keeper account credentials"
+echo "🔐 Keeper Commander needs to be initialized"
+echo "   You'll need to set up your Keeper account"
 echo ""
 
 # Run keeper init interactively
@@ -37,34 +29,12 @@ echo ""
 if keeper init; then
     echo ""
     echo "✅ Keeper Commander initialized successfully"
+    echo ""
+    echo "ℹ️  Note: Keeper will prompt for your password when accessing secrets"
+    exit 0
 else
     echo ""
     echo "❌ Keeper initialization failed or was cancelled"
     echo "   You can manually initialize later by running: keeper init"
-    exit 1
-fi
-
-# Now run keeper login to authenticate
-echo ""
-echo "🔑 Logging in to Keeper..."
-echo ""
-
-if keeper login; then
-    echo ""
-    echo "✅ Keeper login successful"
-
-    # Verify the authentication worked
-    if keeper_is_initialized; then
-        echo "✅ Authentication verified"
-        exit 0
-    else
-        echo "❌ Login completed but authentication verification failed"
-        echo "   Try running: keeper whoami"
-        exit 1
-    fi
-else
-    echo ""
-    echo "❌ Keeper login failed or was cancelled"
-    echo "   You can manually log in later by running: keeper login"
     exit 1
 fi
