@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Initialize Keeper Commander CLI if not already set up
+
+set -e
+
+echo "🔑 Checking Keeper Commander CLI setup..."
+
+# Check if Keeper CLI is available
+if ! command -v keeper &> /dev/null; then
+    echo "⚠️  Keeper Commander CLI not installed. Skipping initialization."
+    echo "   Install with: brew install keeper-commander"
+    exit 0
+fi
+
+# Function to check if Keeper is initialized and can connect
+keeper_is_initialized() {
+    # Try to run a simple keeper command that requires authentication
+    # This will fail if keeper hasn't been initialized
+    keeper whoami &> /dev/null
+}
+
+# Check if Keeper is already initialized
+if keeper_is_initialized; then
+    echo "✅ Keeper Commander is already initialized and authenticated"
+    exit 0
+fi
+
+echo ""
+echo "🔐 Keeper Commander needs to be initialized"
+echo "   You'll need to log in with your Keeper account credentials"
+echo ""
+
+# Run keeper init interactively
+# This hands control over to the keeper init process
+# The user will complete the login flow interactively
+if keeper init; then
+    echo ""
+    echo "✅ Keeper Commander initialized successfully"
+
+    # Verify the initialization worked
+    if keeper_is_initialized; then
+        echo "✅ Authentication verified"
+        exit 0
+    else
+        echo "❌ Keeper init completed but authentication verification failed"
+        echo "   Try running: keeper whoami"
+        exit 1
+    fi
+else
+    echo ""
+    echo "❌ Keeper initialization failed or was cancelled"
+    echo "   You can manually initialize later by running: keeper init"
+    exit 1
+fi

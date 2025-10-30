@@ -4,6 +4,11 @@
 
 set -e
 
+# Function to check if Keeper is initialized and authenticated
+keeper_is_ready() {
+    keeper whoami &> /dev/null
+}
+
 # Function to check if a GPG key is already imported
 gpg_key_exists() {
     local key_id="$1"
@@ -23,7 +28,33 @@ import_gpg_key() {
 
     echo "📥 Importing $description GPG key from Keeper..."
 
-    if keeper secret get -n "$keeper_record" | gpg --import; then
+    # Retrieve the key from Keeper
+    local key_data
+    if ! key_data=$(keeper secret get -n "$keeper_record" 2>&1); then
+        echo "❌ Failed to retrieve $description GPG key from Keeper"
+        echo "   Error: $key_data"
+        echo "   Record: $keeper_record"
+        return 1
+    fi
+
+    # Check if we got valid data
+    if [ -z "$key_data" ]; then
+        echo "❌ Retrieved empty data for $description GPG key from Keeper"
+        echo "   Record: $keeper_record"
+        echo "   Make sure the private key field is populated in Keeper"
+        return 1
+    fi
+
+    # Verify it looks like a GPG key
+    if ! echo "$key_data" | grep -q "BEGIN PGP PRIVATE KEY BLOCK"; then
+        echo "❌ Retrieved data doesn't appear to be a valid GPG private key"
+        echo "   Record: $keeper_record"
+        echo "   Expected: ASCII-armored format starting with '-----BEGIN PGP PRIVATE KEY BLOCK-----'"
+        return 1
+    fi
+
+    # Import the key
+    if echo "$key_data" | gpg --import 2>&1; then
         echo "✅ GPG key imported successfully"
 
         # Set trust level to ultimate for your own key
@@ -33,7 +64,7 @@ import_gpg_key() {
         echo "✅ $description GPG key setup complete"
         return 0
     else
-        echo "❌ Failed to import $description GPG key from Keeper"
+        echo "❌ Failed to import $description GPG key"
         return 1
     fi
 }
@@ -44,6 +75,14 @@ echo "🔐 Checking GPG key setup..."
 if ! command -v keeper &> /dev/null; then
     echo "⚠️  Keeper Commander CLI not installed. Skipping GPG key import."
     echo "   Install with: brew install keeper-commander"
+    exit 0
+fi
+
+# Check if Keeper is initialized and authenticated
+if ! keeper_is_ready; then
+    echo "⚠️  Keeper Commander is not initialized or authenticated"
+    echo "   Run: keeper init"
+    echo "   Or re-run: chezmoi apply"
     exit 0
 fi
 
@@ -60,15 +99,6 @@ import_gpg_key \
     "keeper://GPG Private Key - evanweible-wf/field/private_key" \
     "work (evanweible-wf)"
 {{- end }}
-
-# Check for any import failures
-if [ $? -ne 0 ]; then
-    echo ""
-    echo "❌ Some GPG keys failed to import"
-    echo "   Make sure Keeper CLI is initialized:"
-    echo "   Run: keeper init"
-    exit 1
-fi
 
 echo ""
 echo "✅ All GPG keys configured successfully"
