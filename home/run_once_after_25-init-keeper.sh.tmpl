@@ -28,29 +28,43 @@ if keeper_is_initialized; then
 fi
 
 echo ""
-echo "🔐 Keeper Commander needs to be initialized"
+echo "🔐 Keeper Commander needs to be initialized and authenticated"
 echo "   You'll need to log in with your Keeper account credentials"
 echo ""
 
 # Run keeper init interactively
 # This hands control over to the keeper init process
-# The user will complete the login flow interactively
 if keeper init; then
     echo ""
     echo "✅ Keeper Commander initialized successfully"
+else
+    echo ""
+    echo "❌ Keeper initialization failed or was cancelled"
+    echo "   You can manually initialize later by running: keeper init"
+    exit 1
+fi
 
-    # Verify the initialization worked
+# Now run keeper login to authenticate
+echo ""
+echo "🔑 Logging in to Keeper..."
+echo ""
+
+if keeper login; then
+    echo ""
+    echo "✅ Keeper login successful"
+
+    # Verify the authentication worked
     if keeper_is_initialized; then
         echo "✅ Authentication verified"
         exit 0
     else
-        echo "❌ Keeper init completed but authentication verification failed"
+        echo "❌ Login completed but authentication verification failed"
         echo "   Try running: keeper whoami"
         exit 1
     fi
 else
     echo ""
-    echo "❌ Keeper initialization failed or was cancelled"
-    echo "   You can manually initialize later by running: keeper init"
+    echo "❌ Keeper login failed or was cancelled"
+    echo "   You can manually log in later by running: keeper login"
     exit 1
 fi
