@@ -17,7 +17,8 @@ fi
 keeper_is_initialized() {
     # Try to run a simple keeper command that requires authentication
     # This will fail if keeper hasn't been initialized
-    keeper whoami &> /dev/null
+    # Use timeout and redirect stdin to prevent hanging
+    timeout 5 keeper whoami < /dev/null &> /dev/null
 }
 
 # Check if Keeper is already initialized
