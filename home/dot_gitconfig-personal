@@ -1,5 +1,5 @@
 # Personal account configuration
-# Loaded for the main dotfiles repo in ~/.local/share/chezmoi/
+# Loaded on work machines for personal directories to override default work user/key
 
 [user]
     name = ekweible

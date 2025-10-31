@@ -1,10 +1,17 @@
 [credential]
     helper = osxkeychain
 
+{{ if eq .profile "work" -}}
+[user]
+    name = evanweible-wf
+    email = evan.weible@workiva.com
+    signingkey = 8C997CA8F29161D2
+{{- else -}}
 [user]
     name = ekweible
     email = evan@weible.me
     signingkey = F2B4B87D2390CC45
+{{- end }}
 
 [alias]
     br = branch
@@ -47,30 +54,21 @@
 [gpg]
     program = gpg
 
+# Always rewrite HTTPS to SSH for GitHub
+# SSH config determines which key to use based on hostname
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+    insteadOf = git://github.com/
+    insteadOf = ssh://git@github.com/
+
 {{ if eq .profile "work" -}}
-# On work machines, no default URL rewriting
-# (github.com uses work key by default)
-
 # Directory-based account switching using includeIf
+# Personal repositories override to use personal user and git@github.com-personal: host
 
-# Personal repositories
 [includeIf "gitdir:~/.local/share/chezmoi/"]
     path = ~/.gitconfig-personal
 [includeIf "gitdir:~/Developer/me/"]
     path = ~/.gitconfig-personal
 [includeIf "gitdir:~/github.com/ekweible/"]
     path = ~/.gitconfig-personal
-
-# Work repositories
-[includeIf "gitdir:~/Developer/git/work/"]
-    path = ~/.gitconfig-work
-# TODO: remove
-[includeIf "gitdir:~/github.com/Workiva/"]
-    path = ~/.gitconfig-work
-{{- else -}}
-# On personal machines, use personal key by default
-[url "git@github.com:"]
-    insteadOf = https://github.com/
-    insteadOf = git://github.com/
-    insteadOf = ssh://git@github.com/
 {{- end }}
