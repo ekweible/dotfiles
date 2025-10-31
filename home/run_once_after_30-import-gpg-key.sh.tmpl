@@ -32,9 +32,6 @@ import_gpg_key() {
     local keeper_exit_code=0
     key_data=$(keeper get --format=json --password="$KEEPER_PASSWORD" "$record_name" 2>&1) || keeper_exit_code=$?
 
-    echo "   [DEBUG] Keeper exit code: $keeper_exit_code"
-    echo "   [DEBUG] Output length: ${#key_data}"
-
     if [ "$keeper_exit_code" -ne 0 ]; then
         echo ""
         echo "❌ Failed to retrieve record from Keeper (exit code: $keeper_exit_code)"
@@ -48,26 +45,17 @@ import_gpg_key() {
     fi
 
     # Extract the custom field value using jq
-    echo "   [DEBUG] Extracting field with jq..."
-
-    # First, let's see what the JSON structure actually looks like
-    echo "   [DEBUG] JSON structure:"
-    echo "$key_data" | jq -r 'keys' 2>&1 | head -20
-
     local extracted_value
     extracted_value=$(echo "$key_data" | jq -r ".custom[]? | select(.label == \"$field_label\") | .value[]?" 2>/dev/null) || true
 
     if [ -z "$extracted_value" ]; then
-        echo "   [DEBUG] First extraction empty, trying alternate structure..."
         # Try alternate structure (value might not be an array)
         extracted_value=$(echo "$key_data" | jq -r ".custom[]? | select(.label == \"$field_label\") | .value" 2>/dev/null) || true
     fi
 
     key_data="$extracted_value"
-    echo "   [DEBUG] Extracted value length: ${#key_data}"
 
     # Check if we got valid data
-    echo "   [DEBUG] Checking if data is empty..."
     if [ -z "$key_data" ]; then
         echo "❌ Retrieved empty data for $description GPG key from Keeper"
         echo "   Record: $record_name"
@@ -79,7 +67,6 @@ import_gpg_key() {
         echo "   3. Make sure the '$field_label' custom field is populated in Keeper"
         return 1
     fi
-    echo "   [DEBUG] Data is not empty, checking GPG format..."
 
     # Verify it looks like a GPG key
     if ! echo "$key_data" | grep -q "BEGIN PGP PRIVATE KEY BLOCK"; then
@@ -91,10 +78,13 @@ import_gpg_key() {
         return 1
     fi
 
-    echo "   [DEBUG] GPG format looks good, importing..."
     # Import the key
+    echo ""
+    echo "🔑 GPG will prompt for the passphrase to decrypt the key"
+    echo "   Get the passphrase from Keeper record: $record_name"
+    echo ""
+
     if echo "$key_data" | gpg --import 2>&1; then
-        echo "   [DEBUG] GPG import succeeded"
         echo "✅ GPG key imported successfully"
 
         # Set trust level to ultimate for your own key
