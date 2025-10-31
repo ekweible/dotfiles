@@ -67,8 +67,8 @@
 
 [includeIf "gitdir:~/.local/share/chezmoi/"]
     path = ~/.gitconfig-personal
-[includeIf "gitdir:~/Developer/me/"]
+[includeIf "gitdir:~/Developer/me/**"]
     path = ~/.gitconfig-personal
-[includeIf "gitdir:~/github.com/ekweible/"]
+[includeIf "gitdir:~/github.com/ekweible/**"]
     path = ~/.gitconfig-personal
 {{- end }}
