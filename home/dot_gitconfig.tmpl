@@ -47,16 +47,30 @@
 [gpg]
     program = gpg
 
-[url "git@github.com:"]
-    insteadOf = https://github.com/
-    insteadOf = git://github.com/
-    insteadOf = ssh://git@github.com/
-
 {{ if eq .profile "work" -}}
+# On work machines, no default URL rewriting
+# (github.com uses work key by default)
+
 # Directory-based account switching using includeIf
+
+# Personal repositories
+[includeIf "gitdir:~/.local/share/chezmoi/"]
+    path = ~/.gitconfig-personal
+[includeIf "gitdir:~/Developer/me/"]
+    path = ~/.gitconfig-personal
+[includeIf "gitdir:~/github.com/ekweible/"]
+    path = ~/.gitconfig-personal
+
+# Work repositories
 [includeIf "gitdir:~/Developer/git/work/"]
     path = ~/.gitconfig-work
 # TODO: remove
 [includeIf "gitdir:~/github.com/Workiva/"]
     path = ~/.gitconfig-work
+{{- else -}}
+# On personal machines, use personal key by default
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+    insteadOf = git://github.com/
+    insteadOf = ssh://git@github.com/
 {{- end }}

@@ -18,7 +18,7 @@ _Note: for a work machine, you'll need to first setup an SSH key so that chezmoi
 can clone the private work dotfiles repo._
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ekweible
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply ekweible
 ```
 
 During init, you'll be prompted to select a profile.
