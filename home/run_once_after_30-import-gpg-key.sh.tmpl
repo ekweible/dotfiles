@@ -101,6 +101,25 @@ import_gpg_key() {
 
 echo "🔐 Checking GPG key setup..."
 
+# Check which keys need to be imported
+KEYS_TO_IMPORT=()
+
+if ! gpg_key_exists "F2B4B87D2390CC45"; then
+    KEYS_TO_IMPORT+=("personal")
+fi
+
+{{ if eq .profile "work" -}}
+if ! gpg_key_exists "8C997CA8F29161D2"; then
+    KEYS_TO_IMPORT+=("work")
+fi
+{{- end }}
+
+# If all keys are already imported, we're done
+if [ ${#KEYS_TO_IMPORT[@]} -eq 0 ]; then
+    echo "✅ All GPG keys already imported"
+    exit 0
+fi
+
 # Check if Keeper CLI is available
 if ! command -v keeper &> /dev/null; then
     echo "⚠️  Keeper Commander CLI not installed. Skipping GPG key import."
