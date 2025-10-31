@@ -4,15 +4,13 @@
 if [ -d ~/.local/share/chezmoi-work ]; then
     echo "🔐 Applying work-private dotfiles..."
 
-    # Use full path to chezmoi since it might not be in PATH yet
-    if command -v chezmoi &> /dev/null; then
-        chezmoi apply --source-path=~/.local/share/chezmoi-work
-    elif [ -x /opt/homebrew/bin/chezmoi ]; then
-        /opt/homebrew/bin/chezmoi apply --source-path=~/.local/share/chezmoi-work
-    elif [ -x /usr/local/bin/chezmoi ]; then
-        /usr/local/bin/chezmoi apply --source-path=~/.local/share/chezmoi-work
+    # Use the same chezmoi executable that's currently running
+    CHEZMOI="{{ .chezmoi.executable }}"
+
+    if [ -x "${CHEZMOI}" ]; then
+        "${CHEZMOI}" apply --source-path=~/.local/share/chezmoi-work
     else
-        echo "⚠️  chezmoi not found in PATH or standard locations"
+        echo "⚠️  chezmoi executable not found at ${CHEZMOI}"
         echo "   Skipping work-private dotfiles - run 'chezmoi apply --source-path=~/.local/share/chezmoi-work' manually"
     fi
 fi
