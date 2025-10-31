@@ -6,4 +6,8 @@
     email = evan.weible@workiva.com
     signingkey = 8C997CA8F29161D2
 
-# No URL rewriting needed - work key is default for github.com on work machines
+# Rewrite URLs to use SSH instead of HTTPS
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+    insteadOf = git://github.com/
+    insteadOf = ssh://git@github.com/
