@@ -27,10 +27,10 @@ import_gpg_key() {
     echo "   Field: $field_label"
 
     # Retrieve the key from Keeper using the 'get' command with JSON output
-    # Redirect stderr to /dev/tty so password prompts go to terminal, not into the JSON output
+    # Pass password via CLI arg to avoid stdout/stderr parsing issues
     local key_data
     local keeper_exit_code=0
-    key_data=$(keeper get --format=json "$record_name" 2>/dev/tty < /dev/tty) || keeper_exit_code=$?
+    key_data=$(keeper get --format=json --password="$KEEPER_PASSWORD" "$record_name" 2>&1) || keeper_exit_code=$?
 
     echo "   [DEBUG] Keeper exit code: $keeper_exit_code"
     echo "   [DEBUG] Output length: ${#key_data}"
@@ -127,8 +127,13 @@ if [ ! -f "$HOME/.keeper/config.json" ]; then
 fi
 
 echo ""
-echo "ℹ️  Keeper will prompt for your password to access secrets"
+echo "🔐 Enter your Keeper master password to retrieve GPG keys"
+read -s -p "Password: " KEEPER_PASSWORD
 echo ""
+echo ""
+
+# Ensure password is cleared from memory on exit (success or failure)
+trap 'unset KEEPER_PASSWORD' EXIT
 
 # Import personal GPG key (ekweible)
 import_gpg_key \
