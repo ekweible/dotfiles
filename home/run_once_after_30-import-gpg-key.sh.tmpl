@@ -49,13 +49,18 @@ import_gpg_key() {
 
     # Extract the custom field value using jq
     echo "   [DEBUG] Extracting field with jq..."
+
+    # First, let's see what the JSON structure actually looks like
+    echo "   [DEBUG] JSON structure:"
+    echo "$key_data" | jq -r 'keys' 2>&1 | head -20
+
     local extracted_value
-    extracted_value=$(echo "$key_data" | jq -r ".custom[] | select(.label == \"$field_label\") | .value[]?" 2>/dev/null)
+    extracted_value=$(echo "$key_data" | jq -r ".custom[]? | select(.label == \"$field_label\") | .value[]?" 2>/dev/null) || true
 
     if [ -z "$extracted_value" ]; then
         echo "   [DEBUG] First extraction empty, trying alternate structure..."
         # Try alternate structure (value might not be an array)
-        extracted_value=$(echo "$key_data" | jq -r ".custom[] | select(.label == \"$field_label\") | .value" 2>/dev/null)
+        extracted_value=$(echo "$key_data" | jq -r ".custom[]? | select(.label == \"$field_label\") | .value" 2>/dev/null) || true
     fi
 
     key_data="$extracted_value"
