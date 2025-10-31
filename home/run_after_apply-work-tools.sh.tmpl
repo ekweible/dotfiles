@@ -1,17 +1,19 @@
 #!/bin/bash
 {{ if eq .profile "work" -}}
 # Apply work-private dotfiles if they exist
-if [ -d ~/.local/share/chezmoi-work ]; then
+WORK_DOTFILES_DIR="${HOME}/.local/share/chezmoi-work"
+
+if [ -d "${WORK_DOTFILES_DIR}" ]; then
     echo "🔐 Applying work-private dotfiles..."
 
     # Use the same chezmoi executable that's currently running
     CHEZMOI="{{ .chezmoi.executable }}"
 
     if [ -x "${CHEZMOI}" ]; then
-        "${CHEZMOI}" apply --source-path=~/.local/share/chezmoi-work
+        "${CHEZMOI}" apply --source="${WORK_DOTFILES_DIR}"
     else
         echo "⚠️  chezmoi executable not found at ${CHEZMOI}"
-        echo "   Skipping work-private dotfiles - run 'chezmoi apply --source-path=~/.local/share/chezmoi-work' manually"
+        echo "   Skipping work-private dotfiles - run 'chezmoi apply --source=${WORK_DOTFILES_DIR}' manually"
     fi
 fi
 {{- end }}
