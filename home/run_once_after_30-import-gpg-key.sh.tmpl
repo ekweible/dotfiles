@@ -27,10 +27,10 @@ import_gpg_key() {
     echo "   Field: $field_label"
 
     # Retrieve the key from Keeper using the 'get' command with JSON output
-    # Explicitly connect to /dev/tty so Keeper can prompt for password when run via chezmoi
+    # Redirect stderr to /dev/tty so password prompts go to terminal, not into the JSON output
     local key_data
     local keeper_exit_code=0
-    key_data=$(keeper get --format=json "$record_name" 2>&1 < /dev/tty) || keeper_exit_code=$?
+    key_data=$(keeper get --format=json "$record_name" 2>/dev/tty < /dev/tty) || keeper_exit_code=$?
 
     echo "   [DEBUG] Keeper exit code: $keeper_exit_code"
     echo "   [DEBUG] Output length: ${#key_data}"
