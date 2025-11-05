@@ -30,7 +30,7 @@ import_gpg_key() {
     # Pass password via CLI arg to avoid stdout/stderr parsing issues
     local key_data
     local keeper_exit_code=0
-    key_data=$(keeper get --format=json --password="$KEEPER_PASSWORD" "$record_name" 2>&1) || keeper_exit_code=$?
+    key_data=$(keeper get --format=json --user="evan@weible.me" --password="$KEEPER_PASSWORD" "$record_name" 2>&1) || keeper_exit_code=$?
 
     if [ "$keeper_exit_code" -ne 0 ]; then
         echo ""
@@ -124,14 +124,6 @@ fi
 if ! command -v keeper &> /dev/null; then
     echo "⚠️  Keeper Commander CLI not installed. Skipping GPG key import."
     echo "   Install with: brew install keeper-commander"
-    exit 0
-fi
-
-# Check if Keeper is configured
-if [ ! -f "$HOME/.keeper/config.json" ]; then
-    echo "⚠️  Keeper Commander is not configured"
-    echo "   Run: keeper init"
-    echo "   Or re-run: chezmoi apply"
     exit 0
 fi
 
