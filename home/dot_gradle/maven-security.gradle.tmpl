@@ -1,0 +1,3 @@
+{{- if eq .profile "work" -}}
+{{ joinPath .chezmoi.sourceDir ".chezmoitemplates/encrypted_executable_maven-security.gradle.age" | include | decrypt -}}
+{{- end -}}
