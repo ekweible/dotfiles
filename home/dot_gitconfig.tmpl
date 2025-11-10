@@ -65,7 +65,7 @@
 # Directory-based account switching using includeIf
 # Personal repositories override to use personal user and git@github.com-personal: host
 
-[includeIf "gitdir:~/.local/share/chezmoi/"]
+[includeIf "gitdir:~/.local/share/chezmoi*/"]
     path = ~/.gitconfig-personal
 [includeIf "gitdir:~/Developer/me/**"]
     path = ~/.gitconfig-personal
