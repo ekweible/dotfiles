@@ -1,3 +1,0 @@
-{{- if eq .profile "work" -}}
-{{ joinPath .chezmoi.sourceDir ".chezmoitemplates/encrypted_init.gradle.age" | include | decrypt -}}
-{{- end -}}
