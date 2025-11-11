@@ -16,6 +16,7 @@
 apply-work-tools.sh
 .gradle/**
 Library/Application Support/Viscosity/**
+Library/Preferences/com.viscosityvpn.Viscosity.plist
 {{- end }}
 
 # Don't manage GPG private keys (will come from Keeper)
