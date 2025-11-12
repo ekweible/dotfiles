@@ -1,6 +1,10 @@
 #!/usr/bin/env sh
 
 {{ if eq .profile "work" -}}
-# Source work profile if it exists
-[ -f "$HOME/.local/share/chezmoi-work/.profile" ] && . "$HOME/.local/share/chezmoi-work/.profile"
+# wk CLI
+export PATH=$PATH:$HOME/.wk/bin
+[ -f "$HOME/.wk/profile" ] && source "$HOME/.wk/profile"
+
+# workiva-build-cli
+export PATH=$PATH:/opt/workiva-build-cli/bin
 {{- end }}

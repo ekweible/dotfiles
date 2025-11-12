@@ -14,14 +14,15 @@ My personal dotfiles managed by [chezmoi](https://chezmoi.io).
 
 ## Quick Start
 
-_Note: for a work machine, you'll need to first setup an SSH key so that chezmoi
-can clone the private work dotfiles repo._
-
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply ekweible
 ```
 
 During init, you'll be prompted to select a profile.
+
+### Work Machine
+
+The only new-machine setup step not covered by the above is installing the WK CLI and running `login`. That will install and symlink the remaining work-specific dotfiles.
 
 ## Daily Usage
 
