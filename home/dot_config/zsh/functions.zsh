@@ -16,8 +16,3 @@ function gwt-rm() {
   # take the path (field 1) and remove it
   [ -n "$sel" ] && git worktree remove -- "${sel%%	*}"
 }
-
-# === shell ===
-dotfiles() {
-  $EDITOR ~/.local/share/dotfiles.code-workspace
-}

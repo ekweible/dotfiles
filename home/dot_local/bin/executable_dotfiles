@@ -1,0 +1,146 @@
+#!/usr/bin/env bash
+
+# Source shared echo helpers for pretty output
+source "$HOME/.local/lib/dotfiles/echos.sh"
+
+# Check if gum is installed
+if ! command -v gum &> /dev/null; then
+    error "gum is not installed. Please run 'brew install gum' first."
+    exit 1
+fi
+
+# Function to edit dotfiles
+edit_dotfiles() {
+    local source_path="$HOME/.local/share/chezmoi"
+    local editor="${EDITOR:-vi}"
+
+    info "Opening dotfiles directory: $source_path"
+    "$editor" "$source_path"
+}
+
+# Function to apply dotfiles
+apply_dotfiles() {
+    local dry_run_flag=""
+    local mode=$(gum choose "Dry Run" "Apply Changes" --header="Select mode:")
+
+    # Check if user cancelled
+    if [ -z "$mode" ]; then
+        warn "Cancelled"
+        return 0
+    fi
+
+    if [ "$mode" = "Dry Run" ]; then
+        dry_run_flag="--dry-run"
+        info "Running in dry-run mode..."
+    else
+        warn "Applying changes for real..."
+    fi
+
+    running "chezmoi apply --verbose $dry_run_flag"
+    chezmoi apply --verbose $dry_run_flag
+
+    if [ $? -eq 0 ]; then
+        ok "Apply completed successfully!"
+    else
+        error "Apply failed!"
+        return 1
+    fi
+}
+
+# Function to update dotfiles
+update_dotfiles() {
+    local dry_run_flag=""
+    local mode=$(gum choose "Dry Run" "Apply Changes" --header="Select mode:")
+
+    # Check if user cancelled
+    if [ -z "$mode" ]; then
+        warn "Cancelled"
+        return 0
+    fi
+
+    if [ "$mode" = "Dry Run" ]; then
+        dry_run_flag="--dry-run"
+        info "Running in dry-run mode..."
+    else
+        warn "Updating for real..."
+    fi
+
+    running "chezmoi update --verbose $dry_run_flag"
+    chezmoi update --verbose $dry_run_flag
+
+    if [ $? -eq 0 ]; then
+        ok "Update completed successfully!"
+    else
+        error "Update failed!"
+        return 1
+    fi
+}
+
+# Function to upgrade brew packages
+brew_upgrade() {
+    running "brew upgrade"
+    gum spin --spinner dot --title "Upgrading Homebrew packages..." -- brew upgrade
+
+    running "brew upgrade --cask --greedy"
+    gum spin --spinner dot --title "Upgrading Homebrew casks..." -- brew upgrade --cask --greedy
+
+    ok "All brew packages upgraded!"
+}
+
+# Main menu loop
+main() {
+    local last_choice=""
+
+    while true; do
+        br
+        group "Dotfiles Management"
+
+        # Show menu and get selection
+        local gum_args=(
+            "Edit"
+            "Apply"
+            "Update"
+            "Brew Upgrade"
+            "Exit"
+            --header="What would you like to do?"
+            --height=10
+            --cursor.foreground="212"
+        )
+
+        # Preselect the last choice if set
+        if [ -n "$last_choice" ]; then
+            gum_args+=(--selected="$last_choice")
+        fi
+
+        choice=$(gum choose "${gum_args[@]}")
+
+        case "$choice" in
+            "Edit")
+                edit_dotfiles
+                last_choice="Edit"
+                ;;
+            "Apply")
+                apply_dotfiles
+                last_choice="Apply"
+                ;;
+            "Update")
+                update_dotfiles
+                last_choice="Update"
+                ;;
+            "Brew Upgrade")
+                brew_upgrade
+                last_choice="Brew Upgrade"
+                ;;
+            "Exit"|"")
+                bot "Goodbye!"
+                exit 0
+                ;;
+        esac
+
+        # Brief pause before showing menu again
+        sleep 1
+    done
+}
+
+# Run the main function
+main

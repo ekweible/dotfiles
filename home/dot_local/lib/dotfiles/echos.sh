@@ -38,7 +38,7 @@ function bot() {
 }
 
 function group() {
-    printf "\n%s\n\n" "$YELLOW[-----]$NORMAL $1"
+    printf "%s\n" "$YELLOW[-----]$NORMAL $1"
 }
 
 function prompt() {
