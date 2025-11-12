@@ -1,5 +1,9 @@
 #!/bin/bash
-# This runs after clone but BEFORE chezmoi reads source state
+{{ if eq .chezmoi.os "darwin" -}}
+# Install prerequisites needed for dotfiles
+# This runs once before applying dotfiles
+
+set -e
 
 if ! command -v brew &> /dev/null; then
     echo "📦 Installing Homebrew..."
@@ -11,9 +15,15 @@ if ! command -v brew &> /dev/null; then
     elif [[ -f "/usr/local/bin/brew" ]]; then
         eval "$(/usr/local/bin/brew shellenv)"
     fi
+else
+    echo "✅ Homebrew already installed"
 fi
 
 # Install age if not present (needed for encrypted files)
 if ! command -v age &> /dev/null; then
+    echo "📦 Installing age (needed for encrypted files)..."
     brew install age
+else
+    echo "✅ age already installed"
 fi
+{{- end }}
