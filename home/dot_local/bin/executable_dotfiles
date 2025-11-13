@@ -79,12 +79,22 @@ update_dotfiles() {
 # Function to upgrade brew packages
 brew_upgrade() {
     running "brew upgrade"
-    gum spin --spinner dot --title "Upgrading Homebrew packages..." -- brew upgrade
+    brew upgrade
 
-    running "brew upgrade --cask --greedy"
-    gum spin --spinner dot --title "Upgrading Homebrew casks..." -- brew upgrade --cask --greedy
+    if [ $? -eq 0 ]; then
+        running "brew upgrade --cask --greedy"
+        brew upgrade --cask --greedy
 
-    ok "All brew packages upgraded!"
+        if [ $? -eq 0 ]; then
+            ok "All brew packages upgraded!"
+        else
+            error "Cask upgrade failed!"
+            return 1
+        fi
+    else
+        error "Brew upgrade failed!"
+        return 1
+    fi
 }
 
 # Main menu loop
