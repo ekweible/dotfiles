@@ -1,0 +1,11 @@
+#!/bin/bash
+# Create common directories if they don't exist
+# This runs once before applying dotfiles
+
+set -e
+
+mkdir -p "$HOME/Developer/me"
+
+{{ if eq .profile "work" -}}
+mkdir -p "$HOME/Developer/wk"
+{{- end }}
