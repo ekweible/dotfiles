@@ -76,7 +76,3 @@ for private_key in "${private_key_files[@]}"; do
         ssh-add --apple-use-keychain "${private_key}"
     fi
 done
-
-# === windsurf ===
-export PATH="$HOME/.codeium/windsurf/bin:$PATH"
-
