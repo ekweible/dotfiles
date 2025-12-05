@@ -62,17 +62,43 @@ function gwt-new() {
   echo "To navigate: cd $wt_path"
 }
 
-# remove a worktree via fzf (shows "path<TAB>branch"; selects by branch)
+# remove a worktree via fzf or by branch name
+# Usage: gwt-rm [branch-name]
+# If no argument provided, uses fzf to select interactively
 function gwt-rm() {
   local sel
-  sel="$(
-    git worktree list --porcelain |
-      awk '
-        $1=="worktree" { p=$2 }
-        $1=="branch"  { sub("refs/heads/","",$2); print p "\t" $2 }
-      ' |
-      fzf --prompt='remove worktree> ' --with-nth=2
-  )" || return
+
+  if [[ -n "$1" ]]; then
+    # Argument provided - find matching worktree by branch name
+    sel="$(
+      git worktree list --porcelain |
+        awk -v branch="$1" '
+          $1=="worktree" { p=$2 }
+          $1=="branch"   {
+            sub("refs/heads/","",$2)
+            if ($2 == branch) {
+              print p "\t" $2
+              exit
+            }
+          }
+        '
+    )"
+
+    if [[ -z "$sel" ]]; then
+      echo "Error: No worktree found for branch '$1'"
+      return 1
+    fi
+  else
+    # No argument - use fzf for interactive selection
+    sel="$(
+      git worktree list --porcelain |
+        awk '
+          $1=="worktree" { p=$2 }
+          $1=="branch"  { sub("refs/heads/","",$2); print p "\t" $2 }
+        ' |
+        fzf --prompt='remove worktree> ' --with-nth=2
+    )" || return
+  fi
 
   # take the path (field 1) and remove it
   [ -n "$sel" ] && git worktree remove -- "${sel%%	*}"

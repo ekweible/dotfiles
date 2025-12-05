@@ -17,4 +17,13 @@ _gwt-new() {
   _describe 'branch' branches
 }
 
+# Completion function for gwt-rm
+_gwt-rm() {
+  local -a worktrees
+  # Get branch names from existing worktrees
+  worktrees=(${(f)"$(git worktree list --porcelain 2>/dev/null | awk '$1=="branch" {sub("refs/heads/","",$2); print $2}')"})
+  _describe 'worktree' worktrees
+}
+
 compdef _gwt-new gwt-new
+compdef _gwt-rm gwt-rm
