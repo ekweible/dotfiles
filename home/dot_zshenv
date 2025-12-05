@@ -5,3 +5,8 @@ source ~/.sh_env
 
 fpath=($fpath $HOME/.zsh/func)
 typeset -U fpath
+
+# Load aliases for non-interactive shells (e.g., chat command prompts)
+if [[ -f ~/.config/zsh/noninteractive-aliases.zsh ]]; then
+  source ~/.config/zsh/noninteractive-aliases.zsh
+fi

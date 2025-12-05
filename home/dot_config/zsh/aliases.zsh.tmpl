@@ -1,8 +1,11 @@
 # === Aliases ===
 # Consolidated from all modules for easier management
 
-# === git ===
-alias g="git"
+# Load common aliases (already loaded via .zshenv for non-interactive shells)
+# We source it here too so all aliases are available in interactive shells
+if [[ -f ~/.config/zsh/noninteractive-aliases.zsh ]]; then
+  source ~/.config/zsh/noninteractive-aliases.zsh
+fi
 
 # === dart ===
 alias ddev='dart run dart_dev'
@@ -19,18 +22,6 @@ alias lpub="$LOCAL_DART_SDK_BIN/pub"
 # === plantuml ===
 alias plantuml="docker run -v $(pwd)/doc/design/:/assets plantuml"
 alias plantuml-server="docker run -d -p 3124:8080 plantuml/plantuml-server:jetty"
-
-# === shell ===
-# programs
-alias g="git"
-alias p="pnpm"
-alias ls='lsd'
-
-# Print each PATH entry on a separate line
-alias path='echo -e ${PATH//:/\\n}'
-
-# Reload the shell (i.e. invoke as a login shell)
-alias reload="exec $SHELL -l"
 
 # === vscode ===
 # alias code="code-insiders"
