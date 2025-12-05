@@ -1,6 +1,67 @@
 # === Functions ===
 
 # === git ===
+# create a new worktree with automatic setup
+# Usage: gwt-new <branch-name> [base-branch]
+# Environment variables:
+#   GWT_ROOT: override default worktree location (default: ../<repo>-wt/)
+#   GWT_EDITOR: command to open worktree in editor (e.g., "code", "cursor")
+function gwt-new() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: gwt-new <branch-name> [base-branch]"
+    return 1
+  fi
+
+  local branch_name="$1"
+  local base_branch="${2:-main}"
+
+  # Get the root of the current git repo
+  local repo_root
+  repo_root="$(git rev-parse --show-toplevel)" || return 1
+
+  # Get the repo name
+  local repo_name="$(basename "$repo_root")"
+
+  # Determine worktree parent directory
+  # Default: sibling directory named <repo>-wt
+  local wt_parent="${GWT_ROOT:-$(dirname "$repo_root")/${repo_name}-wt}"
+
+  # Full path for new worktree
+  local wt_path="${wt_parent}/${branch_name}"
+
+  # Create parent directory if it doesn't exist
+  mkdir -p "$wt_parent"
+
+  echo "Creating worktree at: $wt_path"
+
+  # Create the worktree (will create branch if it doesn't exist)
+  if ! git worktree add -b "$branch_name" "$wt_path" "$base_branch" 2>/dev/null; then
+    # Branch might already exist, try without -b
+    if ! git worktree add "$wt_path" "$branch_name"; then
+      echo "Failed to create worktree"
+      return 1
+    fi
+  fi
+
+  # Run project-specific setup if .worktree-setup exists in the main repo
+  if [[ -x "$repo_root/.worktree-setup" ]]; then
+    echo "Running .worktree-setup..."
+    (cd "$wt_path" && "$repo_root/.worktree-setup")
+  elif [[ -f "$repo_root/.worktree-setup" ]]; then
+    echo "Running .worktree-setup..."
+    (cd "$wt_path" && bash "$repo_root/.worktree-setup")
+  fi
+
+  # Open in editor if GWT_EDITOR is set
+  if [[ -n "$GWT_EDITOR" ]]; then
+    echo "Opening in $GWT_EDITOR..."
+    $GWT_EDITOR "$wt_path"
+  fi
+
+  echo "Worktree created successfully!"
+  echo "To navigate: cd $wt_path"
+}
+
 # remove a worktree via fzf (shows "path<TAB>branch"; selects by branch)
 function gwt-rm() {
   local sel
@@ -15,4 +76,9 @@ function gwt-rm() {
 
   # take the path (field 1) and remove it
   [ -n "$sel" ] && git worktree remove -- "${sel%%	*}"
+}
+
+# list all worktrees with status
+function gwt-ls() {
+  git worktree list
 }
