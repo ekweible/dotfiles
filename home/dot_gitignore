@@ -269,3 +269,9 @@ Library/PDF Services/
 # GitHub tools
 .github_labels_auth.yaml
 .release_notes_generator_github_auth
+
+# Personal AI agent files (my- prefix convention)
+# Allows project rules/commands to be committed normally
+.cursor/rules/my-*
+.cursor/commands/my-*
+.opencode/command/my-*
