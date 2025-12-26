@@ -33,49 +33,22 @@ for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
 done
 
 ################################################################################
-# PHASE 3: Zsh plugins (install and compile)
+# PHASE 3: Zsh plugins (compile helper + update notification)
 ################################################################################
 
-# Zsh "plugin manager"
+# Zsh "plugin manager" - compile to wordcode for faster loading
 function zcompile-many() {
   local f
   for f; do zcompile -R -- "$f".zwc "$f"; done
 }
 
-# Clone and compile to wordcode missing plugins.
-if [[ ! -e ~/zsh-plugins ]]; then
-  mkdir ~/zsh-plugins
-fi
+# Plugins are installed by run_once_after_bootstrap-zsh-plugins.sh during initial setup
+# If plugins don't exist, shell works without them (just without those features)
 
-# TODO: is there a more idiomatic way to do this with chezmoi? Using external maybe for auto-updates?
-
- if [[ ! -e ~/zsh-plugins/zsh-syntax-highlighting ]]; then
-  if git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/zsh-plugins/zsh-syntax-highlighting; then
-    zcompile-many ~/zsh-plugins/zsh-syntax-highlighting/{zsh-syntax-highlighting.zsh,highlighters/*/*.zsh}
-  else
-    echo "Warning: Failed to install zsh-syntax-highlighting"
-  fi
-fi
-if [[ ! -e ~/zsh-plugins/zsh-autosuggestions ]]; then
-  if git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git ~/zsh-plugins/zsh-autosuggestions; then
-    zcompile-many ~/zsh-plugins/zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}
-  else
-    echo "Warning: Failed to install zsh-autosuggestions"
-  fi
-fi
-if [[ ! -e ~/zsh-plugins/zsh-history-substring-search ]]; then
-  if git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git ~/zsh-plugins/zsh-history-substring-search; then
-    zcompile-many ~/zsh-plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-  else
-    echo "Warning: Failed to install zsh-history-substring-search"
-  fi
-fi
-if [[ ! -e ~/zsh-plugins/zsh-z ]]; then
-  if git clone --depth=1 https://github.com/agkozak/zsh-z.git ~/zsh-plugins/zsh-z; then
-    zcompile-many ~/zsh-plugins/zsh-z/zsh-z.plugin.zsh
-  else
-    echo "Warning: Failed to install zsh-z"
-  fi
+# Check for background update notification from previous session
+if [[ -f "$HOME/.zsh-plugins-updated" ]]; then
+  echo "✨ Zsh plugins were updated in the background ($(cat "$HOME/.zsh-plugins-updated"))"
+  rm -f "$HOME/.zsh-plugins-updated"
 fi
 
 ################################################################################
@@ -85,19 +58,29 @@ fi
 # Enable the "new" completion system (compsys).
 autoload -Uz compinit && compinit
 [[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || zcompile-many ~/.zcompdump
-unfunction zcompile-many
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 ################################################################################
-# PHASE 5: Zsh plugins (load)
+# PHASE 5: Zsh plugins (load with graceful degradation)
 ################################################################################
 
-# Load plugins.
-source ~/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/zsh-plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-source ~/zsh-plugins/zsh-z/zsh-z.plugin.zsh
+# Load plugins if they exist, skip gracefully if missing
+if [[ -f ~/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source ~/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+if [[ -f ~/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source ~/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [[ -f ~/zsh-plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
+  source ~/zsh-plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+fi
+
+if [[ -f ~/zsh-plugins/zsh-z/zsh-z.plugin.zsh ]]; then
+  source ~/zsh-plugins/zsh-z/zsh-z.plugin.zsh
+fi
 
 ################################################################################
 # PHASE 6: completion.zsh files
@@ -154,11 +137,124 @@ bindkey '^r' history-incremental-search-backward
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+################################################################################
+# PHASE 7: Zsh plugin updates (async, non-blocking)
+################################################################################
+
+# Manual update function: run `update-zsh-plugins` to update all plugins
+function update-zsh-plugins() {
+  local plugin_dir="$HOME/zsh-plugins"
+
+  echo "🔄 Updating zsh plugins..."
+
+  for dir in "$plugin_dir"/*(/N); do
+    local name="${dir:t}"
+    if [[ -d "$dir/.git" ]]; then
+      echo "  📦 Updating $name..."
+      # For shallow clones, fetch and reset is more reliable than pull --rebase
+      if git -C "$dir" fetch --depth=1 origin 2>/dev/null; then
+        local branch=$(git -C "$dir" symbolic-ref --short HEAD 2>/dev/null || echo "master")
+        if git -C "$dir" reset --hard "origin/$branch" 2>/dev/null; then
+          echo "  ✅ $name updated"
+        else
+          echo "  ⚠️  $name reset failed"
+        fi
+      else
+        echo "  ⚠️  $name fetch failed (network issue?)"
+      fi
+    fi
+  done
+
+  # Recompile plugins after update
+  echo "⚡ Recompiling plugins..."
+  [[ -d ~/zsh-plugins/zsh-syntax-highlighting ]] && zcompile-many ~/zsh-plugins/zsh-syntax-highlighting/{zsh-syntax-highlighting.zsh,highlighters/*/*.zsh} 2>/dev/null
+  [[ -d ~/zsh-plugins/zsh-autosuggestions ]] && zcompile-many ~/zsh-plugins/zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh} 2>/dev/null
+  [[ -d ~/zsh-plugins/zsh-history-substring-search ]] && zcompile-many ~/zsh-plugins/zsh-history-substring-search/zsh-history-substring-search.zsh 2>/dev/null
+  [[ -d ~/zsh-plugins/zsh-z ]] && zcompile-many ~/zsh-plugins/zsh-z/zsh-z.plugin.zsh 2>/dev/null
+
+  # Update last update timestamp
+  date +%s > "$HOME/.zsh-plugins-last-update"
+  echo "✅ Plugin update complete"
+}
+
+# Background update function (runs async after shell loads)
+function _zsh_plugins_background_update() {
+  local last_update_file="$HOME/.zsh-plugins-last-update"
+  local update_interval=86400  # 24 hours in seconds
+  local current_time=$(date +%s)
+  local last_update=0
+
+  # Check if we should update (based on last update time)
+  if [[ -f "$last_update_file" ]]; then
+    last_update=$(cat "$last_update_file" 2>/dev/null || echo 0)
+  fi
+
+  local time_since_update=$((current_time - last_update))
+  if (( time_since_update < update_interval )); then
+    return 0  # Too soon, skip update
+  fi
+
+  # Quick network connectivity check (1 second timeout)
+  local timeout_cmd=""
+  if command -v gtimeout &> /dev/null; then
+    timeout_cmd="gtimeout 1"
+  elif command -v timeout &> /dev/null; then
+    timeout_cmd="timeout 1"
+  fi
+
+  if [[ -n "$timeout_cmd" ]]; then
+    if ! $timeout_cmd curl -sf --max-time 1 https://github.com > /dev/null 2>&1; then
+      return 0  # Network not responsive, skip update
+    fi
+  fi
+
+  # Run update in background (silently)
+  (
+    local plugin_dir="$HOME/zsh-plugins"
+    local updated_plugins=()
+
+    for dir in "$plugin_dir"/*(/N); do
+      if [[ -d "$dir/.git" ]]; then
+        local name="${dir:t}"
+        local before_hash=$(git -C "$dir" rev-parse HEAD 2>/dev/null)
+        # For shallow clones, fetch and reset is more reliable than pull --rebase
+        if git -C "$dir" fetch --depth=1 origin 2>/dev/null; then
+          local branch=$(git -C "$dir" symbolic-ref --short HEAD 2>/dev/null || echo "master")
+          git -C "$dir" reset --hard "origin/$branch" 2>/dev/null || true
+        fi
+        local after_hash=$(git -C "$dir" rev-parse HEAD 2>/dev/null)
+        # Track if plugin was actually updated
+        if [[ "$before_hash" != "$after_hash" ]]; then
+          updated_plugins+=("$name")
+        fi
+      fi
+    done
+
+    # Update timestamp after successful update
+    date +%s > "$last_update_file"
+
+    # Write notification file if any plugins were updated
+    if (( ${#updated_plugins[@]} > 0 )); then
+      echo "${(j:, :)updated_plugins}" > "$HOME/.zsh-plugins-updated"
+    fi
+  ) &>/dev/null &
+  disown
+}
+
+# Trigger background update after shell loads (async, non-blocking)
+# Only if plugins directory exists
+if [[ -d "$HOME/zsh-plugins" ]]; then
+  _zsh_plugins_background_update
+fi
+
+# Clean up - undefine the zcompile-many function (we're done with it)
+unfunction zcompile-many
+
 # UNCOMMENT TO PROFILE ZSH STARTUP TIME
 # zprof
 
 ################################################################################
-# PHASE 7: Prompt
+# PHASE 8: Prompt
 ################################################################################
 
 eval "$(starship init zsh)"
