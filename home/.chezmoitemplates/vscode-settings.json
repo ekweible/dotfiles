@@ -324,7 +324,7 @@
   // ======================== \\
 
   "cursor.composer.shouldChimeAfterChatFinishes": true,
-  "cursor.composer.shouldAllowCustomModes": true,
+  "cursor.composer.usageSummaryDisplay": "always",
 
   "eslint.enable": true,
   "eslint.validate": ["javascript", "typescript"]{{- end }}
