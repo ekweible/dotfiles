@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# Copy user-level AI commands to project-local directories
+# Useful for cloud agents that don't have access to user home
+
+set -e
+
+source "$HOME/.local/lib/dotfiles/echos.sh"
+
+CURSOR_SRC="$HOME/.cursor/commands"
+CLAUDE_SRC="$HOME/.claude/commands"
+OPENCODE_SRC="$HOME/.config/opencode/command"
+
+CURSOR_DST=".cursor/commands"
+CLAUDE_DST=".claude/commands"
+OPENCODE_DST=".opencode/command"
+
+copy_commands() {
+    local src="$1"
+    local dst="$2"
+    local name="$3"
+
+    if [ ! -d "$src" ]; then
+        warn "$name: source not found ($src)"
+        return 0
+    fi
+
+    mkdir -p "$dst"
+    cp -v "$src"/*.md "$dst/" 2>/dev/null || true
+    ok "$name: copied to $dst"
+}
+
+main() {
+    info "Copying AI commands to: $(pwd)"
+    br
+
+    copy_commands "$CURSOR_SRC" "$CURSOR_DST" "Cursor"
+    copy_commands "$CLAUDE_SRC" "$CLAUDE_DST" "Claude"
+    copy_commands "$OPENCODE_SRC" "$OPENCODE_DST" "OpenCode"
+
+    br
+    bot "Done! Remember to add these to .gitignore if needed."
+}
+
+main
