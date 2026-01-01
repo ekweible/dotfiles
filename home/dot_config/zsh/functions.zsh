@@ -108,3 +108,9 @@ function gwt-rm() {
 function gwt-ls() {
   git worktree list
 }
+
+# === agentdev ===
+# Quick switch to agentdev in AgentProjects
+agentdev() {
+  sudo -u agentdev -i sh -c "cd /Users/Shared/AgentProjects && exec zsh"
+}
