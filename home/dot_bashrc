@@ -2,3 +2,5 @@
 # Sourced at the start of a bash non-interactive login shell.
 
 source ~/.sh_env
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi
