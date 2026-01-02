@@ -21,9 +21,12 @@
     }
   },
   "mcp": {
-    "playwright": {
+    "playwriter": {
       "type": "local",
-      "command": ["npx", "@playwright/mcp@latest"],
+      "command": ["npx", "playwriter@latest"],
+      "env": {
+        "PLAYWRITER_AUTO_ENABLE": "1"
+      },
       "enabled": true
     }
   }
