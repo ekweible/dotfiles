@@ -23,8 +23,8 @@
   "mcp": {
     "playwriter": {
       "type": "local",
-      "command": ["npx", "playwriter@latest"],
-      "env": {
+      "command": ["pnpm", "dlx", "playwriter@latest"],
+      "environment": {
         "PLAYWRITER_AUTO_ENABLE": "1"
       },
       "enabled": true
