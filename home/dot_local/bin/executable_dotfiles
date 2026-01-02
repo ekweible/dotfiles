@@ -114,23 +114,11 @@ main() {
         group "Dotfiles Management"
 
         # Show menu and get selection
-        local gum_args=(
-            "Edit"
-            "Apply"
-            "Update"
-            "Brew Upgrade"
-            "Exit"
-            --header="What would you like to do?"
-            --height=10
-            --cursor.foreground="212"
-        )
-
-        # Preselect the last choice if set
-        if [ -n "$last_choice" ]; then
-            gum_args+=(--selected="$last_choice")
-        fi
-
-        choice=$(gum choose "${gum_args[@]}")
+        choice=$(printf "Edit\nApply\nUpdate\nBrew Upgrade\nQuit" | gum filter \
+            --header="What would you like to do?" \
+            --height=10 \
+            --placeholder="Type to filter or press ESC/q to quit..." \
+            --indicator.foreground="212")
 
         case "$choice" in
             "Edit")
@@ -149,7 +137,7 @@ main() {
                 brew_upgrade
                 last_choice="Brew Upgrade"
                 ;;
-            "Exit"|"")
+            "Quit"|"")
                 bot "Goodbye!"
                 exit 0
                 ;;
