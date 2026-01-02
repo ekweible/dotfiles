@@ -78,21 +78,29 @@ update_dotfiles() {
 
 # Function to upgrade brew packages
 brew_upgrade() {
-    running "brew upgrade"
-    brew upgrade
+    running "brew update"
+    brew update
 
     if [ $? -eq 0 ]; then
-        running "brew upgrade --cask --greedy"
-        brew upgrade --cask --greedy
+        running "brew upgrade"
+        brew upgrade
 
         if [ $? -eq 0 ]; then
-            ok "All brew packages upgraded!"
+            running "brew upgrade --cask --greedy"
+            brew upgrade --cask --greedy
+
+            if [ $? -eq 0 ]; then
+                ok "All brew packages upgraded!"
+            else
+                error "Cask upgrade failed!"
+                return 1
+            fi
         else
-            error "Cask upgrade failed!"
+            error "Brew upgrade failed!"
             return 1
         fi
     else
-        error "Brew upgrade failed!"
+        error "Brew update failed!"
         return 1
     fi
 }
