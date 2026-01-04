@@ -1,0 +1,20 @@
+#!/bin/bash
+{{ if eq .chezmoi.os "darwin" -}}
+# Sync aliases to shared location for agentdev user
+
+SHARED_ALIASES="/Users/Shared/Agentbox/.shared-aliases"
+SOURCE_ALIASES="$HOME/.config/zsh/noninteractive-aliases.zsh"
+
+# Check if agentbox directory exists
+if [[ -d "/Users/Shared/Agentbox" ]]; then
+  # Check if source aliases exist
+  if [[ -f "$SOURCE_ALIASES" ]]; then
+    echo "Syncing shared aliases to agentbox..."
+    cp "$SOURCE_ALIASES" "$SHARED_ALIASES"
+    chmod 644 "$SHARED_ALIASES"
+    echo "Shared aliases synced"
+  else
+    echo "Source aliases not found: $SOURCE_ALIASES"
+  fi
+fi
+{{ end -}}
