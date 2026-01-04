@@ -109,8 +109,31 @@ function gwt-ls() {
   git worktree list
 }
 
-# === agentdev ===
-# Quick switch to agentdev in AgentProjects
-agentdev() {
-  sudo -u agentdev -i sh -c "cd /Users/Shared/AgentProjects && exec zsh"
+# === agentbox ===
+# Switch to agentdev user in sandbox
+agentbox() {
+  local target_dir="${1:-$(pwd)}"
+
+  case "$target_dir" in
+    /Users/Shared/Agentbox*) ;;
+    *) target_dir="/Users/Shared/Agentbox" ;;
+  esac
+
+  _agentbox_start_permfixer
+
+  # Write target dir for agentdev's .zshrc to read
+  echo "$target_dir" > /tmp/agentbox-target-dir
+
+  # Replace shell with agentdev login shell
+  exec sudo -u agentdev -i
+}
+
+_agentbox_start_permfixer() {
+  local pid_file="/tmp/agentbox-permfixer.pid"
+  local script="/Users/Shared/Agentbox/agentbox/scripts/permfixer.sh"
+  [[ ! -f "$script" ]] && return 0
+  if [[ -f "$pid_file" ]] && kill -0 "$(cat "$pid_file")" 2>/dev/null; then
+    return 0  # Already running
+  fi
+  nohup "$script" &>/dev/null &
 }

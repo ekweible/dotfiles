@@ -9,6 +9,13 @@ if ! command -v gum &> /dev/null; then
     exit 1
 fi
 
+# Function to cd to dotfiles
+cd_dotfiles() {
+    local source_path="$HOME/.local/share/chezmoi"
+    info "Changing to dotfiles directory: $source_path"
+    cd "$source_path" && exec $SHELL
+}
+
 # Function to edit dotfiles
 edit_dotfiles() {
     local source_path="$HOME/.local/share/chezmoi"
@@ -114,13 +121,14 @@ main() {
         group "Dotfiles Management"
 
         # Show menu and get selection
-        choice=$(printf "Edit\nApply\nUpdate\nBrew Upgrade\nQuit" | gum filter \
+        choice=$(gum choose "CD" "Edit" "Apply" "Update" "Brew Upgrade" "Quit" \
             --header="What would you like to do?" \
-            --height=10 \
-            --placeholder="Type to filter or press ESC/q to quit..." \
-            --indicator.foreground="212")
+            --cursor.foreground="212")
 
         case "$choice" in
+            "CD")
+                cd_dotfiles
+                ;;
             "Edit")
                 edit_dotfiles
                 last_choice="Edit"
