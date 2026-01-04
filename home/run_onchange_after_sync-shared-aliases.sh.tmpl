@@ -1,6 +1,7 @@
 #!/bin/bash
 {{ if and (eq .chezmoi.os "darwin") (eq .profile "homeserver") -}}
 # Sync aliases to shared location for agentdev user
+# Hash: {{ include "dot_config/zsh/noninteractive-aliases.zsh" | sha256sum }}
 
 SHARED_ALIASES="/Users/Shared/Agentbox/.shared-aliases"
 SOURCE_ALIASES="$HOME/.config/zsh/noninteractive-aliases.zsh"
