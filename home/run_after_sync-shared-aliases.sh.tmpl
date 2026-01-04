@@ -1,5 +1,5 @@
 #!/bin/bash
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if and (eq .chezmoi.os "darwin") (eq .profile "homeserver") -}}
 # Sync aliases to shared location for agentdev user
 
 SHARED_ALIASES="/Users/Shared/Agentbox/.shared-aliases"
