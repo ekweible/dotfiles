@@ -123,6 +123,7 @@ agentbox() {
 
   # Write target dir for agentdev's .zshrc to read
   echo "$target_dir" > /tmp/agentbox-target-dir
+  chmod 666 /tmp/agentbox-target-dir
 
   # Replace shell with agentdev login shell
   exec sudo -u agentdev -i
