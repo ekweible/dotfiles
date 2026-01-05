@@ -286,7 +286,7 @@
   "overReact.formatOnSave.showOutputOnError": false,
 
   "plantuml.render": "PlantUMLServer",
-  "plantuml.server": "https://www.plantuml.com/plantuml"{{- if contains "Code/User" .chezmoi.targetFile }},
+  "plantuml.server": "http://localhost:8111"{{- if contains "Code/User" .chezmoi.targetFile }},
 
   // ======================== \\
   // VS CODE-SPECIFIC         \\
