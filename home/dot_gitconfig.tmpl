@@ -54,9 +54,6 @@
 [gpg]
     program = gpg
 
-[safe]
-    directory = /Users/Shared/AgentProjects/*
-
 # Always rewrite HTTPS to SSH for GitHub
 # SSH config determines which key to use based on hostname
 [url "git@github.com:"]
@@ -74,4 +71,7 @@
     path = ~/.gitconfig-personal
 [includeIf "gitdir:~/github.com/ekweible/**"]
     path = ~/.gitconfig-personal
+{{- else -}}
+[safe]
+    directory = /Users/Shared/Agentbox/*
 {{- end }}
