@@ -40,6 +40,11 @@ export TERM="xterm-256color"
 # === java ===
 source ~/.asdf/plugins/java/set-java-home.zsh
 
+# === npm ===
+# Global packages installed via `npm install -g`
+# Requires: npm config set prefix ~/.npm-global
+export PATH="$HOME/.npm-global/bin:$PATH"
+
 # === pnpm ===
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
