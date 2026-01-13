@@ -10,6 +10,11 @@ export PATH=$PATH:$HOME/.local/bin
 # Rust/Cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
+{{ if ne .profile "work" -}}
+# opencode cloud assistant
+[ -f "$HOME/Developer/me/opencode-cloud/oca.sh" ] && . "$HOME/Developer/me/opencode-cloud/oca.sh"
+{{ end -}}
+
 {{ if eq .profile "work" -}}
 # Work-specific paths and environment
 {{- end }}
