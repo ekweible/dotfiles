@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+{{ if ne .profile "work" -}}
+# opencode cloud assistant
+[ -f "$HOME/Developer/me/opencode-cloud/oca.sh" ] && source "$HOME/Developer/me/opencode-cloud/oca.sh"
+{{ end -}}
+
 {{ if eq .profile "work" -}}
 # wk CLI
 export PATH=$PATH:$HOME/.wk/bin
