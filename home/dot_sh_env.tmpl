@@ -7,6 +7,9 @@
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.local/bin
 
+# Rust/Cargo
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
 {{ if eq .profile "work" -}}
 # Work-specific paths and environment
 {{- end }}
