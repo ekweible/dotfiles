@@ -21,7 +21,7 @@
   "workbench.editor.enablePreviewFromQuickOpen": false,
   "workbench.editor.languageDetection": false,
   "workbench.settings.editor": "json",
-  "workbench.sideBar.location": "right",
+  // "workbench.sideBar.location": "right",
   "workbench.tips.enabled": false,
   "workbench.startupEditor": "none",
   "workbench.colorCustomizations": {
