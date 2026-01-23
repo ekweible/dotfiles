@@ -171,6 +171,9 @@ vendor/bundle/
 # Chezmoi
 bin/chezmoi
 
+# Git
+.worktrees/
+
 # Terraform
 .terraform/
 *.tfstate
