@@ -7,6 +7,13 @@
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.local/bin
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+case ":$PATH:" in
+  *":$BUN_INSTALL/bin:"*) ;;
+  *) export PATH="$PATH:$BUN_INSTALL/bin" ;;
+esac
+
 # Rust/Cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 

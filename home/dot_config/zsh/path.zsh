@@ -5,10 +5,6 @@
 export ASDF_DATA_DIR="$HOME/.asdf"
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
-# === bun ===
-export BUN_INSTALL=$HOME/.bun
-export PATH=$PATH:$BUN_INSTALL/bin
-
 # === dart ===
 # Globally activated Dart packages
 export PATH=$PATH:~/.pub-cache/bin
