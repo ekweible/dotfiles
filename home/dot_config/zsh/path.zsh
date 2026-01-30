@@ -2,8 +2,9 @@
 # Consolidated from all modules for easier management
 
 # === asdf ===
+# NOTE: asdf shims are added to PATH at the END of this file to ensure
+# asdf-managed tools take priority over brew-installed versions.
 export ASDF_DATA_DIR="$HOME/.asdf"
-export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
 # === dart ===
 # Globally activated Dart packages
