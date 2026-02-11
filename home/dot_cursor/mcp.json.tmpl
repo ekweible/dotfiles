@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "playwriter": {
+      "command": "pnpm",
+      "args": ["dlx", "playwriter@latest"],
+      "env": {
+        "PLAYWRITER_AUTO_ENABLE": "1"
+      }
+    }{{ if eq .profile "work" }},
+    "atlassian": {
+      "command": "/Users/evanweible/.wk/bin/wk-mcp",
+      "args": ["atlassian"]
+    },
+    "aws-cost-explorer": {
+      "command": "/Users/evanweible/.wk/bin/wk-mcp",
+      "args": ["aws-cost-explorer"]
+    },
+    "aws-pricing": {
+      "command": "/Users/evanweible/.wk/bin/wk-mcp",
+      "args": ["aws-pricing"]
+    },
+    "github": {
+      "command": "/Users/evanweible/.wk/bin/wk-mcp",
+      "args": ["github"]
+    }{{ end }}
+  }
+}

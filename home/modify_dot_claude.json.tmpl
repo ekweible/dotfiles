@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Modify script to merge MCP servers into ~/.claude.json without
+# overwriting other settings that Claude Code manages dynamically.
+
+set -euo pipefail
+
+WK_MCP_SERVER_NAMES='["atlassian","aws-cost-explorer","aws-pricing","github"]'
+
+# Define the MCP servers we want to ensure exist on work profile
+read -r -d '' DESIRED_MCP_SERVERS << 'EOF' || true
+{
+  "atlassian": {
+    "command": "/Users/evanweible/.wk/bin/wk-mcp",
+    "args": ["atlassian"]
+  },
+  "aws-cost-explorer": {
+    "command": "/Users/evanweible/.wk/bin/wk-mcp",
+    "args": ["aws-cost-explorer"]
+  },
+  "aws-pricing": {
+    "command": "/Users/evanweible/.wk/bin/wk-mcp",
+    "args": ["aws-pricing"]
+  },
+  "github": {
+    "command": "/Users/evanweible/.wk/bin/wk-mcp",
+    "args": ["github"]
+  }
+}
+EOF
+
+# Read existing file from stdin (chezmoi passes current contents)
+EXISTING=$(cat)
+
+# If file is empty or doesn't exist, start with empty object
+if [[ -z "$EXISTING" ]]; then
+  EXISTING='{}'
+fi
+
+{{- if eq .profile "work" }}
+# Work profile: merge wk-mcp servers into mcpServers.
+echo "$EXISTING" | jq --argjson servers "$DESIRED_MCP_SERVERS" '
+  .mcpServers = ((.mcpServers // {}) * $servers)
+'
+{{- else }}
+# Non-work profiles: remove wk-mcp servers if present.
+echo "$EXISTING" | jq --argjson names "$WK_MCP_SERVER_NAMES" '
+  .mcpServers = (
+    (.mcpServers // {}) as $m
+    | reduce $names[] as $name ($m; del(.[$name]))
+  )
+'
+{{- end }}
