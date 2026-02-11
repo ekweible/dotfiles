@@ -4,6 +4,9 @@
 # Local age key (NEVER commit this)
 /key.txt
 
+# Agents
+.claude/settings.local.json
+
 # TODO: remove
 Mackup.bak
 private.bak
