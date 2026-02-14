@@ -14,7 +14,7 @@ format = """
 [](color_orange)\
 $os\
 $username\
-$hostname\
+$custom.computer_name\
 [](bg:color_yellow fg:color_orange)\
 $directory\
 [](fg:color_yellow bg:color_aqua)\
@@ -85,13 +85,11 @@ style_user = "bg:color_orange fg:color_fg0"
 style_root = "bg:color_orange fg:color_fg0"
 format = '[ $user ]($style)'
 
-[hostname]
-disabled = false
-ssh_only = false
-trim_at = ".local"
-ssh_symbol = "ssh@"
+[custom.computer_name]
+command = 'name="$(scutil --get ComputerName 2>/dev/null || hostname -s)"; if [ -n "$SSH_CONNECTION" ]; then printf "ssh@[%s]" "$name"; else printf "[%s]" "$name"; fi'
+when = "true"
 style = "bg:color_orange fg:color_fg0"
-format = '[ $ssh_symbol$hostname ]($style)'
+format = '[ $output ]($style)'
 
 [directory]
 style = "fg:color_fg0 bg:color_yellow"
