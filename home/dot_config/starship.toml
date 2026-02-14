@@ -63,13 +63,13 @@ style = "fg:color_purple"
 format = '[$output]($style)'
 
 [custom.session_local]
-command = 'name="$(scutil --get ComputerName 2>/dev/null || hostname -s)"; printf "󰀵 %s [%s] " "$(id -un)" "$name"'
+command = 'device="$(scutil --get LocalHostName 2>/dev/null || true)"; case "$device" in mbp|studio|wk) ;; *) full_name="$(scutil --get ComputerName 2>/dev/null || hostname -s)"; case "$full_name" in *MacBook*Pro*) device="mbp" ;; *Mac*Studio*) device="studio" ;; *[Ww][Oo][Rr][Kk]*|*[Ww][Kk]*) device="wk" ;; *) device="$(hostname -s)" ;; esac ;; esac; printf "󰀵 %s@%s " "$(id -un)" "$device"'
 when = 'test -z "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}"'
 style = "bg:color_orange fg:color_fg0"
 format = '[$output]($style)'
 
 [custom.session_ssh]
-command = 'name="$(scutil --get ComputerName 2>/dev/null || hostname -s)"; printf "󰀵 %s ssh@[%s] " "$(id -un)" "$name"'
+command = 'device="$(scutil --get LocalHostName 2>/dev/null || true)"; case "$device" in mbp|studio|wk) ;; *) full_name="$(scutil --get ComputerName 2>/dev/null || hostname -s)"; case "$full_name" in *MacBook*Pro*) device="mbp" ;; *Mac*Studio*) device="studio" ;; *[Ww][Oo][Rr][Kk]*|*[Ww][Kk]*) device="wk" ;; *) device="$(hostname -s)" ;; esac ;; esac; printf "󰣀 %s@%s " "$(id -un)" "$device"'
 when = 'test -n "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}"'
 style = "bg:color_purple fg:color_fg0"
 format = '[$output]($style)'
