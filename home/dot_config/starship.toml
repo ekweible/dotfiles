@@ -11,11 +11,7 @@ command_timeout = 1500
 
 # Prompt
 format = """
-[](color_orange)\
-$os\
-$username\
 $custom\
-[](bg:color_yellow fg:color_orange)\
 $directory\
 [](fg:color_yellow bg:color_aqua)\
 $git_branch\
@@ -54,42 +50,41 @@ color_purple = '#b16286'
 color_red = '#cc241d'
 color_yellow = '#d79921'
 
-[os]
-disabled = false
+[custom.left_cap_local]
+command = 'printf ""'
+when = 'test -z "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}"'
+style = "fg:color_orange"
+format = '[$output]($style)'
+
+[custom.left_cap_ssh]
+command = 'printf ""'
+when = 'test -n "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}"'
+style = "fg:color_purple"
+format = '[$output]($style)'
+
+[custom.session_local]
+command = 'name="$(scutil --get ComputerName 2>/dev/null || hostname -s)"; printf "󰀵 %s [%s] " "$(id -un)" "$name"'
+when = 'test -z "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}"'
 style = "bg:color_orange fg:color_fg0"
+format = '[$output]($style)'
 
-[os.symbols]
-Windows = "󰍲"
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = "󰀵"
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-Arch = "󰣇"
-Artix = "󰣇"
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
+[custom.session_ssh]
+command = 'name="$(scutil --get ComputerName 2>/dev/null || hostname -s)"; printf "󰀵 %s ssh@[%s] " "$(id -un)" "$name"'
+when = 'test -n "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}"'
+style = "bg:color_purple fg:color_fg0"
+format = '[$output]($style)'
 
-[username]
-show_always = true
-style_user = "bg:color_orange fg:color_fg0"
-style_root = "bg:color_orange fg:color_fg0"
-format = '[ $user ]($style)'
+[custom.session_sep_local]
+command = 'printf ""'
+when = 'test -z "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}"'
+style = "fg:color_orange bg:color_yellow"
+format = '[$output]($style)'
 
-[custom.computer_name]
-command = 'name="$(scutil --get ComputerName 2>/dev/null || hostname -s)"; if [ -n "$SSH_CONNECTION" ]; then printf "ssh@[%s]" "$name"; else printf "[%s]" "$name"; fi'
-when = "true"
-style = "bg:color_orange fg:color_fg0"
-format = '[$output ]($style)'
+[custom.session_sep_ssh]
+command = 'printf ""'
+when = 'test -n "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}"'
+style = "fg:color_purple bg:color_yellow"
+format = '[$output]($style)'
 
 [directory]
 style = "fg:color_fg0 bg:color_yellow"
