@@ -24,6 +24,12 @@ During init, you'll be prompted to select a profile.
 
 The only new-machine setup step not covered by the above is installing the WK CLI and running `login`. That will install and symlink the remaining work-specific dotfiles.
 
+### SSH Keys
+
+- Personal profile machines (MacBook, Mac Studio, etc.): `~/.ssh/id_ed25519` (personal GitHub key)
+- Work profile machine: `~/.ssh/evanweible-wf.id_ed25519` (work GitHub key) and `~/.ssh/id_ed25519` (personal GitHub key)
+- Work profile routing: `github.com` -> work key, `github.com-personal` -> personal key
+
 ## Daily Usage
 
 ```bash
