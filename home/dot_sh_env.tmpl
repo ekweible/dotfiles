@@ -7,6 +7,20 @@
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.local/bin
 
+# asdf (required for non-interactive shells)
+export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
+case ":$PATH:" in
+  *":$ASDF_DATA_DIR/shims:"*) ;;
+  *) export PATH="$ASDF_DATA_DIR/shims:$PATH" ;;
+esac
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
 # bun
 export BUN_INSTALL="$HOME/.bun"
 case ":$PATH:" in

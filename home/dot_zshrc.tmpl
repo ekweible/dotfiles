@@ -261,9 +261,12 @@ if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)
 if command -v zoxide >/dev/null 2>&1; then eval "$(zoxide init zsh)"; fi
 [[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
-# asdf shims must be prepended AFTER all tool integrations to ensure
-# asdf-managed versions take priority over brew-installed versions
-export PATH="$ASDF_DATA_DIR/shims:$PATH"
+# asdf shims are also configured in ~/.sh_env for non-interactive shells.
+# Keep this guard so interactive shells still have correct precedence.
+case ":$PATH:" in
+  *":$ASDF_DATA_DIR/shims:"*) ;;
+  *) export PATH="$ASDF_DATA_DIR/shims:$PATH" ;;
+esac
 
 ################################################################################
 # PHASE 9: Prompt
