@@ -7,6 +7,12 @@
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.local/bin
 
+# opencode
+case ":$PATH:" in
+  *":$HOME/.opencode/bin:"*) ;;
+  *) export PATH="$HOME/.opencode/bin:$PATH" ;;
+esac
+
 # asdf (required for non-interactive shells)
 export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
 case ":$PATH:" in
