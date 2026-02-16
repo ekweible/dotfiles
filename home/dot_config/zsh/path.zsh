@@ -31,6 +31,9 @@ export GPG_TTY=$(tty)
 # === intellij ===
 export PATH="$PATH:/Applications/IntelliJ IDEA.app/Contents/MacOS"
 
+# === obsidian ===
+export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+
 # === iterm2 ===
 export TERM="xterm-256color"
 
