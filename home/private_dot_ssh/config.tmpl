@@ -1,6 +1,13 @@
 # SSH config managed by chezmoi
 # Actual keys are per-machine and NOT managed by chezmoi (see .chezmoiignore)
 
+{{ if eq .profile "personal" -}}
+# Forward local SSH agent when hopping to home Mac Studio
+Host studio
+    ForwardAgent yes
+
+{{- end }}
+
 {{ if eq .profile "work" -}}
 # Work GitHub (default for health checks and .chezmoiexternal.toml)
 Host github.com
