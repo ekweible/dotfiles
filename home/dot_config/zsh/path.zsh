@@ -61,22 +61,9 @@ eval "$(command pyenv virtualenv-init -)"
 # === ssh ===
 # Only manage local GUI shells. For SSH sessions, use forwarded/remote agent as-is.
 if [[ -o interactive ]] && [[ -z "$SSH_TTY" ]]; then
-    # Start ssh-agent only if not already available
     if [[ -z "$SSH_AUTH_SOCK" ]]; then
         eval "$(ssh-agent -s)" >/dev/null
     fi
 
-    # List of private key files
-    private_key_files=(~/.ssh/*id_ed25519(N))
-
-    # List of key fingerprints currently loaded in the SSH agent
-    loaded_key_fingerprints=$(ssh-add -l -E md5 2>/dev/null | awk '{print $2}')
-
-    # Add keys only when missing
-    for private_key in "${private_key_files[@]}"; do
-        key_fingerprint=$(ssh-keygen -E md5 -lf "${private_key}" 2>/dev/null | awk '{print $2}')
-        if [[ -n "$key_fingerprint" ]] && ! grep -qF -- "${key_fingerprint}" <<<"${loaded_key_fingerprints}"; then
-            ssh-add --apple-use-keychain "${private_key}" </dev/null >/dev/null 2>&1
-        fi
-    done
+    ssh-add --apple-load-keychain >/dev/null 2>&1
 fi
