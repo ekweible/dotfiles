@@ -29,6 +29,8 @@ The only new-machine setup step not covered by the above is installing the WK CL
 - Personal profile machines (MacBook, Mac Studio, etc.): `~/.ssh/id_ed25519` (personal GitHub key)
 - Work profile machine: `~/.ssh/evanweible-wf.id_ed25519` (work GitHub key) and `~/.ssh/id_ed25519` (personal GitHub key)
 - Work profile routing: `github.com` -> work key, `github.com-personal` -> personal key
+- macOS first-time setup: save each key passphrase to Keychain once with `ssh-add --apple-use-keychain ~/.ssh/<key-file>`
+- After that, `UseKeychain yes` in SSH config reloads the saved passphrase on demand; new shells should not need `ssh-add`
 
 ## Daily Usage
 

@@ -60,10 +60,6 @@ eval "$(command pyenv virtualenv-init -)"
 
 # === ssh ===
 # Only manage local GUI shells. For SSH sessions, use forwarded/remote agent as-is.
-if [[ -o interactive ]] && [[ -z "$SSH_TTY" ]]; then
-    if [[ -z "$SSH_AUTH_SOCK" ]]; then
-        eval "$(ssh-agent -s)" >/dev/null
-    fi
-
-    ssh-add --apple-load-keychain >/dev/null 2>&1
+if [[ -o interactive ]] && [[ -z "$SSH_TTY" ]] && [[ -z "$SSH_AUTH_SOCK" ]]; then
+    eval "$(ssh-agent -s)" >/dev/null
 fi
