@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "todoist": {
+      "type": "local",
+      "command": ["npx", "-y", "mcp-remote", "https://ai.todoist.net/mcp"],
+      "enabled": true
+    }
+  }
+}
