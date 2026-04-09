@@ -59,7 +59,7 @@ eval "$(pyenv init - zsh)"
 eval "$(command pyenv virtualenv-init -)"
 
 # === ssh ===
-# Only manage local GUI shells. For SSH sessions, use forwarded/remote agent as-is.
+# On macOS, prefer the launchd-provided agent so Keychain-backed keys survive reboots.
 if [[ -o interactive ]] && [[ -z "$SSH_TTY" ]] && [[ -z "$SSH_AUTH_SOCK" ]]; then
-    eval "$(ssh-agent -s)" >/dev/null
+    export SSH_AUTH_SOCK="$(launchctl getenv SSH_AUTH_SOCK)"
 fi
