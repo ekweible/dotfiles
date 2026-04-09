@@ -7,6 +7,8 @@ if [[ -f ~/.config/zsh/noninteractive-aliases.zsh ]]; then
   source ~/.config/zsh/noninteractive-aliases.zsh
 fi
 
+alias reload='exec zsh -l'
+
 # === dart ===
 alias ddev='dart run dart_dev'
 alias pbr='dart run build_runner'
