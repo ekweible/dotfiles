@@ -259,7 +259,6 @@ unfunction zcompile-many
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
 if command -v zoxide >/dev/null 2>&1; then eval "$(zoxide init zsh)"; fi
-[[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
 # asdf shims are also configured in ~/.sh_env for non-interactive shells.
 # Keep this guard so interactive shells still have correct precedence.
