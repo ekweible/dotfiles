@@ -4,5 +4,65 @@
     "pr": ""
   },
   "model": "opus[1m]",
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(git status)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git branch *)",
+      "Bash(git checkout *)",
+      "Bash(git stash *)",
+      "Bash(git show *)",
+      "Bash(git rev-parse *)",
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(npm install *)",
+      "Bash(npm ci *)",
+      "Bash(pnpm run *)",
+      "Bash(pnpm test *)",
+      "Bash(pnpm install *)",
+      "Bash(pnpm i *)",
+      "Bash(bun run *)",
+      "Bash(bun test *)",
+      "Bash(bun install *)",
+      "Bash(bun i *)",
+      "Bash(dart *)",
+      "Bash(pub *)",
+      "Bash(chezmoi diff *)",
+      "Bash(chezmoi status *)",
+      "Bash(ls *)",
+      "Bash(which *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(echo *)",
+      "Bash(pwd)",
+      "Bash(gh pr *)",
+      "Bash(gh issue *)",
+      "Bash(gh api *)",
+      "WebSearch"
+    ],
+    "ask": [
+      "Bash(git push --force*)",
+      "Bash(git push * --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(git commit --amend*)"
+    ],
+    "deny": [
+      "Bash(wget *)",
+      "Bash(sudo *)",
+      "Bash(rm -rf *)",
+      "Bash(* | bash)",
+      "Bash(* | sh)",
+      "Bash(npm publish*)",
+      "Bash(pnpm publish*)",
+      "Read(./.env*)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.gnupg/**)"
+    ]
+  }
 }
