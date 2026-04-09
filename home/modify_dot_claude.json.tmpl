@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-WK_MCP_SERVER_NAMES='["atlassian","aws-cost-explorer","aws-pricing","github"]'
+WK_MCP_SERVER_NAMES='["atlassian","aws-cost-explorer","aws-pricing","github","skynet"]'
 
 # Define the MCP servers we want to ensure exist on work profile
 read -r -d '' DESIRED_MCP_SERVERS << 'EOF' || true
@@ -17,6 +17,20 @@ read -r -d '' DESIRED_MCP_SERVERS << 'EOF' || true
   "github": {
     "command": "{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp",
     "args": ["github"]
+  },
+  "skynet": {
+    "command": "{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp",
+    "args": ["skynet"]
+  }
+}
+EOF
+
+# MCP servers to include on all profiles
+read -r -d '' COMMON_MCP_SERVERS << 'EOF' || true
+{
+  "excalidraw": {
+    "command": "node",
+    "args": ["/Users/evanweible/Developer/public/excalidraw-mcp/dist/index.js", "--stdio"]
   }
 }
 EOF
@@ -30,15 +44,19 @@ if [[ -z "$EXISTING" ]]; then
 fi
 
 {{- if eq .profile "work" }}
-# Work profile: merge wk-mcp servers into mcpServers.
-echo "$EXISTING" | jq --argjson servers "$DESIRED_MCP_SERVERS" '
-  .mcpServers = ((.mcpServers // {}) * $servers)
+# Work profile: merge common + wk-mcp servers into mcpServers.
+echo "$EXISTING" | jq \
+  --argjson common "$COMMON_MCP_SERVERS" \
+  --argjson servers "$DESIRED_MCP_SERVERS" '
+  .mcpServers = ((.mcpServers // {}) * $common * $servers)
 '
 {{- else }}
-# Non-work profiles: remove wk-mcp servers if present.
-echo "$EXISTING" | jq --argjson names "$WK_MCP_SERVER_NAMES" '
+# Non-work profiles: merge common servers, remove wk-mcp servers if present.
+echo "$EXISTING" | jq \
+  --argjson common "$COMMON_MCP_SERVERS" \
+  --argjson names "$WK_MCP_SERVER_NAMES" '
   .mcpServers = (
-    (.mcpServers // {}) as $m
+    ((.mcpServers // {}) * $common) as $m
     | reduce $names[] as $name ($m; del(.[$name]))
   )
 '
