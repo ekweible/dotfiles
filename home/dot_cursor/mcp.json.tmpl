@@ -1,6 +1,9 @@
 {
   "mcpServers": {
-    {{ if eq .profile "work" }},
+    "excalidraw": {
+      "command": "node",
+      "args": ["/Users/evanweible/Developer/public/excalidraw-mcp/dist/index.js", "--stdio"]
+    }{{ if eq .profile "work" }},
     "atlassian": {
       "command": "{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp",
       "args": ["atlassian"]
