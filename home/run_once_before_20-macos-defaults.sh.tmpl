@@ -5,7 +5,7 @@
 
 echo "⚙️  Configuring macOS defaults..."
 
-osascript -e 'tell application "System Preferences" to quit'
+osascript -e 'tell application "System Settings" to quit'
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
@@ -18,10 +18,6 @@ defaults write NSGlobalDomain AppleInterfaceStyle -string Dark
 
 # Hide dock by default
 defaults write com.apple.dock autohide -bool true
-
-# Reveal IP address, hostname, OS version, etc. when clicking the clock
-# in the login window
-sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
 # ==============================================================================
 #   Mouse, keyboard, trackpad, scrolling
@@ -63,13 +59,6 @@ defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
 # ==============================================================================
-#   Photos
-# ==============================================================================
-
-# Prevent Photos from opening automatically when devices are plugged in
-defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
-
-# ==============================================================================
 #   Messages
 # ==============================================================================
 
@@ -87,14 +76,6 @@ defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -boo
 # Disable the all too sensitive backswipe on Magic Mouse
 defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
 defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false
-
-# ==============================================================================
-#   Misc
-# ==============================================================================
-
-# Expand save panel by default
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
 echo "✅ macOS defaults set. Some changes require logout/restart."
 {{- end }}
