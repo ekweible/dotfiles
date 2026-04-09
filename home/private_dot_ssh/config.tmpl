@@ -12,7 +12,7 @@ Host studio
 # Work GitHub (default for health checks and .chezmoiexternal.toml)
 Host github.com
     HostName github.com
-    IdentityFile /Users/evanweible/.ssh/evanweible-wf.id_ed25519
+    IdentityFile {{ .chezmoi.homeDir }}/.ssh/evanweible-wf.id_ed25519
     User git
     AddKeysToAgent yes
     UseKeychain yes
@@ -20,7 +20,7 @@ Host github.com
 # Personal GitHub (used via git URL rewriting for personal repos)
 Host github.com-personal
     HostName github.com
-    IdentityFile /Users/evanweible/.ssh/id_ed25519
+    IdentityFile {{ .chezmoi.homeDir }}/.ssh/id_ed25519
     User git
     AddKeysToAgent yes
     UseKeychain yes
@@ -28,7 +28,7 @@ Host github.com-personal
 # Personal GitHub (default)
 Host github.com
     HostName github.com
-    IdentityFile /Users/evanweible/.ssh/id_ed25519
+    IdentityFile {{ .chezmoi.homeDir }}/.ssh/id_ed25519
     User git
     AddKeysToAgent yes
     UseKeychain yes

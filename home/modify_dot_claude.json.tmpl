@@ -11,11 +11,11 @@ WK_MCP_SERVER_NAMES='["atlassian","aws-cost-explorer","aws-pricing","github"]'
 read -r -d '' DESIRED_MCP_SERVERS << 'EOF' || true
 {
   "atlassian": {
-    "command": "/Users/evanweible/.wk/bin/wk-mcp",
+    "command": "{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp",
     "args": ["atlassian"]
   },
   "github": {
-    "command": "/Users/evanweible/.wk/bin/wk-mcp",
+    "command": "{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp",
     "args": ["github"]
   }
 }

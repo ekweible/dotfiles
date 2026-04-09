@@ -2,11 +2,11 @@
   "mcpServers": {
     {{ if eq .profile "work" }},
     "atlassian": {
-      "command": "/Users/evanweible/.wk/bin/wk-mcp",
+      "command": "{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp",
       "args": ["atlassian"]
     },
     "github": {
-      "command": "/Users/evanweible/.wk/bin/wk-mcp",
+      "command": "{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp",
       "args": ["github"]
     }{{ end }}
   }

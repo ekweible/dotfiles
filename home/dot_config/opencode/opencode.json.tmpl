@@ -4,22 +4,22 @@
 {{- if eq .profile "work" }}
     "atlassian": {
       "type": "local",
-      "command": ["/Users/evanweible/.wk/bin/wk-mcp", "atlassian"],
+      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "atlassian"],
       "enabled": true
     },
     "aws-cost-explorer": {
       "type": "local",
-      "command": ["/Users/evanweible/.wk/bin/wk-mcp", "aws-cost-explorer"],
+      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "aws-cost-explorer"],
       "enabled": true
     },
     "aws-pricing": {
       "type": "local",
-      "command": ["/Users/evanweible/.wk/bin/wk-mcp", "aws-pricing"],
+      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "aws-pricing"],
       "enabled": true
     },
     "github": {
       "type": "local",
-      "command": ["/Users/evanweible/.wk/bin/wk-mcp", "github"],
+      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "github"],
       "enabled": true
     }
 {{- end }}
