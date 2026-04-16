@@ -1,14 +1,4 @@
 [
-  /** COPILOT **/
-  {
-    "key": "cmd+l",
-    "command": "-expandLineSelection"
-  },
-  {
-    "key": "cmd+l",
-    "command": "workbench.panel.chat"
-  },
-
   /** WORKBENCH VIEWS & NAVIGATION **/
   {
     "key": "shift+cmd+s",
@@ -110,18 +100,25 @@
 
   /** TERMINAL **/
   {
+    "key": "ctrl+t",
+    "command": "workbench.action.createTerminalEditor"
+  },
+  {
+    "key": "shift+cmd+k",
+    "command": "cursorai.action.generateInTerminal",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported || terminalHasBeenCreated && terminalPromptBarVisible || terminalProcessSupported && terminalPromptBarVisible"
+  },
+  {
+    "key": "cmd+k",
+    "command": "-cursorai.action.generateInTerminal",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported || terminalHasBeenCreated && terminalPromptBarVisible || terminalProcessSupported && terminalPromptBarVisible"
+  },
+
+  /** PLUGIN: PlantUML **/
+  {
     "key": "cmd+r cmd+v",
     "command": "plantuml.preview",
     "when": "resourceExtname == .puml"
-  },
-  {
-    "key": "ctrl+t",
-    "command": "-editor.action.transposeLetters",
-    "when": "textInputFocus && !editorReadonly"
-  },
-  {
-    "key": "ctrl+t",
-    "command": "terminal.focus"
   },
 
   /** PLUGIN: Markdown **/

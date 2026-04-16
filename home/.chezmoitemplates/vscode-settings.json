@@ -317,17 +317,7 @@
     "tuple-type",
     "non-null-expression",
     "null-keyword"
-  ]{{- else if contains "Cursor/User" .chezmoi.targetFile }},
-
-  // ======================== \\
-  // CURSOR-SPECIFIC          \\
-  // ======================== \\
-
-  "cursor.composer.shouldChimeAfterChatFinishes": true,
-  "cursor.composer.usageSummaryDisplay": "always",
-
-  "eslint.enable": true,
-  "eslint.validate": ["javascript", "typescript"]{{- end }}
+  ]{{- end }}
 }
-{{- /* Template uses .chezmoi.targetFile to determine which editor is being configured */ -}}
+{{- /* VS Code only; Cursor uses cursor-settings.json */ -}}
 {{- end -}}

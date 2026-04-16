@@ -1,0 +1,9 @@
+{{- define "cursor-settings.json" -}}
+{
+  "workbench.colorTheme": "Catppuccin Frappé",
+  "workbench.iconTheme": "catppuccin-frappe",
+  "editor.fontFamily": "'Fira Code', 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14
+}
+{{- end -}}
