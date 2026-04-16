@@ -3,14 +3,9 @@
   "plugin": ["@plannotator/opencode@latest"],
   "mcp": {
 {{- if eq .profile "work" }}
-    "atlassian": {
+    "github": {
       "type": "local",
-      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "atlassian"],
-      "enabled": true
-    },
-    "aws-cost-explorer": {
-      "type": "local",
-      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "aws-cost-explorer"],
+      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "github"],
       "enabled": true
     },
     "aws-pricing": {
@@ -18,9 +13,49 @@
       "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "aws-pricing"],
       "enabled": true
     },
-    "github": {
+    "aws-cost-explorer": {
       "type": "local",
-      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "github"],
+      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "aws-cost-explorer"],
+      "enabled": true
+    },
+    "atlassian": {
+      "type": "local",
+      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "atlassian"],
+      "enabled": true
+    },
+    "task": {
+      "type": "local",
+      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "task"],
+      "enabled": true
+    },
+    "monday": {
+      "type": "local",
+      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "monday"],
+      "enabled": true
+    },
+    "skynet": {
+      "type": "local",
+      "command": ["{{ .chezmoi.homeDir }}/.wk/bin/wk-mcp", "skynet"],
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "@playwright/mcp@latest"],
+      "enabled": true
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+      "enabled": true
+    },
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp",
+      "enabled": true
+    },
+    "launchdarkly": {
+      "type": "http",
+      "url": "https://mcp.launchdarkly.com/mcp/fm",
       "enabled": true
     }
 {{- end }}
