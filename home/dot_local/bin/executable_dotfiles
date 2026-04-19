@@ -112,6 +112,28 @@ brew_upgrade() {
     fi
 }
 
+ai_harness_upgrade() {
+    running "opencode upgrade"
+    opencode upgrade || {
+        error "OpenCode upgrade failed!"
+        return 1
+    }
+
+    running "claude upgrade"
+    claude upgrade || {
+        error "Claude upgrade failed!"
+        return 1
+    }
+
+    running "npm install -g @openai/codex@latest"
+    npm install -g @openai/codex@latest || {
+        error "Codex upgrade failed!"
+        return 1
+    }
+
+    ok "All AI harnesses upgraded!"
+}
+
 # Main menu loop
 main() {
     local last_choice=""
@@ -121,7 +143,7 @@ main() {
         group "Dotfiles Management"
 
         # Show menu and get selection
-        choice=$(gum choose "CD" "Edit" "Apply" "Update" "Brew Upgrade" "Quit" \
+        choice=$(gum choose "CD" "Edit" "Apply" "Update" "Brew Upgrade" "AI Harness Upgrade" "Quit" \
             --header="What would you like to do?" \
             --cursor.foreground="212")
 
@@ -144,6 +166,10 @@ main() {
             "Brew Upgrade")
                 brew_upgrade
                 last_choice="Brew Upgrade"
+                ;;
+            "AI Harness Upgrade")
+                ai_harness_upgrade
+                last_choice="AI Harness Upgrade"
                 ;;
             "Quit"|"")
                 bot "Goodbye!"
