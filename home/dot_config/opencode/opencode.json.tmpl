@@ -1,6 +1,12 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["@plannotator/opencode@latest"],
+  "permission": {
+    "bash": {
+      "bash -n *": "allow",
+      "gh api repos*": "allow"
+    }
+  },
   "mcp": {
 {{- if eq .profile "work" }}
     "github": {

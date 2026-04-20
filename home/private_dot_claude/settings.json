@@ -28,6 +28,7 @@
       "Bash(bun test *)",
       "Bash(bun install *)",
       "Bash(bun i *)",
+      "Bash(bash -n *)",
       "Bash(dart *)",
       "Bash(pub *)",
       "Bash(chezmoi diff *)",
@@ -42,6 +43,7 @@
       "Bash(pwd)",
       "Bash(gh pr *)",
       "Bash(gh issue *)",
+      "Bash(gh api repos*)",
       "Bash(gh api *)",
       "WebSearch"
     ],
