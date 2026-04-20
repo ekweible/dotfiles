@@ -21,6 +21,7 @@ Host github.com
 Host github.com-personal
     HostName github.com
     IdentityFile {{ .chezmoi.homeDir }}/.ssh/id_ed25519
+    IdentitiesOnly yes
     User git
     AddKeysToAgent yes
     UseKeychain yes
