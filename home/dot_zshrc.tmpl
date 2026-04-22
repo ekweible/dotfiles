@@ -258,7 +258,17 @@ unfunction zcompile-many
 ################################################################################
 
 if [[ -o interactive ]] && [[ -n "${GHOSTTY_RESOURCES_DIR:-}" ]]; then
-  source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+  for ghostty_integration in \
+    "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration \
+    "$GHOSTTY_RESOURCES_DIR"/shell-integration/ghostty-integration.zsh \
+    "${GHOSTTY_RESOURCES_DIR%/ghostty}"/shell-integration/ghostty-integration.zsh
+  do
+    if [[ -f "$ghostty_integration" ]]; then
+      source "$ghostty_integration"
+      break
+    fi
+  done
+  unset ghostty_integration
 fi
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
